@@ -57,24 +57,28 @@
 			<ol class="stops" data-reveal>
 				{#each steps as item (item.id)}
 					<li data-on={step === item.id}>
-						{item.id}. {item.short}
+						<button type="button" class="stop-btn" onclick={() => (step = item.id)}>
+							{item.id}. {item.short}
+						</button>
 					</li>
 				{/each}
 			</ol>
 		</div>
 
-		<div class="steps-stage" data-reveal>
+		<div class="steps-stage" data-reveal data-ui>
 			<div class="sheet" data-ui hidden={step !== 1}>
-				<div class="sheet-head">
+				<p class="sheet-head">
 					<span>Langkah 1</span>
 					<span>Nasi goreng telur balado</span>
-				</div>
-				{#each hpp as row (row.label)}
-					<div class="ui-row">
-						<span>{row.label}</span>
-						<span class="ui-row__val tabular">{rupiah(row.value)}</span>
-					</div>
-				{/each}
+				</p>
+				<ul class="ui-list">
+					{#each hpp as row (row.label)}
+						<li class="ui-row">
+							<span>{row.label}</span>
+							<span class="ui-row__val tabular">{rupiah(row.value)}</span>
+						</li>
+					{/each}
+				</ul>
 				<p class="sheet-foot">
 					<span>Lima komponen</span>
 					<span>Sisa bisa ditambah sendiri</span>
@@ -82,10 +86,10 @@
 			</div>
 
 			<div class="sheet" data-ui hidden={step !== 2}>
-				<div class="sheet-head">
+				<p class="sheet-head">
 					<span>Langkah 2</span>
 					<span>Otomatis</span>
-				</div>
+				</p>
 				<p class="sheet-title">HPP {rupiah(hppTotal)} per piring.</p>
 				<div class="figs">
 					<div>
@@ -108,21 +112,21 @@
 			</div>
 
 			<div class="sheet" data-ui hidden={step !== 3}>
-				<div class="sheet-head">
+				<p class="sheet-head">
 					<span>Langkah 3</span>
 					<span>Empat menu</span>
-				</div>
-				<div class="bars">
+				</p>
+				<ul class="bars">
 					{#each compare as row (row.name)}
-						<div class="bar" class:bar--accent={row.margin < 40}>
+						<li class="bar" class:bar--accent={row.margin < 40}>
 							<span class="bar__name">{row.name}</span>
 							<span class="bar__track">
 								<span class="bar__fill" style="width: {row.margin}%"></span>
 							</span>
 							<span class="bar__val">{percent(row.margin)}</span>
-						</div>
+						</li>
 					{/each}
-				</div>
+				</ul>
 				<p class="sheet-foot">
 					<span>Margin di bawah 40% diberi warna</span>
 					<span>Urut dari yang paling tipis</span>
@@ -130,10 +134,10 @@
 			</div>
 
 			<div class="sheet" data-ui hidden={step !== 4}>
-				<div class="sheet-head">
+				<p class="sheet-head">
 					<span>Langkah 4</span>
 					<span>Keputusan</span>
-				</div>
+				</p>
 				<p class="sheet-title">Naik Rp 1.500, margin jadi {percent(45.9)}.</p>
 				<div class="figs">
 					<div>

@@ -18,6 +18,7 @@
 				<a href="#hpp">Rincian HPP</a>
 				<a href="#harga">Harga</a>
 				<a href="#tanya">Tanya</a>
+				<a href="/dashboard" style="color: var(--orange); font-weight: 700;">Buka Dashboard →</a>
 			</nav>
 		</div>
 
@@ -31,8 +32,8 @@
 					HargaPas adalah satu dashboard untuk harga warung: daftar menu, lima komponen HPP,
 					dan margin tiap piring. Semua hitungan pindah ke dalam produk.
 				</p>
-				<a class="btn" href="#dashboard">
-					Lihat dashboard
+				<a class="btn btn--orange" href="/dashboard">
+					Buka Dashboard
 					<span class="btn__arrow" aria-hidden="true">→</span>
 				</a>
 				<p class="note hero-footnote">
@@ -43,20 +44,22 @@
 
 			<div class="hero-stage" data-ui>
 				<div class="ui">
-					<div class="ui-head">
+					<p class="ui-head">
 						<span>Warung Bu Sirep</span>
 						<span>Margin</span>
-					</div>
-					{#each rows as row (row.name)}
-						<div class="ui-row" class:ui-row--on={row.name === pick.name}>
-							<span class="ui-row__name">{row.name}</span>
-							<span class="ui-row__val tabular">{percent(row.margin)}</span>
-						</div>
-					{/each}
-					<div class="ui-foot">
+					</p>
+					<ul class="ui-list">
+						{#each rows as row (row.name)}
+							<li class="ui-row" class:ui-row--on={row.name === pick.name}>
+								<span class="ui-row__name">{row.name}</span>
+								<span class="ui-row__val tabular">{percent(row.margin)}</span>
+							</li>
+						{/each}
+					</ul>
+					<p class="ui-foot">
 						<span>Harga jual {pick.name.toLowerCase()}</span>
 						<b class="tabular">{rupiah(pick.price)}</b>
-					</div>
+					</p>
 				</div>
 			</div>
 		</div>

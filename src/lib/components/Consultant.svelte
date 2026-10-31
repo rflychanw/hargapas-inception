@@ -18,7 +18,7 @@
 			</figure>
 		</div>
 
-		<div class="exchanges" data-reveal>
+		<div class="exchanges" data-reveal data-ui>
 			<article class="exchange">
 				<p class="call">
 					Nasi goreng telur balado, HPP Rp 10.000, harga sekarang Rp 17.000. Marginnya berapa?

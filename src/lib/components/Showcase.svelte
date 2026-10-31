@@ -67,26 +67,28 @@
 					<p class="sheet-title">Warung Bu Sirep</p>
 					<p class="sheet-meta">Daftar menu, 8 menu aktif</p>
 				</div>
-				<table class="sheet-table">
-					<thead>
-						<tr>
-							<th scope="col">Menu</th>
-							<th scope="col">HPP</th>
-							<th scope="col">Harga</th>
-							<th scope="col">Margin</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#each menu as row (row.name)}
-							<tr class:is-thin={row.margin < 40}>
-								<td>{row.name}</td>
-								<td>{number(row.hpp)}</td>
-								<td>{number(row.price)}</td>
-								<td>{percent(row.margin)}</td>
+				<div class="table-wrap">
+					<table class="sheet-table">
+						<thead>
+							<tr>
+								<th scope="col">Menu</th>
+								<th scope="col">HPP</th>
+								<th scope="col">Harga</th>
+								<th scope="col">Margin</th>
 							</tr>
-						{/each}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{#each menu as row (row.name)}
+								<tr class:is-thin={row.margin < 40}>
+									<td>{row.name}</td>
+									<td>{number(row.hpp)}</td>
+									<td>{number(row.price)}</td>
+									<td>{percent(row.margin)}</td>
+								</tr>
+							{/each}
+						</tbody>
+					</table>
+				</div>
 				<p class="sheet-foot">
 					<span>Margin di bawah 40% ditandai oranye</span>
 					<span>Diperbarui hari ini</span>
@@ -105,17 +107,17 @@
 					<p class="sheet-title">Nasi goreng telur balado</p>
 					<p class="sheet-meta">Rincian HPP per piring</p>
 				</div>
-				<div class="bars">
+				<ul class="bars">
 					{#each hpp as row (row.label)}
-						<div class="bar" class:bar--accent={row.share === maxShare}>
+						<li class="bar" class:bar--accent={row.share === maxShare}>
 							<span class="bar__name">{row.label}</span>
 							<span class="bar__track">
 								<span class="bar__fill" style="width: {(row.share / maxShare) * 100}%"></span>
 							</span>
 							<span class="bar__val">{rupiah(row.value)}</span>
-						</div>
+						</li>
 					{/each}
-				</div>
+				</ul>
 				<p class="sheet-foot">
 					<span>Total HPP {rupiah(hppTotal)}</span>
 					<span>Harga jual {rupiah(pick.price)}</span>
@@ -148,17 +150,17 @@
 						<p class="fig-cap">tambahan sebulan</p>
 					</div>
 				</div>
-				<div class="bars">
+				<ul class="bars">
 					{#each fattest as row (row.name)}
-						<div class="bar">
+						<li class="bar">
 							<span class="bar__name">{row.name}</span>
 							<span class="bar__track">
 								<span class="bar__fill" style="width: {row.margin}%"></span>
 							</span>
 							<span class="bar__val">{percent(row.margin)}</span>
-						</div>
+						</li>
 					{/each}
-				</div>
+				</ul>
 				<p class="sheet-foot">
 					<span>Tiga menu bermargin paling tebal</span>
 					<span>Diunduh sebagai PDF</span>

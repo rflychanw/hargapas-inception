@@ -3,7 +3,7 @@
 	import { rupiah } from '#lib/format.js';
 </script>
 
-<section id="hpp" class="chapter chapter--accent hpp" aria-labelledby="hpp-title">
+<section id="hpp" class="chapter chapter--paper hpp" aria-labelledby="hpp-title">
 	<div class="shell">
 		<h2 id="hpp-title" class="display" data-reveal>Ke mana {rupiah(hppTotal)} pergi.</h2>
 
@@ -16,17 +16,17 @@
 			{/each}
 			<li class="poster-row poster-row--total">
 				<span class="poster-name">Total HPP</span>
-				<span class="poster-value">{rupiah(hppTotal)}</span>
+				<span class="poster-value poster-value--accent">{rupiah(hppTotal)}</span>
 			</li>
 		</ul>
 
 		<div class="hpp-foot" data-reveal>
-			<div>
+			<div class="hpp-notes">
 				<p class="hpp-note">
 					Lima komponen ini yang dipakai HargaPas untuk menghitung harga jual. Angkanya bisa
 					diganti per menu, dan harga ikut menyesuaikan.
 				</p>
-				<p class="hpp-note" style="margin-top: 12px; opacity: .75">
+				<p class="hpp-note hpp-note--muted">
 					Contoh: nasi goreng telur balado, satu piring.
 				</p>
 			</div>

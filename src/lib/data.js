@@ -44,8 +44,8 @@ export const plans = [
 		price: 'Rp 0',
 		period: 'selamanya',
 		note: 'Untuk satu menu',
-		action: 'Coba dulu',
-		href: '#dashboard',
+		action: 'Buka Dashboard',
+		href: '/dashboard',
 		recommended: false
 	},
 	{

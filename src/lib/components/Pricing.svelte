@@ -21,19 +21,17 @@
 						<p class="ticket-price">{plan.price}</p>
 						<p class="ticket-period">{plan.period}</p>
 					</div>
-					{#if plan.recommended}
-						<p class="ticket-badge">Paling sering dipilih</p>
-					{/if}
-					<p class="ticket-note">{plan.note}</p>
-					<div class="perf" aria-hidden="true"></div>
-					<div class="ticket-rows">
+					<p class="ticket-note">
+						{plan.note}{#if plan.recommended} · <strong class="ticket-tag">Paling sering dipilih</strong>{/if}
+					</p>
+					<ul class="ticket-rows">
 						{#each rows as row (row.label)}
-							<div class="ticket-row">
+							<li class="ticket-row">
 								<span>{row.label}</span>
 								<span>{row.values[i]}</span>
-							</div>
+							</li>
 						{/each}
-					</div>
+					</ul>
 					<a class="ticket-action" href={plan.href}>{plan.action}</a>
 				</article>
 			{/each}
