@@ -1,0 +1,2001 @@
+{
+ "url": "http://127.0.0.1:5173",
+ "at": "2026-10-31T06:58:06.112Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    0.3,
+    0.74,
+    0.27,
+    1,
+    1,
+    0.95,
+    0.79,
+    0.81,
+    1,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 30,
+    "css": 6,
+    "transitions": 24,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 9049,
+     "screens": 10.1,
+     "words": 804,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "pasar-buah.jpg",
+      "cabai-pasar.jpg",
+      "warung-board.jpg",
+      "nasi-goreng.jpg",
+      "warung-malam.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Harga pas, margin jelas.",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 77.8,
+     "vw": 5.4,
+     "font": "Schibsted Grotesk Variable",
+     "weight": 800,
+     "tracking": -0.045,
+     "leading": 0.92,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.52,
+     "top": 125,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Harga pas, margin jelas.",
+     "words": 4,
+     "lines": 2,
+     "size": 77.8,
+     "font": "Schibsted Grotesk Variable"
+    },
+    "headings": [
+     {
+      "text": "Harga pas, margin jelas.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 77.8,
+      "vw": 5.4,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.52,
+      "top": 125,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Satu layar untuk semua menu.",
+      "words": 5,
+      "chars": 28,
+      "lines": 2,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 994,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Dari HPP ke harga, empat langkah.",
+      "words": 6,
+      "chars": 33,
+      "lines": 2,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 2076,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ke mana Rp 10.000 pergi.",
+      "words": 5,
+      "chars": 24,
+      "lines": 2,
+      "size": 77.8,
+      "vw": 5.4,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.55,
+      "top": 2728,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Bahan baku",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.87,
+      "top": 2940,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Kemasan",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 3037,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Gas dan listrik",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.87,
+      "top": 3133,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Tenaga kerja",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.87,
+      "top": 3230,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Susut dan sisa",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 3326,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Tanya seperti ke konsultan.",
+      "words": 4,
+      "chars": 27,
+      "lines": 2,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 4824,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Satu harga, tiga dapur.",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 5919,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Yang sering ditanya.",
+      "words": 3,
+      "chars": 20,
+      "lines": 2,
+      "size": 53.3,
+      "vw": 3.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 6777,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Mulai dari satu menu.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 77.8,
+      "vw": 5.4,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 7938,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "halo@hargapas.id",
+      "words": 1,
+      "chars": 16,
+      "lines": 1,
+      "size": 109.4,
+      "vw": 7.6,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 8587,
+      "tag": "a",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 14,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Schibsted Grotesk Variable",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      15,
+      18,
+      22,
+      53,
+      78,
+      109
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Schibsted Grotesk Variable",
+      "size": 15,
+      "leading": 1.4,
+      "weight": 400,
+      "tracking": -0.013,
+      "contrast": 19.8
+     },
+     "measureChars": 51,
+     "max": {
+      "size": 109.4,
+      "vw": 7.6,
+      "font": "Schibsted Grotesk Variable",
+      "text": "halo@hargapas.id"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Rp 6.200",
+      "above": "Kemasan",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 18,
+      "top": 2965
+     },
+     {
+      "text": "Rp 1.500",
+      "above": "Susut dan sisa",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 18,
+      "top": 3255
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#0a0a0a",
+       "top": 871,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.04
+       }
+      },
+      {
+       "color": "#ff4d00",
+       "top": 2605,
+       "hsl": {
+        "h": 18,
+        "s": 1,
+        "l": 0.5
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.53
+      },
+      {
+       "color": "#0a0a0a",
+       "share": 0.45
+      },
+      {
+       "color": "#0b0b0b",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#0a0a0a",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 0.04
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 2,
+     "radius": 0,
+     "height": 57,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Lewati ke dashboard",
+      "Lihat dashboard →"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 5,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 6026
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 6,
+     "fixed": false,
+     "height": 871,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "schibsted grotesk variable"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 9049,
+    "margins": {
+     "left": 46,
+     "right": 46
+    },
+    "sections": [],
+    "gaps": [
+     {
+      "top": 1728,
+      "height": 300
+     },
+     {
+      "top": 2424,
+      "height": 288
+     },
+     {
+      "top": 6484,
+      "height": 292
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Harga pas, margin jelas.",
+      "size": 78,
+      "top": 125,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 46,
+      "n": 15
+     },
+     {
+      "x": 504,
+      "n": 5
+     },
+     {
+      "x": 610,
+      "n": 3
+     },
+     {
+      "x": 636,
+      "n": 3
+     },
+     {
+      "x": 80,
+      "n": 1
+     },
+     {
+      "x": 537,
+      "n": 1
+     },
+     {
+      "x": 937,
+      "n": 1
+     },
+     {
+      "x": 994,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 30,
+    "bodySize": 15,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.25,
+    "voidBox": {
+     "x": 540,
+     "y": 120,
+     "w": 900,
+     "h": 360
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    0.45,
+    0.83,
+    0.38,
+    0.89,
+    1,
+    1,
+    0.85,
+    0.79,
+    0.85,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 30,
+    "css": 6,
+    "transitions": 24,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 10683,
+     "screens": 10.4,
+     "words": 804,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "pasar-buah.jpg",
+      "cabai-pasar.jpg",
+      "warung-board.jpg",
+      "nasi-goreng.jpg",
+      "warung-malam.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Harga pas, margin jelas.",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 56.8,
+     "vw": 7.4,
+     "font": "Schibsted Grotesk Variable",
+     "weight": 800,
+     "tracking": -0.045,
+     "leading": 0.92,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.71,
+     "top": 89,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Harga pas, margin jelas.",
+     "words": 4,
+     "lines": 2,
+     "size": 56.8,
+     "font": "Schibsted Grotesk Variable"
+    },
+    "headings": [
+     {
+      "text": "Harga pas, margin jelas.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.71,
+      "top": 89,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Satu layar untuk semua menu.",
+      "words": 5,
+      "chars": 28,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 1050,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Dari HPP ke harga, empat langkah.",
+      "words": 6,
+      "chars": 33,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 2432,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ke mana Rp 10.000 pergi.",
+      "words": 5,
+      "chars": 24,
+      "lines": 2,
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.76,
+      "top": 3304,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Bahan baku",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 3448,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Kemasan",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 3513,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Gas dan listrik",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 3578,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Tenaga kerja",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 3643,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Susut dan sisa",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 3708,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Tanya seperti ke konsultan.",
+      "words": 4,
+      "chars": 27,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 5352,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Satu harga, tiga dapur.",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.54,
+      "top": 6895,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Yang sering ditanya.",
+      "words": 3,
+      "chars": 20,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 8584,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Mulai dari satu menu.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.52,
+      "top": 9206,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "halo@hargapas.id",
+      "words": 1,
+      "chars": 16,
+      "lines": 1,
+      "size": 58.4,
+      "vw": 7.6,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 10207,
+      "tag": "a",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 14,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Schibsted Grotesk Variable",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      15,
+      18,
+      19,
+      22,
+      40,
+      57,
+      58
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Schibsted Grotesk Variable",
+      "size": 15,
+      "leading": 1.4,
+      "weight": 400,
+      "tracking": -0.013,
+      "contrast": 19.8
+     },
+     "measureChars": 51,
+     "max": {
+      "size": 58.4,
+      "vw": 7.6,
+      "font": "Schibsted Grotesk Variable",
+      "text": "halo@hargapas.id"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Rp 6.200",
+      "above": "Kemasan",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 18,
+      "top": 3462
+     },
+     {
+      "text": "Rp 1.500",
+      "above": "Susut dan sisa",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 18,
+      "top": 3657
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#ff4d00",
+       "top": 542,
+       "hsl": {
+        "h": 18,
+        "s": 1,
+        "l": 0.5
+       }
+      },
+      {
+       "color": "#0a0a0a",
+       "top": 978,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.04
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.53
+      },
+      {
+       "color": "#0a0a0a",
+       "share": 0.45
+      },
+      {
+       "color": "#0b0b0b",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#0a0a0a",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 0.04
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 2,
+     "radius": 0,
+     "height": 57,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Lewati ke dashboard",
+      "Lihat dashboard →"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 5,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 6,
+     "fixed": false,
+     "height": 978,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "schibsted grotesk variable"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 10683,
+    "margins": {
+     "left": 25,
+     "right": 25
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Harga pas, margin jelas.",
+      "size": 57,
+      "top": 89,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 25,
+      "n": 24
+     },
+     {
+      "x": 43,
+      "n": 6
+     }
+    ],
+    "leftBlocks": 30,
+    "bodySize": 15,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.51,
+    0.92,
+    0.49,
+    0.39,
+    1,
+    1,
+    0.87,
+    0.83,
+    0.92,
+    0.79,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 30,
+    "css": 6,
+    "transitions": 24,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 10222,
+     "screens": 12.1,
+     "words": 804,
+     "img": 5,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "pasar-buah.jpg",
+      "cabai-pasar.jpg",
+      "warung-board.jpg",
+      "nasi-goreng.jpg",
+      "warung-malam.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Harga pas, margin jelas.",
+     "words": 4,
+     "chars": 24,
+     "lines": 2,
+     "size": 34,
+     "vw": 8.7,
+     "font": "Schibsted Grotesk Variable",
+     "weight": 800,
+     "tracking": -0.045,
+     "leading": 0.92,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.67,
+     "top": 138,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Harga pas, margin jelas.",
+     "words": 4,
+     "lines": 2,
+     "size": 34,
+     "font": "Schibsted Grotesk Variable"
+    },
+    "headings": [
+     {
+      "text": "HargaPas",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 16,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Harga pas, margin jelas.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 34,
+      "vw": 8.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.67,
+      "top": 138,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Rp 18.500",
+      "words": 2,
+      "chars": 9,
+      "lines": 2,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.22,
+      "top": 778,
+      "tag": "b",
+      "kind": "heading"
+     },
+     {
+      "text": "Satu layar untuk semua menu.",
+      "words": 5,
+      "chars": 28,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 1012,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Dari HPP ke harga, empat langkah.",
+      "words": 6,
+      "chars": 33,
+      "lines": 2,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 2496,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Ke mana Rp 10.000 pergi.",
+      "words": 5,
+      "chars": 24,
+      "lines": 2,
+      "size": 34,
+      "vw": 8.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.89,
+      "top": 3423,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Bahan baku",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.65,
+      "top": 3525,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Kemasan",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.71,
+      "top": 3578,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Gas dan listrik",
+      "words": 3,
+      "chars": 15,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.65,
+      "top": 3631,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Tenaga kerja",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.65,
+      "top": 3684,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Susut dan sisa",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.71,
+      "top": 3737,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Tanya seperti ke konsultan.",
+      "words": 4,
+      "chars": 27,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 5045,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Satu harga, tiga dapur.",
+      "words": 4,
+      "chars": 23,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.69,
+      "top": 6585,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Yang sering ditanya.",
+      "words": 3,
+      "chars": 20,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.038,
+      "leading": 0.96,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 8279,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Mulai dari satu menu.",
+      "words": 4,
+      "chars": 21,
+      "lines": 2,
+      "size": 34,
+      "vw": 8.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.61,
+      "top": 8939,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "HargaPas",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 9613,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "halo@hargapas.id",
+      "words": 1,
+      "chars": 16,
+      "lines": 1,
+      "size": 30,
+      "vw": 7.7,
+      "font": "Schibsted Grotesk Variable",
+      "weight": 800,
+      "tracking": -0.045,
+      "leading": 0.95,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 9728,
+      "tag": "a",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 17,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Schibsted Grotesk Variable",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      15,
+      18,
+      22,
+      26,
+      30,
+      34
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Schibsted Grotesk Variable",
+      "size": 18,
+      "leading": 1.42,
+      "weight": 400,
+      "tracking": -0.014,
+      "contrast": 19.8
+     },
+     "measureChars": 47,
+     "max": {
+      "size": 34,
+      "vw": 8.7,
+      "font": "Schibsted Grotesk Variable",
+      "text": "Harga pas, margin jelas."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#ffffff",
+     "bodyBgHsl": {
+      "h": 0,
+      "s": 0,
+      "l": 1
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 0,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#ff4d00",
+       "top": 542,
+       "hsl": {
+        "h": 18,
+        "s": 1,
+        "l": 0.5
+       }
+      },
+      {
+       "color": "#0a0a0a",
+       "top": 940,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.04
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ffffff",
+       "share": 0.53
+      },
+      {
+       "color": "#0a0a0a",
+       "share": 0.45
+      },
+      {
+       "color": "#0b0b0b",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#0a0a0a",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 0.04
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 2,
+     "radius": 0,
+     "height": 57,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Lewati ke dashboard",
+      "Lihat dashboard →"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 5,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 6,
+     "fixed": false,
+     "height": 940,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "schibsted grotesk variable"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 10222,
+    "margins": {
+     "left": 18,
+     "right": 18
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Harga pas, margin jelas.",
+      "size": 34,
+      "top": 138,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 18,
+      "n": 24
+     },
+     {
+      "x": 36,
+      "n": 6
+     }
+    ],
+    "leftBlocks": 30,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "2 eyebrow/kicker label(s) above headings: \"Rp 6.200\" above \"Kemasan\"; \"Rp 1.500\" above \"Susut dan sisa\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 15px.",
+   "fix": "Body copy 16–20px.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\harga-pas_inception\\.taste-skill\\pass4\\desktop-fold.jpg",
+   "pages": [
+    "D:\\harga-pas_inception\\.taste-skill\\pass4\\desktop-page-01.jpg",
+    "D:\\harga-pas_inception\\.taste-skill\\pass4\\desktop-page-02.jpg",
+    "D:\\harga-pas_inception\\.taste-skill\\pass4\\desktop-page-03.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\harga-pas_inception\\.taste-skill\\pass4\\tablet-fold.jpg",
+   "pages": [
+    "D:\\harga-pas_inception\\.taste-skill\\pass4\\tablet-page-01.jpg",
+    "D:\\harga-pas_inception\\.taste-skill\\pass4\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\harga-pas_inception\\.taste-skill\\pass4\\mobile-fold.jpg",
+   "pages": [
+    "D:\\harga-pas_inception\\.taste-skill\\pass4\\mobile-page-01.jpg",
+    "D:\\harga-pas_inception\\.taste-skill\\pass4\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

@@ -12,9 +12,12 @@
 	import Footer from '#lib/components/Footer.svelte';
 
 	onMount(() => {
-		const targets = document.querySelectorAll('[data-reveal]');
+		const targets = [...document.querySelectorAll('[data-reveal]')];
+
+		const show = (target: Element) => target.classList.add('is-in');
+
 		if (!('IntersectionObserver' in window)) {
-			targets.forEach((target) => target.classList.add('is-in'));
+			targets.forEach(show);
 			return;
 		}
 
@@ -22,15 +25,26 @@
 			(entries) => {
 				for (const entry of entries) {
 					if (!entry.isIntersecting) continue;
-					entry.target.classList.add('is-in');
+					show(entry.target);
 					observer.unobserve(entry.target);
 				}
 			},
-			{ threshold: 0.08, rootMargin: '0px 0px -6% 0px' }
+			{ threshold: 0, rootMargin: '0px 0px 12% 0px' }
 		);
 
-		targets.forEach((target) => observer.observe(target));
-		return () => observer.disconnect();
+		const tall = window.innerHeight;
+		for (const target of targets) {
+			if (target.getBoundingClientRect().top < tall * 1.05) show(target);
+			else observer.observe(target);
+		}
+
+		// safety net: nothing stays hidden if the observer never fires
+		const timer = window.setTimeout(() => targets.forEach(show), 2500);
+
+		return () => {
+			window.clearTimeout(timer);
+			observer.disconnect();
+		};
 	});
 </script>
 
