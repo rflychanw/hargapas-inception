@@ -67,7 +67,7 @@
 			{@const rCount = item.recipeCount ?? (item.recipe ? item.recipe.length : 1)}
 			{@const isOpen = !!expandedIds[item.id]}
 
-			<article class="hp-card hp-recipe-card" data-reveal data-delay={String((idx % 4) + 1)}>
+			<article class="hp-card hp-recipe-card">
 				<div class="hp-recipe-card__top">
 					<span class="hp-cat-pill">{item.category.toUpperCase()}</span>
 					<div class="hp-icon-actions">

@@ -24,7 +24,7 @@
 				berkas terpisah atau hitungan di kertas.
 			</p>
 
-			<div class="index" role="tablist" data-reveal data-delay="2" aria-label="Tampilan dashboard">
+			<div class="index" role="tablist" aria-label="Tampilan dashboard">
 				{#each panels as panel (panel.id)}
 					<button
 						class="index-btn"

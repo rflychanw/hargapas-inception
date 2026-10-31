@@ -2,7 +2,6 @@
 	interface Props {
 		activeTab?: string;
 		storeName?: string;
-		isStoreSelectMode?: boolean;
 		onselect?: (tab: string) => void;
 		onlogout?: () => void;
 	}
@@ -10,7 +9,6 @@
 	let {
 		activeTab = 'dashboard',
 		storeName = 'Warkop Ceria Bingit',
-		isStoreSelectMode = false,
 		onselect = () => {},
 		onlogout = () => {}
 	}: Props = $props();
@@ -30,20 +28,22 @@
 		<span class="hp-brand-title">HargaPas</span>
 	</a>
 
-	<button
-		type="button"
-		class="hp-mobile-logout-btn"
-		onclick={onlogout}
-		aria-label="Keluar / Logout dari sesi"
-		title="Logout"
-	>
-		<!-- Logout Icon -->
-		<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#DB0050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-			<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-			<polyline points="16 17 21 12 16 7" />
-			<line x1="21" x2="9" y1="12" y2="12" />
-		</svg>
-	</button>
+	<div style="display: flex; align-items: center; gap: 8px;">
+		<button
+			type="button"
+			class="hp-mobile-logout-btn"
+			onclick={onlogout}
+			aria-label="Keluar / Logout dari sesi"
+			title="Logout"
+		>
+			<!-- Logout Icon -->
+			<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#DB0050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+				<polyline points="16 17 21 12 16 7" />
+				<line x1="21" x2="9" y1="12" y2="12" />
+			</svg>
+		</button>
+	</div>
 </header>
 
 <!-- Desktop Sidebar (>= 1024px) -->
@@ -59,7 +59,11 @@
 			</a>
 		</div>
 
-		<div class="hp-store-pill" title="Toko Aktif">
+		<div
+			class="hp-store-pill"
+			style="width: 100%; cursor: default; text-align: left;"
+			title="Toko Aktif: {storeName}"
+		>
 			<span class="hp-store-pill__icon" aria-hidden="true">
 				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E64A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
@@ -68,7 +72,7 @@
 					<path d="M2 7h20" />
 				</svg>
 			</span>
-			<span class="hp-store-pill__name">{storeName}</span>
+			<span class="hp-store-pill__name" style="flex: 1;">{storeName}</span>
 		</div>
 	</div>
 

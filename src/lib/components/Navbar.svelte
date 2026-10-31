@@ -4,16 +4,37 @@
 
 	let isScrolled = $state(false);
 	let isMobileMenuOpen = $state(false);
+	let isOverDark = $state(false);
 
 	onMount(() => {
-		const handleScroll = () => {
-			isScrolled = window.scrollY > 15;
+		const updateDarkStatus = () => {
+			const scrollY = window.scrollY;
+			isScrolled = scrollY > 15;
+
+			const darkSections = document.querySelectorAll('.chapter--ink');
+			const navCheckY = scrollY + 40;
+			let overDark = false;
+
+			for (const sec of darkSections) {
+				const el = sec as HTMLElement;
+				const top = el.offsetTop;
+				const height = el.offsetHeight;
+				if (navCheckY >= top && navCheckY < top + height) {
+					overDark = true;
+					break;
+				}
+			}
+
+			isOverDark = overDark;
 		};
 
-		handleScroll();
-		window.addEventListener('scroll', handleScroll, { passive: true });
+		updateDarkStatus();
+		window.addEventListener('scroll', updateDarkStatus, { passive: true });
+		window.addEventListener('resize', updateDarkStatus, { passive: true });
+
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
+			window.removeEventListener('scroll', updateDarkStatus);
+			window.removeEventListener('resize', updateDarkStatus);
 			document.body.style.overflow = '';
 		};
 	});
@@ -41,7 +62,13 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<header class="sticky-nav" class:is-scrolled={isScrolled} class:is-open={isMobileMenuOpen} aria-label="Navigasi Utama">
+<header
+	class="sticky-nav"
+	class:is-scrolled={isScrolled}
+	class:is-open={isMobileMenuOpen}
+	class:is-dark={isOverDark}
+	aria-label="Navigasi Utama"
+>
 	<div class="shell sticky-nav__shell">
 		<div class="sticky-nav__inner">
 			<!-- Logo / Wordmark -->
@@ -66,7 +93,7 @@
 				</a>
 			</div>
 
-			<!-- Mobile Nav Toggle (< 768px) - Hanya ada SATU tombol hamburger pada header mobile -->
+			<!-- Mobile Nav Toggle (< 768px) -->
 			<div class="mobile-toggle-wrap">
 				<button
 					type="button"
@@ -149,7 +176,11 @@
 		-webkit-backdrop-filter: blur(16px);
 		border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 		padding-top: env(safe-area-inset-top, 0px);
-		transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+		transition:
+			background-color 0.25s ease,
+			box-shadow 0.25s ease,
+			border-color 0.25s ease,
+			color 0.25s ease;
 	}
 
 	.sticky-nav.is-scrolled {
@@ -158,8 +189,46 @@
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 	}
 
+	/* Dark mode when scrolling over .chapter--ink (Showcase, Consultant, FAQ) */
+	.sticky-nav.is-dark {
+		background: rgba(17, 17, 17, 0.92);
+		border-bottom-color: rgba(255, 255, 255, 0.12);
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+	}
+
+	.sticky-nav.is-dark.is-scrolled {
+		background: rgba(17, 17, 17, 0.96);
+		border-bottom-color: rgba(255, 255, 255, 0.16);
+	}
+
+	.sticky-nav.is-dark .wordmark-text {
+		color: #ffffff;
+	}
+
+	.sticky-nav.is-dark .desktop-nav a {
+		color: rgba(255, 255, 255, 0.76);
+	}
+
+	.sticky-nav.is-dark .desktop-nav a:hover {
+		color: #ffffff;
+	}
+
+	.sticky-nav.is-dark .mobile-menu-btn {
+		background: rgba(255, 255, 255, 0.1);
+		color: #ffffff;
+		border-color: rgba(255, 255, 255, 0.18);
+	}
+
+	.sticky-nav.is-dark .mobile-menu-btn:active {
+		background: rgba(255, 255, 255, 0.18);
+	}
+
 	.sticky-nav.is-open {
 		background: #ffffff;
+	}
+
+	.sticky-nav.is-dark.is-open {
+		background: #111111;
 	}
 
 	.sticky-nav__shell {
@@ -204,6 +273,7 @@
 		font-weight: 800;
 		letter-spacing: -0.035em;
 		color: #111111;
+		transition: color 0.25s ease;
 	}
 
 	@media (min-width: 768px) {
@@ -265,7 +335,7 @@
 		border: 1px solid rgba(17, 17, 17, 0.08);
 		cursor: pointer;
 		touch-action: manipulation;
-		transition: background-color 0.15s ease, transform 0.12s ease;
+		transition: background-color 0.15s ease, transform 0.12s ease, color 0.2s ease, border-color 0.2s ease;
 		user-select: none;
 		-webkit-user-select: none;
 	}
@@ -282,6 +352,11 @@
 		background: #ffffff;
 		border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 		box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12);
+	}
+
+	.sticky-nav.is-dark .mobile-drawer {
+		background: #111111;
+		border-bottom-color: rgba(255, 255, 255, 0.12);
 	}
 
 	@media (min-width: 768px) {
@@ -316,6 +391,10 @@
 		transition: background-color 0.12s ease, color 0.12s ease;
 	}
 
+	.sticky-nav.is-dark .mobile-drawer__link {
+		color: #ffffff;
+	}
+
 	.mobile-drawer__link:active {
 		background: rgba(255, 107, 26, 0.08);
 		color: #ff6b1a;
@@ -341,6 +420,10 @@
 		margin-top: 14px;
 		padding-top: 14px;
 		border-top: 1px solid rgba(17, 17, 17, 0.06);
+	}
+
+	.sticky-nav.is-dark .mobile-drawer__foot {
+		border-top-color: rgba(255, 255, 255, 0.1);
 	}
 
 	.mobile-drawer__cta {

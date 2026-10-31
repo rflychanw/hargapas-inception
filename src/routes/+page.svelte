@@ -42,7 +42,7 @@
 		}
 
 		// safety net: nothing stays hidden if observer fails
-		const timer = window.setTimeout(() => targets.forEach(show), 2000);
+		const timer = window.setTimeout(() => targets.forEach(show), 500);
 
 		return () => {
 			window.clearTimeout(timer);
