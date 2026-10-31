@@ -2,11 +2,11 @@
 	<div class="shell consult-grid">
 		<div class="consult-copy">
 			<h2 id="consult-title" class="h2" data-reveal>Tanya seperti ke konsultan.</h2>
-			<p class="lead lead--soft" data-reveal>
+			<p class="lead lead--soft" data-reveal data-delay="1">
 				Bawa satu menu dan satu masalah. Jawabannya memakai HPP, harga, dan jumlah piring yang
 				Anda masukkan, bukan rata-rata pasar.
 			</p>
-			<figure class="consult-photo" data-reveal>
+			<figure class="consult-photo" data-reveal data-delay="2">
 				<img
 					src="/img/nasi-goreng.jpg"
 					alt="Nasi goreng telur balado dengan telur mata sapi dan sambal"
@@ -18,8 +18,8 @@
 			</figure>
 		</div>
 
-		<div class="exchanges" data-reveal data-ui>
-			<article class="exchange">
+		<div class="exchanges" data-ui>
+			<article class="exchange" data-reveal data-delay="1">
 				<p class="call">
 					Nasi goreng telur balado, HPP Rp 10.000, harga sekarang Rp 17.000. Marginnya berapa?
 				</p>
@@ -32,7 +32,7 @@
 				</div>
 			</article>
 
-			<article class="exchange">
+			<article class="exchange" data-reveal data-delay="2">
 				<p class="call">Bundling nasi goreng dan es teh, harga Rp 22.000. Masih untung?</p>
 				<div class="response">
 					<p class="response-figure">43,2%</p>
@@ -43,7 +43,7 @@
 				</div>
 			</article>
 
-			<article class="exchange">
+			<article class="exchange" data-reveal data-delay="3">
 				<p class="call">Kalau saya naikkan nasi goreng ke Rp 18.500?</p>
 				<div class="response response--final">
 					<p class="bundle-price">Rp 18.500</p>

@@ -25,3 +25,6 @@ vite.config.ts.timestamp-*
 # Python
 __pycache__/
 *.pyc
+
+# Taste skill artifacts
+.taste-skill/

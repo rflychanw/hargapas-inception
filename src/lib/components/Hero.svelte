@@ -8,41 +8,31 @@
 	);
 </script>
 
-<header class="chapter chapter--paper hero" id="atas">
+<section class="chapter chapter--paper hero" id="atas">
 	<div class="shell">
-		<div class="nav-row">
-			<a class="wordmark" href="#atas" aria-label="HargaPas, ke awal halaman">HargaPas</a>
-			<nav class="nav-links" aria-label="Bagian utama">
-				<a href="#dashboard">Produk</a>
-				<a href="#cara-kerja">Cara kerja</a>
-				<a href="#hpp">Rincian HPP</a>
-				<a href="#harga">Harga</a>
-				<a href="#tanya">Tanya</a>
-				<a href="/dashboard" style="color: var(--orange); font-weight: 700;">Buka Dashboard →</a>
-			</nav>
-		</div>
-
 		<div class="hero-head">
-			<h1 class="display">Harga pas, margin jelas.</h1>
+			<h1 class="display" data-reveal>Harga pas, margin jelas.</h1>
 		</div>
 
 		<div class="hero-body">
 			<div class="hero-copy">
-				<p class="lead">
+				<p class="lead" data-reveal data-delay="1">
 					HargaPas adalah satu dashboard untuk harga warung: daftar menu, lima komponen HPP,
 					dan margin tiap piring. Semua hitungan pindah ke dalam produk.
 				</p>
-				<a class="btn btn--orange" href="/dashboard">
-					Buka Dashboard
-					<span class="btn__arrow" aria-hidden="true">→</span>
-				</a>
-				<p class="note hero-footnote">
+				<div data-reveal data-delay="2">
+					<a class="btn btn--orange" href="/dashboard">
+						Buka Dashboard
+						<span class="btn__arrow" aria-hidden="true">→</span>
+					</a>
+				</div>
+				<p class="note hero-footnote" data-reveal data-delay="3">
 					Contoh di halaman ini memakai nasi goreng telur balado: HPP {rupiah(10000)}, harga
 					jual {rupiah(18500)}.
 				</p>
 			</div>
 
-			<div class="hero-stage" data-ui>
+			<div class="hero-stage" data-reveal data-delay="2" data-ui>
 				<div class="ui">
 					<p class="ui-head">
 						<span>Warung Bu Sirep</span>
@@ -64,4 +54,4 @@
 			</div>
 		</div>
 	</div>
-</header>
+</section>

@@ -1,168 +1,188 @@
 <script lang="ts">
 	interface Props {
 		activeTab?: string;
+		storeName?: string;
+		isStoreSelectMode?: boolean;
 		onselect?: (tab: string) => void;
+		onlogout?: () => void;
 	}
 
 	let {
-		activeTab = 'ringkasan',
-		onselect = () => {}
+		activeTab = 'dashboard',
+		storeName = 'Warkop Ceria Bingit',
+		isStoreSelectMode = false,
+		onselect = () => {},
+		onlogout = () => {}
 	}: Props = $props();
 
 	const tabs = [
-		{
-			id: 'ringkasan',
-			label: 'Ringkasan',
-			icon: 'dashboard'
-		},
-		{
-			id: 'menu',
-			label: 'Daftar Menu',
-			icon: 'menu'
-		},
-		{
-			id: 'ai',
-			label: 'Konsultan AI',
-			icon: 'sparkle'
-		},
-		{
-			id: 'kalkulator',
-			label: 'Kalkulator HPP',
-			icon: 'calc'
-		}
+		{ id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
+		{ id: 'menu', label: 'Menu', icon: 'menu' },
+		{ id: 'bahan', label: 'Bahan', icon: 'bahan' },
+		{ id: 'konsultan', label: 'Konsultan', icon: 'konsultan' }
 	];
 </script>
 
-<!-- Desktop Sidebar (>= 1024px) -->
-<aside class="dash-sidebar" aria-label="Navigasi Utama Dashboard">
-	<div class="dash-sidebar__top">
-		<a href="/" class="dash-brand">
-			<span class="dash-brand__mark"></span>
-			<span class="dash-brand__text">HargaPas</span>
-		</a>
+<!-- Mobile Top Header (< 1024px) -->
+<header class="hp-mobile-header" aria-label="Header Mobile HargaPas">
+	<a href="/" class="hp-brand-link" title="HargaPas">
+		<span class="hp-logo-badge">HP</span>
+		<span class="hp-brand-title">HargaPas</span>
+	</a>
 
-		<div class="dash-store-badge">
-			<span class="dash-store-badge__indicator"></span>
-			<div>
-				<p class="dash-store-badge__name">Warung Bu Sirep</p>
-				<p class="dash-store-badge__sub">Dapur Aktif · 8 Menu</p>
-			</div>
+	<button
+		type="button"
+		class="hp-mobile-logout-btn"
+		onclick={onlogout}
+		aria-label="Keluar / Logout dari sesi"
+		title="Logout"
+	>
+		<!-- Logout Icon -->
+		<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#DB0050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+			<polyline points="16 17 21 12 16 7" />
+			<line x1="21" x2="9" y1="12" y2="12" />
+		</svg>
+	</button>
+</header>
+
+<!-- Desktop Sidebar (>= 1024px) -->
+<aside class="hp-sidebar" aria-label="Navigasi Utama Dashboard">
+	<div class="hp-sidebar__top">
+		<div class="hp-sidebar__brand-row">
+			<a href="/" class="hp-sidebar__brand" title="Ke Beranda HargaPas">
+				<span class="hp-logo-badge">HP</span>
+				<div class="hp-sidebar__brand-meta">
+					<span class="hp-sidebar__brand-name">HargaPas</span>
+					<span class="hp-sidebar__brand-sub">Solusi Harga Terbaik</span>
+				</div>
+			</a>
+		</div>
+
+		<div class="hp-store-pill" title="Toko Aktif">
+			<span class="hp-store-pill__icon" aria-hidden="true">
+				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E64A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
+					<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+					<path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" />
+					<path d="M2 7h20" />
+				</svg>
+			</span>
+			<span class="hp-store-pill__name">{storeName}</span>
 		</div>
 	</div>
 
-	<nav class="dash-nav">
-		<p class="dash-nav__heading">Menu Utama</p>
-		<ul class="dash-nav__list">
+	<nav class="hp-sidebar__nav" aria-label="Menu Utama">
+		<p class="hp-sidebar__section-title">MENU UTAMA</p>
+		<ul class="hp-sidebar__list">
 			{#each tabs as tab (tab.id)}
 				<li>
 					<button
 						type="button"
-						class="dash-nav__btn"
-						class:dash-nav__btn--active={activeTab === tab.id}
+						class="hp-nav-item"
+						class:hp-nav-item--active={activeTab === tab.id}
 						onclick={() => onselect(tab.id)}
 					>
-						<span class="dash-nav__icon" aria-hidden="true">
+						<span class="hp-nav-item__icon" aria-hidden="true">
 							{#if tab.icon === 'dashboard'}
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<rect x="3" y="3" width="7" height="7"></rect>
-									<rect x="14" y="3" width="7" height="7"></rect>
-									<rect x="14" y="14" width="7" height="7"></rect>
-									<rect x="3" y="14" width="7" height="7"></rect>
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<rect width="7" height="7" x="3" y="3" rx="1.5" />
+									<rect width="7" height="7" x="14" y="3" rx="1.5" />
+									<rect width="7" height="7" x="14" y="14" rx="1.5" />
+									<rect width="7" height="7" x="3" y="14" rx="1.5" />
 								</svg>
 							{:else if tab.icon === 'menu'}
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<line x1="8" y1="6" x2="21" y2="6"></line>
-									<line x1="8" y1="12" x2="21" y2="12"></line>
-									<line x1="8" y1="18" x2="21" y2="18"></line>
-									<line x1="3" y1="6" x2="3.01" y2="6"></line>
-									<line x1="3" y1="12" x2="3.01" y2="12"></line>
-									<line x1="3" y1="18" x2="3.01" y2="18"></line>
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+									<path d="M7 2v20" />
+									<path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
 								</svg>
-							{:else if tab.icon === 'sparkle'}
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+							{:else if tab.icon === 'bahan'}
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+									<path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+									<path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
 								</svg>
 							{:else}
-								<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-									<rect x="4" y="2" width="16" height="20" rx="0"></rect>
-									<line x1="8" y1="6" x2="16" y2="6"></line>
-									<line x1="16" y1="14" x2="16" y2="18"></line>
-									<line x1="8" y1="10" x2="8.01" y2="10"></line>
-									<line x1="12" y1="10" x2="12.01" y2="10"></line>
-									<line x1="16" y1="10" x2="16.01" y2="10"></line>
-									<line x1="8" y1="14" x2="8.01" y2="14"></line>
-									<line x1="12" y1="14" x2="12.01" y2="14"></line>
-									<line x1="8" y1="18" x2="8.01" y2="18"></line>
-									<line x1="12" y1="18" x2="12.01" y2="18"></line>
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
+									<path d="m14 7 3 3" />
+									<path d="M5 6v4" />
+									<path d="M19 14v4" />
+									<path d="M10 2v2" />
+									<path d="M7 8H3" />
+									<path d="M21 16h-4" />
+									<path d="M11 3H9" />
 								</svg>
 							{/if}
 						</span>
-						<span class="dash-nav__label">{tab.label}</span>
+						<span class="hp-nav-item__label">{tab.label}</span>
 					</button>
 				</li>
 			{/each}
 		</ul>
 	</nav>
 
-	<div class="dash-sidebar__foot">
-		<div class="dash-plan-card">
-			<div class="dash-plan-card__head">
-				<span class="dash-plan-card__dot"></span>
-				<span class="dash-plan-card__name">Paket Warung</span>
-			</div>
-			<p class="dash-plan-card__desc">Analisis HPP & Konsultan AI aktif penuh.</p>
-		</div>
-
-		<a href="/" class="dash-back-link">
-			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-				<line x1="19" y1="12" x2="5" y2="12"></line>
-				<polyline points="12 19 5 12 12 5"></polyline>
+	<div class="hp-sidebar__foot">
+		<button
+			type="button"
+			class="hp-logout-btn"
+			onclick={onlogout}
+			title="Keluar dari sesi akun"
+		>
+			<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+				<polyline points="16 17 21 12 16 7" />
+				<line x1="21" x2="9" y1="12" y2="12" />
 			</svg>
-			<span>Kembali ke Beranda</span>
-		</a>
+			<span>Logout</span>
+		</button>
 	</div>
 </aside>
 
 <!-- Mobile Bottom Navigation (< 1024px) -->
-<nav class="dash-bottom-nav" aria-label="Navigasi Bawah Mobile">
+<nav class="hp-bottom-nav" aria-label="Navigasi Bawah Mobile">
 	{#each tabs as tab (tab.id)}
 		<button
 			type="button"
-			class="dash-bottom-nav__btn"
-			class:dash-bottom-nav__btn--active={activeTab === tab.id}
+			class="hp-bottom-nav__item"
+			class:hp-bottom-nav__item--active={activeTab === tab.id}
 			onclick={() => onselect(tab.id)}
 		>
-			<span class="dash-bottom-nav__icon" aria-hidden="true">
+			<span class="hp-bottom-nav__icon" aria-hidden="true">
 				{#if tab.icon === 'dashboard'}
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<rect x="3" y="3" width="7" height="7"></rect>
-						<rect x="14" y="3" width="7" height="7"></rect>
-						<rect x="14" y="14" width="7" height="7"></rect>
-						<rect x="3" y="14" width="7" height="7"></rect>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<rect width="7" height="7" x="3" y="3" rx="1.5" />
+						<rect width="7" height="7" x="14" y="3" rx="1.5" />
+						<rect width="7" height="7" x="14" y="14" rx="1.5" />
+						<rect width="7" height="7" x="3" y="14" rx="1.5" />
 					</svg>
 				{:else if tab.icon === 'menu'}
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<line x1="8" y1="6" x2="21" y2="6"></line>
-						<line x1="8" y1="12" x2="21" y2="12"></line>
-						<line x1="8" y1="18" x2="21" y2="18"></line>
-						<line x1="3" y1="6" x2="3.01" y2="6"></line>
-						<line x1="3" y1="12" x2="3.01" y2="12"></line>
-						<line x1="3" y1="18" x2="3.01" y2="18"></line>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+						<path d="M7 2v20" />
+						<path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
 					</svg>
-				{:else if tab.icon === 'sparkle'}
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+				{:else if tab.icon === 'bahan'}
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+						<path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+						<path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
 					</svg>
 				{:else}
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<rect x="4" y="2" width="16" height="20"></rect>
-						<line x1="8" y1="6" x2="16" y2="6"></line>
-						<line x1="8" y1="10" x2="16" y2="10"></line>
-						<line x1="8" y1="14" x2="16" y2="14"></line>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" />
+						<path d="m14 7 3 3" />
+						<path d="M5 6v4" />
+						<path d="M19 14v4" />
+						<path d="M10 2v2" />
+						<path d="M7 8H3" />
+						<path d="M21 16h-4" />
+						<path d="M11 3H9" />
 					</svg>
 				{/if}
 			</span>
-			<span class="dash-bottom-nav__text">{tab.label}</span>
+			<span class="hp-bottom-nav__label">{tab.label}</span>
 		</button>
 	{/each}
 </nav>

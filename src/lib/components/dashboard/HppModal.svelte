@@ -1,12 +1,27 @@
 <script lang="ts">
-	import { rupiah, percent } from '#lib/format.js';
-	import { calcMargin } from '#lib/dashboard-data.js';
+	import {
+		calcHppTotal,
+		calcMargin,
+		formatFigmaPercent,
+		formatFigmaRupiah
+	} from '#lib/dashboard-data.js';
+
+	export interface RecipeRow {
+		ingredientId?: string;
+		name: string;
+		qty: number;
+		unit: string;
+		cost: number;
+	}
 
 	export interface MenuItem {
 		id: string;
 		name: string;
 		category: string;
 		price: number;
+		hppCost?: number;
+		recipeCount?: number;
+		recipe?: RecipeRow[];
 		hpp: {
 			bahan: number;
 			kemasan: number;
@@ -19,44 +34,53 @@
 
 	interface Props {
 		item: MenuItem | null;
+		isNew?: boolean;
 		onclose?: () => void;
 		onsave?: (updated: MenuItem) => void;
 	}
 
 	let {
 		item = null,
+		isNew = false,
 		onclose = () => {},
 		onsave = () => {}
 	}: Props = $props();
 
-	let currentPrice = $state(0);
-	let bahan = $state(0);
-	let kemasan = $state(0);
-	let energi = $state(0);
-	let tenaga = $state(0);
-	let susut = $state(0);
+	let formName = $state('');
+	let formCategory = $state('MAKANAN');
+	let formPrice = $state(12000);
+	let formHppCost = $state(6270);
+	let formRecipeCount = $state(1);
 
 	$effect(() => {
 		if (item) {
-			currentPrice = item.price;
-			bahan = item.hpp.bahan;
-			kemasan = item.hpp.kemasan;
-			energi = item.hpp.energi;
-			tenaga = item.hpp.tenaga;
-			susut = item.hpp.susut;
+			formName = item.name;
+			formCategory = (item.category || 'MAKANAN').toUpperCase();
+			formPrice = item.price;
+			formHppCost = item.hppCost !== undefined ? item.hppCost : calcHppTotal(item.hpp);
+			formRecipeCount = item.recipeCount ?? (item.recipe ? item.recipe.length : 1);
 		}
 	});
 
-	let totalHpp = $derived(bahan + kemasan + energi + tenaga + susut);
-	let currentMargin = $derived(calcMargin(currentPrice, totalHpp));
-	let profitPerPortion = $derived(Math.max(0, currentPrice - totalHpp));
+	let currentMargin = $derived(calcMargin(formPrice, formHppCost));
 
-	function handleSave() {
-		if (!item) return;
+	function handleSave(e: SubmitEvent) {
+		e.preventDefault();
+		if (!item || !formName.trim()) return;
 		onsave({
 			...item,
-			price: currentPrice,
-			hpp: { bahan, kemasan, energi, tenaga, susut }
+			name: formName.trim(),
+			category: formCategory,
+			price: Number(formPrice) || 0,
+			hppCost: Number(formHppCost) || 0,
+			recipeCount: Number(formRecipeCount) || 1,
+			hpp: {
+				bahan: Number(formHppCost) || 0,
+				kemasan: 0,
+				energi: 0,
+				tenaga: 0,
+				susut: 0
+			}
 		});
 	}
 
@@ -68,158 +92,108 @@
 <svelte:window onkeydown={handleKeydown} />
 
 {#if item}
-	<div class="dash-modal-backdrop">
+	<div class="hp-modal-backdrop">
 		<button
 			type="button"
-			class="dash-modal-scrim"
+			class="hp-modal-scrim"
 			onclick={onclose}
-			aria-label="Tutup rincian modal"
+			aria-label="Tutup modal"
 		></button>
 		<div
-			class="dash-modal"
+			class="hp-modal"
 			role="dialog"
 			aria-modal="true"
 			tabindex="-1"
 			aria-labelledby="modal-title"
 		>
-			<header class="dash-modal__head">
+			<header class="hp-modal__head">
 				<div>
-					<p class="dash-modal__tag">{item.category}</p>
-					<h3 id="modal-title" class="dash-modal__title">{item.name}</h3>
+					<p class="hp-modal__tag">MENU & PERACIK RESEP HPP</p>
+					<h3 id="modal-title" class="hp-modal__title">
+						{isNew ? 'Buat Menu & Resep Baru' : `Edit ${item.name}`}
+					</h3>
 				</div>
-				<button type="button" class="dash-modal__close" onclick={onclose} aria-label="Tutup rincian">
+				<button type="button" class="hp-modal__close" onclick={onclose} aria-label="Tutup">
 					&times;
 				</button>
 			</header>
 
-			<div class="dash-modal__body">
-				<!-- KPI Ringkas -->
-				<div class="dash-modal__stats">
-					<div class="dash-stat-box">
-						<span class="dash-stat-box__label">Harga Jual</span>
-						<p class="dash-stat-box__val tabular">{rupiah(currentPrice)}</p>
-					</div>
-					<div class="dash-stat-box">
-						<span class="dash-stat-box__label">Total HPP</span>
-						<p class="dash-stat-box__val tabular">{rupiah(totalHpp)}</p>
-					</div>
-					<div class="dash-stat-box" class:dash-stat-box--alert={currentMargin < 40}>
-						<span class="dash-stat-box__label">Margin</span>
-						<p class="dash-stat-box__val tabular">{percent(currentMargin)}</p>
-					</div>
+			<form class="hp-modal__body" onsubmit={handleSave}>
+				<div class="hp-field-row">
+					<label class="hp-field">
+						<span class="hp-field__label">Nama Menu</span>
+						<input
+							type="text"
+							class="hp-field__input"
+							placeholder="Contoh: Ayam Geprek"
+							bind:value={formName}
+							required
+						/>
+					</label>
+
+					<label class="hp-field">
+						<span class="hp-field__label">Kategori</span>
+						<select class="hp-field__input" bind:value={formCategory}>
+							<option value="MAKANAN">MAKANAN</option>
+							<option value="MINUMAN">MINUMAN</option>
+							<option value="CAMILAN">CAMILAN</option>
+						</select>
+					</label>
 				</div>
 
-				<!-- Edit 5 Komponen HPP -->
-				<div class="dash-comp-group">
-					<h4 class="dash-comp-group__title">Lima Komponen Biaya Per Piring</h4>
+				<div class="hp-field-row">
+					<label class="hp-field">
+						<span class="hp-field__label">Harga Jual (Rp)</span>
+						<input
+							type="number"
+							class="hp-field__input"
+							min="500"
+							step="500"
+							bind:value={formPrice}
+							required
+						/>
+					</label>
 
-					<div class="dash-comp-grid">
-						<label class="dash-field">
-							<span class="dash-field__label">1. Bahan Baku</span>
-							<div class="dash-field__input-wrap">
-								<span class="dash-field__prefix">Rp</span>
-								<input
-									type="number"
-									class="dash-field__input"
-									bind:value={bahan}
-									min="0"
-									step="100"
-								/>
-							</div>
-						</label>
-
-						<label class="dash-field">
-							<span class="dash-field__label">2. Kemasan / Bungkus</span>
-							<div class="dash-field__input-wrap">
-								<span class="dash-field__prefix">Rp</span>
-								<input
-									type="number"
-									class="dash-field__input"
-									bind:value={kemasan}
-									min="0"
-									step="100"
-								/>
-							</div>
-						</label>
-
-						<label class="dash-field">
-							<span class="dash-field__label">3. Gas, Air & Listrik</span>
-							<div class="dash-field__input-wrap">
-								<span class="dash-field__prefix">Rp</span>
-								<input
-									type="number"
-									class="dash-field__input"
-									bind:value={energi}
-									min="0"
-									step="100"
-								/>
-							</div>
-						</label>
-
-						<label class="dash-field">
-							<span class="dash-field__label">4. Tenaga Kerja / Olah</span>
-							<div class="dash-field__input-wrap">
-								<span class="dash-field__prefix">Rp</span>
-								<input
-									type="number"
-									class="dash-field__input"
-									bind:value={tenaga}
-									min="0"
-									step="100"
-								/>
-							</div>
-						</label>
-
-						<label class="dash-field dash-field--span-2">
-							<span class="dash-field__label">5. Susut Bahan & Sisa</span>
-							<div class="dash-field__input-wrap">
-								<span class="dash-field__prefix">Rp</span>
-								<input
-									type="number"
-									class="dash-field__input"
-									bind:value={susut}
-									min="0"
-									step="100"
-								/>
-							</div>
-						</label>
-					</div>
+					<label class="hp-field">
+						<span class="hp-field__label">Total HPP / Porsi (Rp)</span>
+						<input
+							type="number"
+							class="hp-field__input"
+							min="0"
+							step="10"
+							bind:value={formHppCost}
+							required
+						/>
+					</label>
 				</div>
 
-				<!-- Pengaturan Harga Jual -->
-				<div class="dash-comp-group">
-					<h4 class="dash-comp-group__title">Penyesuaian Harga Jual</h4>
-					<div class="dash-price-row">
-						<label class="dash-field" style="flex: 1;">
-							<span class="dash-field__label">Harga di Menu Pelanggan</span>
-							<div class="dash-field__input-wrap">
-								<span class="dash-field__prefix">Rp</span>
-								<input
-									type="number"
-									class="dash-field__input"
-									bind:value={currentPrice}
-									min="1000"
-									step="500"
-								/>
-							</div>
-						</label>
+				<label class="hp-field">
+					<span class="hp-field__label">Jumlah Komponen Bahan di Resep</span>
+					<input
+						type="number"
+						class="hp-field__input"
+						min="1"
+						max="20"
+						bind:value={formRecipeCount}
+					/>
+				</label>
 
-						<div class="dash-profit-callout">
-							<span>Laba Kotor / Porsi:</span>
-							<strong class="tabular">{rupiah(profitPerPortion)}</strong>
-						</div>
-					</div>
+				<div class="hp-calc-preview">
+					<span>Estimasi Margin Aktif:</span>
+					<strong style="color: #009B71;">
+						{formatFigmaPercent(currentMargin)} (Laba {formatFigmaRupiah(Math.max(0, formPrice - formHppCost))})
+					</strong>
 				</div>
-			</div>
 
-			<footer class="dash-modal__foot">
-				<button type="button" class="dash-btn dash-btn--ghost" onclick={onclose}>
-					Batal
-				</button>
-				<button type="button" class="dash-btn dash-btn--orange" onclick={handleSave}>
-					Simpan Perubahan
-				</button>
-			</footer>
+				<div class="hp-modal__foot">
+					<button type="button" class="hp-btn-outline" onclick={onclose}>
+						Batal
+					</button>
+					<button type="submit" class="hp-btn-primary">
+						Simpan Menu
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 {/if}

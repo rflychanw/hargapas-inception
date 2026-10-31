@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <filter id="softShadow2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#111111" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Ground & Shadow -->
+  <ellipse cx="400" cy="520" rx="360" ry="22" fill="#f1f5f9" />
+  <ellipse cx="380" cy="515" rx="220" ry="14" fill="#e2e8f0" />
+
+  <!-- Kitchen Counter / Table -->
+  <g id="table-base" filter="url(#softShadow2)">
+    <rect x="140" y="340" width="520" height="150" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />
+    <path d="M110 340 L690 340 L670 315 L130 315 Z" fill="#2f2e41" />
+    <line x1="160" y1="380" x2="640" y2="380" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+    <line x1="160" y1="415" x2="640" y2="415" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+    <line x1="160" y1="450" x2="640" y2="450" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Digital Kitchen Weighing Scale (Precision HPP calculation) -->
+  <g id="scale" transform="translate(180, 240)" filter="url(#softShadow2)">
+    <rect x="0" y="45" width="130" height="30" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+    <!-- Display -->
+    <rect x="35" y="52" width="60" height="16" rx="3" fill="#111111" />
+    <text x="65" y="64" font-family="monospace" font-size="10" font-weight="700" fill="#10b981" text-anchor="middle">500 g</text>
+    <!-- Scale Plate -->
+    <ellipse cx="65" cy="42" rx="55" ry="10" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5" />
+
+    <!-- Big Bowl of Red Chili / Cabai & Spices on Scale -->
+    <path d="M20 38 Q65 65 110 38 Q65 15 20 38 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" />
+    <!-- Chili Peppers -->
+    <path d="M35 34 Q50 15 70 25 Q55 35 35 34" fill="#ef4444" />
+    <path d="M55 22 Q75 10 90 28 Q70 34 55 22" fill="#dc2626" />
+    <path d="M45 28 Q60 5 80 18 Q65 30 45 28" fill="#ff6b1a" />
+    <path d="M30 26 Q45 8 65 20 Q50 30 30 26" fill="#ef4444" />
+    <!-- Green Chili Stems -->
+    <path d="M70 25 Q75 22 78 20" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <path d="M90 28 Q95 24 98 22" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round" />
+    <path d="M80 18 Q85 14 88 12" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round" />
+  </g>
+
+  <!-- Big Clipboard: Rincian 5 Komponen HPP -->
+  <g id="clipboard-hpp" transform="translate(340, 140)" filter="url(#softShadow2)">
+    <!-- Board -->
+    <rect x="0" y="0" width="160" height="210" rx="10" fill="#3f3d56" />
+    <rect x="45" y="-10" width="70" height="18" rx="4" fill="#2f2e41" />
+    <circle cx="80" cy="-2" r="4" fill="#ffffff" />
+    <!-- Paper Sheet -->
+    <rect x="10" y="16" width="140" height="180" rx="6" fill="#ffffff" />
+    <!-- Header on Sheet -->
+    <rect x="22" y="30" width="60" height="8" rx="3" fill="#ff6b1a" />
+    <circle cx="130" cy="34" r="8" fill="#ff6b1a" opacity="0.15" />
+    <path d="M127 34 L129 36 L133 32" fill="none" stroke="#ff6b1a" stroke-width="2" stroke-linecap="round" />
+
+    <!-- 5 Component Rows -->
+    <!-- Row 1: Bahan -->
+    <rect x="22" y="52" width="70" height="5" rx="2.5" fill="#111111" />
+    <rect x="100" y="52" width="28" height="5" rx="2.5" fill="#6b7280" />
+    <rect x="22" y="61" width="106" height="4" rx="2" fill="#e2e8f0" />
+    <rect x="22" y="61" width="75" height="4" rx="2" fill="#ff6b1a" />
+
+    <!-- Row 2: Kemasan -->
+    <rect x="22" y="74" width="60" height="5" rx="2.5" fill="#111111" />
+    <rect x="100" y="74" width="28" height="5" rx="2.5" fill="#6b7280" />
+    <rect x="22" y="83" width="106" height="4" rx="2" fill="#e2e8f0" />
+    <rect x="22" y="83" width="25" height="4" rx="2" fill="#10b981" />
+
+    <!-- Row 3: Energi -->
+    <rect x="22" y="96" width="65" height="5" rx="2.5" fill="#111111" />
+    <rect x="100" y="96" width="28" height="5" rx="2.5" fill="#6b7280" />
+    <rect x="22" y="105" width="106" height="4" rx="2" fill="#e2e8f0" />
+    <rect x="22" y="105" width="35" height="4" rx="2" fill="#3b82f6" />
+
+    <!-- Row 4: Tenaga -->
+    <rect x="22" y="118" width="55" height="5" rx="2.5" fill="#111111" />
+    <rect x="100" y="118" width="28" height="5" rx="2.5" fill="#6b7280" />
+    <rect x="22" y="127" width="106" height="4" rx="2" fill="#e2e8f0" />
+    <rect x="22" y="127" width="45" height="4" rx="2" fill="#f59e0b" />
+
+    <!-- Row 5: Susut -->
+    <rect x="22" y="140" width="50" height="5" rx="2.5" fill="#111111" />
+    <rect x="100" y="140" width="28" height="5" rx="2.5" fill="#6b7280" />
+    <rect x="22" y="149" width="106" height="4" rx="2" fill="#e2e8f0" />
+    <rect x="22" y="149" width="20" height="4" rx="2" fill="#8b5cf6" />
+
+    <!-- Total Badge -->
+    <rect x="22" y="165" width="106" height="20" rx="4" fill="#f3f4f6" />
+    <text x="30" y="179" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#111111">TOTAL HPP TEPAT</text>
+  </g>
+
+  <!-- Person Checking Quality / Adding Ingredients -->
+  <g id="character-chef">
+    <!-- Legs -->
+    <path d="M530 400 L530 515 L548 515 L548 400 Z" fill="#2f2e41" />
+    <path d="M565 400 L565 515 L583 515 L583 400 Z" fill="#2f2e41" />
+    <ellipse cx="539" cy="518" rx="14" ry="5" fill="#111111" />
+    <ellipse cx="574" cy="518" rx="14" ry="5" fill="#111111" />
+
+    <!-- Torso -->
+    <path d="M515 260 C515 245 535 245 555 245 C575 245 595 245 595 260 L600 395 L510 395 Z" fill="#ff6b1a" />
+    <path d="M535 250 L565 250 L560 350 L540 350 Z" fill="#ffffff" opacity="0.9" />
+
+    <!-- Left Arm pointing to Clipboard -->
+    <path d="M520 280 L470 300 L430 280" fill="none" stroke="#ff6b1a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="425" cy="278" r="6" fill="#fcd34d" />
+
+    <!-- Right Arm holding pen -->
+    <path d="M590 280 L560 320 L520 310" fill="none" stroke="#ff6b1a" stroke-width="12" stroke-linecap="round" />
+
+    <!-- Head & Chef Hat -->
+    <circle cx="555" cy="205" r="22" fill="#fcd34d" />
+    <path d="M535 200 C535 185 545 180 555 180 C565 180 575 185 575 200 Z" fill="#2f2e41" />
+    <!-- Modern Hat / Bandana in Orange -->
+    <path d="M533 182 L577 182 L572 170 L538 170 Z" fill="#111111" />
+    <circle cx="550" cy="206" r="2.5" fill="#2f2e41" />
+    <!-- Smile -->
+    <path d="M545 216 Q552 222 558 216" fill="none" stroke="#2f2e41" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Ingredients Basket / Crates at right -->
+  <g id="basket" transform="translate(580, 290)">
+    <rect x="0" y="10" width="70" height="35" rx="4" fill="#d97706" />
+    <!-- Bottles (Sauce / Oil) -->
+    <rect x="10" y="-15" width="12" height="30" rx="3" fill="#f59e0b" />
+    <rect x="12" y="-22" width="8" height="8" rx="2" fill="#111111" />
+    <rect x="28" y="-12" width="14" height="26" rx="3" fill="#10b981" />
+    <rect x="31" y="-18" width="8" height="7" rx="2" fill="#ffffff" />
+    <!-- Garlic & Onions -->
+    <circle cx="52" cy="5" r="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+    <circle cx="60" cy="7" r="7" fill="#f43f5e" />
+  </g>
+
+  <!-- Floating Badge: 5 Komponen Terhitung -->
+  <g id="floating-badge-2" filter="url(#softShadow2)" transform="translate(150, 100)">
+    <rect x="0" y="0" width="170" height="60" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    <circle cx="25" cy="30" r="14" fill="#10b981" opacity="0.15" />
+    <path d="M20 30 L24 34 L30 26" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" />
+    <text x="48" y="25" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#6b7280">HPP AKURAT</text>
+    <text x="48" y="44" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#111111">5 Komponen Biaya</text>
+  </g>
+</svg>

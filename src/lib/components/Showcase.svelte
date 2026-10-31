@@ -19,12 +19,12 @@
 	<div class="shell showcase-grid">
 		<div class="showcase-side">
 			<h2 id="dashboard-title" class="h2" data-reveal>Satu layar untuk semua menu.</h2>
-			<p class="lead lead--soft" data-reveal>
+			<p class="lead lead--soft" data-reveal data-delay="1">
 				Daftar menu, rincian HPP, dan laporan bulanan ada di tempat yang sama. Tidak ada lagi
 				berkas terpisah atau hitungan di kertas.
 			</p>
 
-			<div class="index" role="tablist" data-reveal aria-label="Tampilan dashboard">
+			<div class="index" role="tablist" data-reveal data-delay="2" aria-label="Tampilan dashboard">
 				{#each panels as panel (panel.id)}
 					<button
 						class="index-btn"
@@ -38,23 +38,9 @@
 					</button>
 				{/each}
 			</div>
-
-			<figure class="showcase-photo" data-reveal>
-				<img
-					src="/img/pasar-buah.jpg"
-					alt="Kios buah di pasar dengan keranjang dagangan tersusun rapat"
-					width="1920"
-					height="1042"
-					loading="lazy"
-				/>
-				<figcaption>
-					Harga bahan berubah tiap pekan. Angka di dashboard ikut diubah, margin langsung
-					terlihat.
-				</figcaption>
-			</figure>
 		</div>
 
-		<div class="sheet-stage" data-reveal data-ui>
+		<div class="sheet-stage" data-reveal data-delay="1" data-ui>
 			<div
 				class="sheet"
 				data-ui
@@ -143,7 +129,7 @@
 					</div>
 					<div>
 						<p class="fig-num">{percent(45.9)}</p>
-						<p class="fig-cap">margin setelah harga naik</p>
+						<p class="fig-cap">margin setelah naik</p>
 					</div>
 					<div>
 						<p class="fig-num">Rp 1,35 jt</p>
@@ -167,5 +153,19 @@
 				</p>
 			</div>
 		</div>
+
+		<figure class="showcase-photo" data-reveal data-delay="2">
+			<img
+				src="/img/undraw_market.svg"
+				alt="Ilustrasi belanja bahan baku segar di pasar"
+				width="800"
+				height="600"
+				loading="lazy"
+			/>
+			<figcaption>
+				Harga bahan berubah tiap pekan. Angka di dashboard ikut diubah, margin langsung
+				terlihat.
+			</figcaption>
+		</figure>
 	</div>
 </section>

@@ -12,17 +12,16 @@
 			</a>
 		</div>
 
-		<figure class="closing-photo" data-reveal>
+		<figure class="closing-photo" data-reveal data-delay="1">
 			<img
-				src="/img/warung-malam.jpg"
-				alt="Warung tenda malam dengan spanduk ayam goreng dan pecel lele"
-				width="1920"
-				height="1440"
+				src="/img/undraw_store.svg"
+				alt="Ilustrasi gerai warung makan sukses dengan margin sehat"
+				width="800"
+				height="600"
 				loading="lazy"
 			/>
 			<figcaption>
-				Warung tenda di Pasar Koplak, Kebumen. Foto: SATELIT BM, CC BY-SA 4.0, Wikimedia
-				Commons.
+				Mulai langkah pertama memantau margin sehat untuk warung Anda.
 			</figcaption>
 		</figure>
 	</div>

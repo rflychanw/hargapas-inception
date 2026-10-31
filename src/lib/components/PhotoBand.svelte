@@ -1,5 +1,5 @@
 <section class="band" aria-label="Papan menu warung">
-	<figure class="band-figure">
+	<figure class="band-figure" data-reveal>
 		<img
 			src="/img/warung-board.jpg"
 			alt="Papan menu warung dengan lauk dan harga yang ditempel satu per satu"

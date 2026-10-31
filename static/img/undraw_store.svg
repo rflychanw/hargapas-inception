@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <filter id="softShadow3" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#111111" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Ground & Shadow -->
+  <ellipse cx="400" cy="530" rx="360" ry="22" fill="#f1f5f9" />
+  <ellipse cx="460" cy="522" rx="200" ry="14" fill="#e2e8f0" />
+  <ellipse cx="230" cy="524" rx="100" ry="10" fill="#e2e8f0" />
+
+  <!-- Warung / Food Stall Storefront (Right Side) -->
+  <g id="warung-store" filter="url(#softShadow3)">
+    <!-- Main Wall / Counter -->
+    <rect x="360" y="240" width="340" height="260" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />
+    <!-- Service Window Cutout -->
+    <rect x="390" y="270" width="280" height="150" rx="8" fill="#1e1b4b" />
+    <!-- Interior Warm Counter Glow -->
+    <rect x="390" y="370" width="280" height="50" rx="0" fill="#ffedd5" />
+    <path d="M390 370 L670 370 L660 355 L400 355 Z" fill="#ff6b1a" />
+
+    <!-- Kitchenware / Steamer visible inside window -->
+    <rect x="420" y="330" width="35" height="30" rx="3" fill="#cbd5e1" />
+    <ellipse cx="437" cy="330" rx="17" ry="5" fill="#e2e8f0" />
+    <rect x="475" y="320" width="40" height="40" rx="4" fill="#64748b" />
+    <path d="M485 305 Q495 290 505 305" fill="none" stroke="#e2e8f0" stroke-width="2" opacity="0.6" />
+
+    <!-- Open Sign / Status Badge -->
+    <rect x="600" y="290" width="55" height="24" rx="12" fill="#10b981" />
+    <text x="627" y="306" font-family="system-ui, sans-serif" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">BUKA</text>
+
+    <!-- Canopy Awning on Store -->
+    <path d="M340 240 L720 240 L700 180 L360 180 Z" fill="#ff6b1a" />
+    <!-- Awning Stripes -->
+    <path d="M400 180 L440 180 L430 240 L390 240 Z" fill="#ffffff" />
+    <path d="M480 180 L520 180 L510 240 L470 240 Z" fill="#ffffff" />
+    <path d="M560 180 L600 180 L590 240 L550 240 Z" fill="#ffffff" />
+    <path d="M640 180 L680 180 L670 240 L630 240 Z" fill="#ffffff" />
+
+    <!-- Awning Scallop -->
+    <path d="M340 240 Q355 255 370 240 Q385 255 400 240 Q415 255 430 240 Q445 255 460 240 Q475 255 490 240 Q505 255 520 240 Q535 255 550 240 Q565 255 580 240 Q595 255 610 240 Q625 255 640 240 Q655 255 670 240 Q685 255 700 240 Q715 255 720 240" fill="none" stroke="#ff6b1a" stroke-width="6" stroke-linecap="round" />
+
+    <!-- Store Signboard: WARUNG BU SIREP -->
+    <rect x="420" y="115" width="220" height="48" rx="8" fill="#111111" />
+    <circle cx="440" cy="139" r="6" fill="#ff6b1a" />
+    <text x="456" y="144" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff" letter-spacing="0.5">WARUNG BU SIREP</text>
+
+    <!-- Menu Board Stand (A-Frame) -->
+    <g transform="translate(620, 420)">
+      <path d="M10 0 L45 0 L55 80 L65 80 L35 0 L0 80 L10 80 Z" fill="#3f3d56" />
+      <rect x="8" y="10" width="38" height="55" rx="3" fill="#111111" />
+      <line x1="14" y1="20" x2="38" y2="20" stroke="#ff6b1a" stroke-width="2" />
+      <line x1="14" y1="28" x2="34" y2="28" stroke="#ffffff" stroke-width="1.5" />
+      <line x1="14" y1="36" x2="40" y2="36" stroke="#ffffff" stroke-width="1.5" />
+      <line x1="14" y1="44" x2="32" y2="44" stroke="#ffffff" stroke-width="1.5" />
+      <line x1="14" y1="52" x2="36" y2="52" stroke="#10b981" stroke-width="2" />
+    </g>
+  </g>
+
+  <!-- Warung Owner Character (Left Side, Welcoming / Celebrating) -->
+  <g id="character-owner" filter="url(#softShadow3)">
+    <!-- Legs -->
+    <path d="M210 390 L210 520 L228 520 L228 390 Z" fill="#2f2e41" />
+    <path d="M245 390 L245 520 L263 520 L263 390 Z" fill="#2f2e41" />
+    <ellipse cx="219" cy="522" rx="14" ry="5" fill="#111111" />
+    <ellipse cx="254" cy="522" rx="14" ry="5" fill="#111111" />
+
+    <!-- Torso -->
+    <path d="M195 240 C195 225 215 225 235 225 C255 225 275 225 275 240 L280 380 L190 380 Z" fill="#2f2e41" />
+    <!-- Apron with HargaPas Orange -->
+    <path d="M205 250 L265 250 L260 365 L210 365 Z" fill="#ff6b1a" />
+    <rect x="220" y="290" width="30" height="25" rx="3" fill="#ffffff" opacity="0.9" />
+    <line x1="225" y1="300" x2="245" y2="300" stroke="#ff6b1a" stroke-width="2" />
+
+    <!-- Right Arm: Welcoming Wave towards Warung -->
+    <path d="M270 250 L315 285 L350 270" fill="none" stroke="#2f2e41" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="355" cy="268" r="7" fill="#fcd34d" />
+
+    <!-- Left Arm: Hand on Hip (Confident) -->
+    <path d="M200 250 L170 290 L195 320" fill="none" stroke="#2f2e41" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="196" cy="320" r="7" fill="#fcd34d" />
+
+    <!-- Head & Hair -->
+    <circle cx="235" cy="180" r="22" fill="#fcd34d" />
+    <path d="M213 175 C213 155 225 150 235 150 C245 150 257 155 257 175 C250 170 245 168 235 168 C225 168 218 170 213 175 Z" fill="#2f2e41" />
+    <!-- Friendly smiling eye -->
+    <circle cx="240" cy="180" r="2.5" fill="#2f2e41" />
+    <path d="M232 192 Q240 198 248 192" fill="none" stroke="#2f2e41" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Floating Metric Pill: Margin Sehat 50% -->
+  <g id="floating-badge-3" filter="url(#softShadow3)" transform="translate(100, 80)">
+    <rect x="0" y="0" width="180" height="66" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    <circle cx="26" cy="33" r="14" fill="#10b981" opacity="0.15" />
+    <path d="M22 33 L25 36 L31 29" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="48" y="27" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#6b7280">LABA TERJAMIN</text>
+    <text x="48" y="47" font-family="system-ui, sans-serif" font-size="15" font-weight="800" fill="#111111">Margin Sehat 50%</text>
+  </g>
+</svg>

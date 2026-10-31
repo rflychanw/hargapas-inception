@@ -7,20 +7,20 @@
 	<div class="shell">
 		<h2 id="hpp-title" class="display" data-reveal>Ke mana {rupiah(hppTotal)} pergi.</h2>
 
-		<ul class="poster-list" data-reveal>
-			{#each hpp as row (row.label)}
-				<li class="poster-row">
+		<ul class="poster-list">
+			{#each hpp as row, i (row.label)}
+				<li class="poster-row" data-reveal data-delay={String(i + 1)}>
 					<span class="poster-name">{row.label}</span>
 					<span class="poster-value">{rupiah(row.value)}</span>
 				</li>
 			{/each}
-			<li class="poster-row poster-row--total">
+			<li class="poster-row poster-row--total" data-reveal data-delay="5">
 				<span class="poster-name">Total HPP</span>
 				<span class="poster-value poster-value--accent">{rupiah(hppTotal)}</span>
 			</li>
 		</ul>
 
-		<div class="hpp-foot" data-reveal>
+		<div class="hpp-foot" data-reveal data-delay="2">
 			<div class="hpp-notes">
 				<p class="hpp-note">
 					Lima komponen ini yang dipakai HargaPas untuk menghitung harga jual. Angkanya bisa
@@ -32,10 +32,10 @@
 			</div>
 			<figure class="hpp-photo">
 				<img
-					src="/img/cabai-pasar.jpg"
-					alt="Karung plastik berisi cabai merah di lantai pasar"
-					width="1920"
-					height="1440"
+					src="/img/undraw_ingredients.svg"
+					alt="Ilustrasi penimbangan bahan baku dan kalkulasi 5 komponen HPP"
+					width="800"
+					height="600"
 					loading="lazy"
 				/>
 			</figure>

@@ -5,7 +5,6 @@
 			<nav class="footer-links" aria-label="Tautan kaki">
 				<a href="#dashboard">Produk</a>
 				<a href="#cara-kerja">Cara kerja</a>
-				<a href="#harga">Harga</a>
 				<a href="#tanya">Pertanyaan</a>
 			</nav>
 		</div>
@@ -24,11 +23,7 @@
 			</div>
 			<div>
 				<p>
-					<b>Foto.</b>
-					“Warung Makan Bu Sirep” oleh Aqilla Rahmi, CC BY 4.0; “Nasi Goreng Telur Balado”
-					oleh Indonesiagood, CC BY 4.0; “Bali fruit stall 1” oleh Midori, CC BY 3.0;
-					“Pasar Tanjung Anyar” oleh Abdul Hanif Arromy, CC BY 4.0; “Warung Makan di Pasar
-					Koplak” oleh SATELIT BM, CC BY-SA 4.0. Semua melalui Wikimedia Commons.
+					<b>Foto & Ilustrasi.</b> “Warung Makan Bu Sirep” oleh Aqilla Rahmi (CC BY 4.0) dan “Nasi Goreng Telur Balado” oleh Indonesiagood (CC BY 4.0) via Wikimedia Commons. Ilustrasi bergaya unDraw berlisensi terbuka.
 				</p>
 			</div>
 			<p class="footer-legal">

@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff8c42" />
+      <stop offset="100%" stop-color="#ff6b1a" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#111111" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Ground & Shadow -->
+  <ellipse cx="400" cy="530" rx="360" ry="24" fill="#f1f5f9" />
+  <ellipse cx="260" cy="520" rx="180" ry="16" fill="#e2e8f0" />
+  <ellipse cx="560" cy="525" rx="120" ry="12" fill="#e2e8f0" />
+
+  <!-- Market Stall Structure -->
+  <g id="market-stall" filter="url(#softShadow)">
+    <!-- Base Table/Counter -->
+    <rect x="120" y="320" width="320" height="180" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" />
+    <!-- Counter Top -->
+    <path d="M100 320 L460 320 L440 300 L120 300 Z" fill="#2f2e41" />
+    <!-- Table Slats Details -->
+    <line x1="140" y1="350" x2="420" y2="350" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+    <line x1="140" y1="380" x2="420" y2="380" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+    <line x1="140" y1="410" x2="420" y2="410" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+    <line x1="140" y1="440" x2="420" y2="440" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+    <line x1="140" y1="470" x2="420" y2="470" stroke="#f1f5f9" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Stall Poles -->
+    <rect x="130" y="160" width="12" height="150" fill="#3f3d56" rx="3" />
+    <rect x="418" y="160" width="12" height="150" fill="#3f3d56" rx="3" />
+
+    <!-- Canopy Awning Stripes -->
+    <path d="M100 160 L460 160 L440 210 L80 210 Z" fill="#ff6b1a" />
+    <!-- White Stripes on Awning -->
+    <path d="M140 160 L180 160 L165 210 L125 210 Z" fill="#ffffff" />
+    <path d="M220 160 L260 160 L245 210 L205 210 Z" fill="#ffffff" />
+    <path d="M300 160 L340 160 L325 210 L285 210 Z" fill="#ffffff" />
+    <path d="M380 160 L420 160 L405 210 L365 210 Z" fill="#ffffff" />
+
+    <!-- Canopy Scallop Bottom -->
+    <path d="M80 210 Q95 225 110 210 Q125 225 140 210 Q155 225 170 210 Q185 225 200 210 Q215 225 230 210 Q245 225 260 210 Q275 225 290 210 Q305 225 320 210 Q335 225 350 210 Q365 225 380 210 Q395 225 410 210 Q425 225 440 210" fill="none" stroke="#ff6b1a" stroke-width="8" stroke-linecap="round" />
+
+    <!-- Produce Crates on Table -->
+    <!-- Crate 1 (Tomatoes/Chili) -->
+    <rect x="140" y="270" width="80" height="40" rx="4" fill="#d97706" />
+    <circle cx="155" cy="265" r="10" fill="#ef4444" />
+    <circle cx="170" cy="262" r="11" fill="#dc2626" />
+    <circle cx="185" cy="266" r="10" fill="#ef4444" />
+    <circle cx="200" cy="264" r="9" fill="#dc2626" />
+    <circle cx="162" cy="254" r="9" fill="#f87171" />
+    <circle cx="178" cy="252" r="10" fill="#ef4444" />
+    <circle cx="192" cy="255" r="9" fill="#f87171" />
+
+    <!-- Crate 2 (Fresh Oranges) -->
+    <rect x="240" y="270" width="80" height="40" rx="4" fill="#b45309" />
+    <circle cx="255" cy="265" r="10" fill="#ff6b1a" />
+    <circle cx="270" cy="263" r="11" fill="#f97316" />
+    <circle cx="285" cy="266" r="10" fill="#fb923c" />
+    <circle cx="300" cy="264" r="9" fill="#ea580c" />
+    <circle cx="262" cy="254" r="9" fill="#ffedd5" />
+    <circle cx="278" cy="252" r="10" fill="#f97316" />
+    <circle cx="292" cy="255" r="9" fill="#ff6b1a" />
+
+    <!-- Crate 3 (Greens / Vegetables) -->
+    <rect x="340" y="270" width="80" height="40" rx="4" fill="#d97706" />
+    <ellipse cx="360" cy="260" rx="16" ry="12" fill="#10b981" />
+    <ellipse cx="380" cy="258" rx="18" ry="14" fill="#059669" />
+    <ellipse cx="400" cy="262" rx="15" ry="11" fill="#34d399" />
+    <ellipse cx="372" cy="248" rx="14" ry="10" fill="#10b981" />
+    <ellipse cx="390" cy="250" rx="13" ry="9" fill="#6ee7b7" />
+  </g>
+
+  <!-- Big Decorative Price Tag Board -->
+  <g id="price-board" transform="translate(140, 360)">
+    <rect x="0" y="0" width="100" height="110" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
+    <rect x="10" y="12" width="50" height="6" rx="3" fill="#ff6b1a" />
+    <rect x="10" y="26" width="80" height="4" rx="2" fill="#cbd5e1" />
+    <rect x="10" y="36" width="65" height="4" rx="2" fill="#cbd5e1" />
+    <rect x="10" y="52" width="40" height="14" rx="3" fill="#111111" />
+    <rect x="10" y="74" width="80" height="4" rx="2" fill="#e2e8f0" />
+    <rect x="10" y="84" width="50" height="4" rx="2" fill="#e2e8f0" />
+    <circle cx="75" cy="88" r="12" fill="#ff6b1a" opacity="0.15" />
+    <path d="M72 88 L75 91 L80 85" fill="none" stroke="#ff6b1a" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Merchant / Warung Owner Character -->
+  <g id="character-merchant">
+    <!-- Legs -->
+    <path d="M260 450 L260 520 L275 520 L275 450 Z" fill="#2f2e41" />
+    <path d="M295 450 L295 520 L310 520 L310 450 Z" fill="#2f2e41" />
+    <!-- Shoes -->
+    <ellipse cx="270" cy="522" rx="14" ry="5" fill="#111111" />
+    <ellipse cx="305" cy="522" rx="14" ry="5" fill="#111111" />
+    <!-- Body & Apron -->
+    <rect x="250" y="270" width="70" height="140" rx="12" fill="#ffffff" />
+    <path d="M255 280 L315 280 L310 390 L260 390 Z" fill="#ff6b1a" />
+    <!-- Apron Straps -->
+    <line x1="265" y1="250" x2="275" y2="280" stroke="#ff6b1a" stroke-width="4" />
+    <line x1="305" y1="250" x2="295" y2="280" stroke="#ff6b1a" stroke-width="4" />
+    <!-- Head & Hair -->
+    <circle cx="285" cy="220" r="22" fill="#fcd34d" />
+    <path d="M263 218 C263 200 273 192 285 192 C297 192 307 200 307 218 C302 210 295 208 285 208 C275 208 268 210 263 218 Z" fill="#2f2e41" />
+    <!-- Hair Bun -->
+    <circle cx="285" cy="190" r="10" fill="#2f2e41" />
+    <!-- Face features subtle -->
+    <ellipse cx="292" cy="222" rx="2" ry="3" fill="#2f2e41" />
+    <path d="M288 230 Q294 234 298 230" fill="none" stroke="#2f2e41" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <!-- Shopper / Smart Buyer with Tablet / List -->
+  <g id="character-shopper" filter="url(#softShadow)">
+    <!-- Shadow under shopper -->
+    <ellipse cx="560" cy="525" rx="45" ry="8" fill="#cbd5e1" opacity="0.6" />
+    <!-- Legs -->
+    <path d="M540 380 L540 515 L558 515 L558 380 Z" fill="#2f2e41" />
+    <path d="M575 380 L575 515 L593 515 L593 380 Z" fill="#2f2e41" />
+    <ellipse cx="549" cy="518" rx="14" ry="5" fill="#3f3d56" />
+    <ellipse cx="584" cy="518" rx="14" ry="5" fill="#3f3d56" />
+
+    <!-- Torso (Casual Jacket / Shirt) -->
+    <path d="M525 250 C525 235 545 235 565 235 C585 235 605 235 605 250 L610 375 L520 375 Z" fill="#3f3d56" />
+    <path d="M550 240 L580 240 L575 330 L555 330 Z" fill="#ffffff" />
+    <!-- Orange Scarf / Accent -->
+    <path d="M545 235 Q565 255 585 235 Q565 245 545 235" fill="#ff6b1a" />
+
+    <!-- Arms & Digital Tablet (HargaPas calculation) -->
+    <!-- Left Arm holding Tablet -->
+    <path d="M530 270 L500 320 L535 340" fill="none" stroke="#3f3d56" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Right Arm touching Tablet -->
+    <path d="M595 270 L550 330" fill="none" stroke="#3f3d56" stroke-width="14" stroke-linecap="round" />
+
+    <!-- Smart Tablet Screen -->
+    <g transform="translate(470, 290) rotate(-8)">
+      <rect x="0" y="0" width="70" height="90" rx="8" fill="#111111" />
+      <rect x="4" y="4" width="62" height="82" rx="5" fill="#ffffff" />
+      <!-- Chart on Tablet -->
+      <rect x="8" y="10" width="30" height="5" rx="2" fill="#ff6b1a" />
+      <rect x="8" y="20" width="48" height="3" rx="1.5" fill="#cbd5e1" />
+      <rect x="8" y="26" width="38" height="3" rx="1.5" fill="#cbd5e1" />
+      <!-- Bar Chart -->
+      <rect x="10" y="55" width="8" height="20" rx="2" fill="#e2e8f0" />
+      <rect x="22" y="45" width="8" height="30" rx="2" fill="#ff6b1a" />
+      <rect x="34" y="50" width="8" height="25" rx="2" fill="#10b981" />
+      <rect x="46" y="38" width="8" height="37" rx="2" fill="#2f2e41" />
+    </g>
+
+    <!-- Head & Hair -->
+    <circle cx="565" cy="195" r="22" fill="#fcd34d" />
+    <!-- Modern swept hair -->
+    <path d="M545 190 C545 170 560 165 575 165 C590 165 600 175 600 190 C590 185 580 182 565 182 C555 182 548 186 545 190 Z" fill="#2f2e41" />
+    <circle cx="560" cy="196" r="2.5" fill="#2f2e41" />
+  </g>
+
+  <!-- Floating UI / Market Insights Cards -->
+  <g id="floating-card-1" filter="url(#softShadow)" transform="translate(480, 80)">
+    <rect x="0" y="0" width="180" height="68" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    <circle cx="24" cy="34" r="14" fill="#ff6b1a" opacity="0.12" />
+    <path d="M19 34 L23 38 L29 30" fill="none" stroke="#ff6b1a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="46" y="28" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#6b7280">HARGA PASAR SUBISIDI</text>
+    <text x="46" y="48" font-family="system-ui, sans-serif" font-size="15" font-weight="800" fill="#111111">Bahan Baku Segar</text>
+  </g>
+
+  <!-- Decorative Plant / Market Ambience -->
+  <g id="plant-pot" transform="translate(680, 420)">
+    <path d="M20 60 L60 60 L50 110 L30 110 Z" fill="#ff6b1a" opacity="0.85" />
+    <!-- Leaves -->
+    <path d="M40 60 Q20 20 0 30 Q20 50 40 60" fill="#10b981" />
+    <path d="M40 60 Q40 0 60 10 Q50 40 40 60" fill="#059669" />
+    <path d="M40 60 Q70 30 80 45 Q55 60 40 60" fill="#34d399" />
+  </g>
+</svg>

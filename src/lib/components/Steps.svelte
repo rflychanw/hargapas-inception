@@ -40,11 +40,11 @@
 	<div class="shell steps-grid">
 		<div class="steps-copy">
 			<h2 id="steps-title" class="h2" data-reveal>Dari HPP ke harga, empat langkah.</h2>
-			<p class="clause" data-reveal aria-live="polite">{steps[step - 1].clause}</p>
+			<p class="clause" data-reveal data-delay="1" aria-live="polite">{steps[step - 1].clause}</p>
 
 			<input
 				data-reveal
-				class="slider"
+				data-delay="2" class="slider"
 				type="range"
 				min="1"
 				max="4"
@@ -54,7 +54,7 @@
 				aria-valuetext="Langkah {step}: {steps[step - 1].short}"
 			/>
 
-			<ol class="stops" data-reveal>
+			<ol class="stops" data-reveal data-delay="3">
 				{#each steps as item (item.id)}
 					<li data-on={step === item.id}>
 						<button type="button" class="stop-btn" onclick={() => (step = item.id)}>
@@ -65,7 +65,7 @@
 			</ol>
 		</div>
 
-		<div class="steps-stage" data-reveal data-ui>
+		<div class="steps-stage" data-reveal data-delay="1" data-ui>
 			<div class="sheet" data-ui hidden={step !== 1}>
 				<p class="sheet-head">
 					<span>Langkah 1</span>
@@ -139,7 +139,7 @@
 					<span>Keputusan</span>
 				</p>
 				<p class="sheet-title">Naik Rp 1.500, margin jadi {percent(45.9)}.</p>
-				<div class="figs">
+				<div class="figs figs--2">
 					<div>
 						<p class="fig-num">{rupiah(18500)}</p>
 						<p class="fig-cap">harga baru</p>
