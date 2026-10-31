@@ -23,7 +23,8 @@
 			</div>
 			<div>
 				<p>
-					<b>Foto & Ilustrasi.</b> “Warung Makan Bu Sirep” oleh Aqilla Rahmi (CC BY 4.0) dan “Nasi Goreng Telur Balado” oleh Indonesiagood (CC BY 4.0) via Wikimedia Commons. Ilustrasi bergaya unDraw berlisensi terbuka.
+					<b>Gambar.</b> Semua tangkapan layar memakai dashboard HargaPas. Ilustrasi bergaya
+					unDraw berlisensi terbuka.
 				</p>
 			</div>
 			<p class="footer-legal">

@@ -19,6 +19,7 @@
 				width="800"
 				height="600"
 				loading="lazy"
+				decoding="async"
 			/>
 			<figcaption>
 				Mulai langkah pertama memantau margin sehat untuk warung Anda.

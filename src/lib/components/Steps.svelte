@@ -42,22 +42,15 @@
 			<h2 id="steps-title" class="h2" data-reveal>Dari HPP ke harga, empat langkah.</h2>
 			<p class="clause" data-reveal data-delay="1" aria-live="polite">{steps[step - 1].clause}</p>
 
-			<input
-				data-reveal
-				data-delay="2" class="slider"
-				type="range"
-				min="1"
-				max="4"
-				step="1"
-				bind:value={step}
-				aria-label="Langkah cara kerja"
-				aria-valuetext="Langkah {step}: {steps[step - 1].short}"
-			/>
-
-			<ol class="stops" data-reveal data-delay="3">
+			<ol class="stops" data-reveal data-delay="2">
 				{#each steps as item (item.id)}
 					<li data-on={step === item.id}>
-						<button type="button" class="stop-btn" onclick={() => (step = item.id)}>
+						<button
+							type="button"
+							class="stop-btn"
+							aria-current={step === item.id ? 'step' : undefined}
+							onclick={() => (step = item.id)}
+						>
 							{item.id}. {item.short}
 						</button>
 					</li>

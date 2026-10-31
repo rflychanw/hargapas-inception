@@ -2,39 +2,86 @@
 	import { onMount } from 'svelte';
 	import { slide, fade } from 'svelte/transition';
 
+	type NavItem = { id: string; label: string; drawer: string };
+
+	// Bagian yang dipantau, urut sesuai urutan section di halaman.
+	const sections: NavItem[] = [
+		{ id: 'dashboard', label: 'Produk', drawer: 'Produk & Ringkasan' },
+		{ id: 'cara-kerja', label: 'Cara kerja', drawer: 'Cara Kerja 4 Langkah' },
+		{ id: 'hpp', label: 'Rincian HPP', drawer: '5 Komponen HPP' },
+		{ id: 'konsultan', label: 'Konsultan', drawer: 'Tanya Konsultan AI' },
+		{ id: 'tanya', label: 'Tanya', drawer: 'Pertanyaan Umum' }
+	];
+
+	// Desktop memuat empat tautan utama; "Konsultan" cukup di drawer mobile.
+	const desktopItems = sections.filter((item) => item.id !== 'konsultan');
+
 	let isScrolled = $state(false);
 	let isMobileMenuOpen = $state(false);
 	let isOverDark = $state(false);
+	let activeId = $state('');
+	let progress = $state(0);
 
 	onMount(() => {
-		const updateDarkStatus = () => {
-			const scrollY = window.scrollY;
-			isScrolled = scrollY > 15;
+		let frame = 0;
+		let queued = false;
 
-			const darkSections = document.querySelectorAll('.chapter--ink');
-			const navCheckY = scrollY + 40;
-			let overDark = false;
+		const read = () => {
+			queued = false;
 
-			for (const sec of darkSections) {
-				const el = sec as HTMLElement;
-				const top = el.offsetTop;
-				const height = el.offsetHeight;
-				if (navCheckY >= top && navCheckY < top + height) {
-					overDark = true;
-					break;
+			const y = window.scrollY;
+			const vh = window.innerHeight;
+			const docHeight = document.documentElement.scrollHeight;
+
+			isScrolled = y > 12;
+			progress = docHeight > vh ? Math.min(1, Math.max(0, y / (docHeight - vh))) : 0;
+
+			// Dua titik ukur: tepat di bawah navbar (untuk warna gelap) dan
+			// sekitar 40% tinggi layar (untuk menandai section yang sedang dibaca).
+			const navProbe = y + 72;
+			const readProbe = y + Math.min(vh * 0.4, 340);
+
+			let dark = false;
+			let current = '';
+
+			for (const item of sections) {
+				const el = document.getElementById(item.id);
+				if (!el) continue;
+
+				const rect = el.getBoundingClientRect();
+				const top = rect.top + y;
+				const bottom = top + rect.height;
+
+				if (navProbe >= top && navProbe < bottom && el.classList.contains('chapter--ink')) {
+					dark = true;
 				}
+
+				if (!current && readProbe >= top && readProbe < bottom) current = item.id;
 			}
 
-			isOverDark = overDark;
+			// Sudah di dasar halaman: tautan terakhir tetap menyala.
+			if (!current && y + vh >= docHeight - 4) {
+				current = sections[sections.length - 1].id;
+			}
+
+			isOverDark = dark;
+			activeId = current;
 		};
 
-		updateDarkStatus();
-		window.addEventListener('scroll', updateDarkStatus, { passive: true });
-		window.addEventListener('resize', updateDarkStatus, { passive: true });
+		const onScroll = () => {
+			if (queued) return;
+			queued = true;
+			frame = requestAnimationFrame(read);
+		};
+
+		read();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', onScroll, { passive: true });
 
 		return () => {
-			window.removeEventListener('scroll', updateDarkStatus);
-			window.removeEventListener('resize', updateDarkStatus);
+			if (frame) cancelAnimationFrame(frame);
+			window.removeEventListener('scroll', onScroll);
+			window.removeEventListener('resize', onScroll);
 			document.body.style.overflow = '';
 		};
 	});
@@ -79,10 +126,16 @@
 
 			<!-- Desktop Nav (>= 768px) -->
 			<nav class="nav-links desktop-nav" aria-label="Menu navigasi desktop">
-				<a href="#dashboard">Produk</a>
-				<a href="#cara-kerja">Cara kerja</a>
-				<a href="#hpp">Rincian HPP</a>
-				<a href="#tanya">Tanya</a>
+				{#each desktopItems as item (item.id)}
+					<a
+						href="#{item.id}"
+						class:is-active={activeId === item.id}
+						aria-current={activeId === item.id ? 'true' : undefined}
+						onclick={() => (activeId = item.id)}
+					>
+						{item.label}
+					</a>
+				{/each}
 			</nav>
 
 			<!-- Desktop CTA Button (>= 768px) -->
@@ -119,31 +172,29 @@
 		</div>
 	</div>
 
+	<!-- Garis kemajuan baca: seberapa jauh halaman sudah digulir -->
+	<div class="nav-progress" aria-hidden="true" style="transform: scaleX({progress})"></div>
+
 	<!-- Mobile Menu Drawer (< 768px) -->
 	{#if isMobileMenuOpen}
 		<div class="mobile-drawer" transition:slide={{ duration: 220 }}>
 			<div class="shell mobile-drawer__shell">
 				<nav class="mobile-drawer__links" aria-label="Menu navigasi mobile">
-					<a href="#dashboard" class="mobile-drawer__link" onclick={handleLinkClick}>
-						<span class="mobile-drawer__link-text">Produk & Ringkasan</span>
-						<span class="mobile-drawer__arrow">→</span>
-					</a>
-					<a href="#cara-kerja" class="mobile-drawer__link" onclick={handleLinkClick}>
-						<span class="mobile-drawer__link-text">Cara Kerja 4 Langkah</span>
-						<span class="mobile-drawer__arrow">→</span>
-					</a>
-					<a href="#hpp" class="mobile-drawer__link" onclick={handleLinkClick}>
-						<span class="mobile-drawer__link-text">5 Komponen HPP</span>
-						<span class="mobile-drawer__arrow">→</span>
-					</a>
-					<a href="#konsultan" class="mobile-drawer__link" onclick={handleLinkClick}>
-						<span class="mobile-drawer__link-text">Tanya Konsultan AI</span>
-						<span class="mobile-drawer__arrow">→</span>
-					</a>
-					<a href="#tanya" class="mobile-drawer__link" onclick={handleLinkClick}>
-						<span class="mobile-drawer__link-text">Pertanyaan Umum</span>
-						<span class="mobile-drawer__arrow">→</span>
-					</a>
+					{#each sections as item (item.id)}
+						<a
+							href="#{item.id}"
+							class="mobile-drawer__link"
+							class:is-active={activeId === item.id}
+							aria-current={activeId === item.id ? 'true' : undefined}
+							onclick={() => {
+								activeId = item.id;
+								handleLinkClick();
+							}}
+						>
+							<span class="mobile-drawer__link-text">{item.drawer}</span>
+							<span class="mobile-drawer__arrow">→</span>
+						</a>
+					{/each}
 				</nav>
 
 				<div class="mobile-drawer__foot">
@@ -447,5 +498,79 @@
 		backdrop-filter: blur(2px);
 		-webkit-backdrop-filter: blur(2px);
 		z-index: 99;
+	}
+
+	/* ---- Status baca ------------------------------------------------
+	   Garis tipis di tepi bawah navbar: menunjukkan seberapa jauh
+	   halaman sudah digulir. Dipakai juga sebagai umpan balik halus
+	   saat tautan navigasi diklik. */
+
+	.nav-progress {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -1px;
+		height: 2px;
+		transform: scaleX(0);
+		transform-origin: 0 50%;
+		background: linear-gradient(90deg, #ff8a3d, #ff6b1a);
+		pointer-events: none;
+		transition: transform 90ms linear;
+		will-change: transform;
+	}
+
+	/* ---- Tautan aktif ------------------------------------------------ */
+
+	.desktop-nav a::after {
+		content: '';
+		position: absolute;
+		left: 8px;
+		right: 8px;
+		bottom: 9px;
+		height: 2px;
+		border-radius: 2px;
+		background: #ff6b1a;
+		opacity: 0;
+		transform: scaleX(0);
+		transform-origin: 0 50%;
+		transition:
+			transform 260ms cubic-bezier(0.23, 1, 0.32, 1),
+			opacity 200ms ease;
+	}
+
+	.desktop-nav a:hover::after {
+		opacity: 0.4;
+		transform: scaleX(1);
+	}
+
+	.desktop-nav a.is-active {
+		color: #ff6b1a;
+	}
+
+	.desktop-nav a.is-active::after {
+		opacity: 1;
+		transform: scaleX(1);
+	}
+
+	.sticky-nav.is-dark .desktop-nav a.is-active {
+		color: #ff8a3d;
+	}
+
+	.sticky-nav.is-dark .desktop-nav a.is-active::after {
+		background: #ff8a3d;
+	}
+
+	.mobile-drawer__link.is-active {
+		color: #ff6b1a;
+		background: rgba(255, 107, 26, 0.08);
+	}
+
+	.mobile-drawer__link.is-active .mobile-drawer__arrow {
+		color: #ff6b1a;
+	}
+
+	.sticky-nav.is-dark .mobile-drawer__link.is-active {
+		color: #ff8a3d;
+		background: rgba(255, 107, 26, 0.14);
 	}
 </style>

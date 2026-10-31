@@ -158,9 +158,11 @@
 			<img
 				src="/img/undraw_market.svg"
 				alt="Ilustrasi belanja bahan baku segar di pasar"
+				data-parallax="0.06"
 				width="800"
 				height="600"
 				loading="lazy"
+				decoding="async"
 			/>
 			<figcaption>
 				Harga bahan berubah tiap pekan. Angka di dashboard ikut diubah, margin langsung

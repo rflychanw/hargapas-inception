@@ -34,9 +34,11 @@
 				<img
 					src="/img/undraw_ingredients.svg"
 					alt="Ilustrasi penimbangan bahan baku dan kalkulasi 5 komponen HPP"
+					data-parallax="0.06"
 					width="800"
 					height="600"
 					loading="lazy"
+				decoding="async"
 				/>
 			</figure>
 		</div>

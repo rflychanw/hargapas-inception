@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%" role="img" aria-label="Ilustrasi piring nasi goreng telur balado dengan kartu harga jual Rp 18.500 dan HPP Rp 10.000">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#111111" flood-opacity="0.12" />
+    </filter>
+    <filter id="plateShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#111111" flood-opacity="0.10" />
+    </filter>
+    <linearGradient id="riceFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbe8c9" />
+      <stop offset="100%" stop-color="#eed6ac" />
+    </linearGradient>
+    <linearGradient id="yolkFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fcc245" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Pendar hangat di belakang -->
+  <circle cx="372" cy="312" r="232" fill="#ff6b1a" opacity="0.10" />
+  <circle cx="372" cy="312" r="168" fill="#ff6b1a" opacity="0.06" />
+
+  <!-- Piring -->
+  <g filter="url(#plateShadow)">
+    <circle cx="330" cy="340" r="152" fill="#ffffff" stroke="#e6e9ee" stroke-width="2" />
+    <circle cx="330" cy="340" r="122" fill="#fbfcfd" stroke="#eef1f5" stroke-width="2" />
+  </g>
+
+  <!-- Nasi goreng -->
+  <path
+    d="M236 356 C216 320 226 268 268 250 C292 214 348 206 374 232 C416 226 450 258 446 296 C456 324 438 352 412 358 Z"
+    fill="url(#riceFill)"
+    stroke="#e3c99f"
+    stroke-width="2"
+  />
+  <g fill="#fdf3e0" opacity="0.9">
+    <ellipse cx="272" cy="286" rx="9" ry="4" transform="rotate(-22 272 286)" />
+    <ellipse cx="300" cy="264" rx="9" ry="4" transform="rotate(-8 300 264)" />
+    <ellipse cx="336" cy="252" rx="9" ry="4" transform="rotate(6 336 252)" />
+    <ellipse cx="374" cy="262" rx="9" ry="4" transform="rotate(18 374 262)" />
+    <ellipse cx="404" cy="292" rx="9" ry="4" transform="rotate(24 404 292)" />
+    <ellipse cx="352" cy="296" rx="9" ry="4" transform="rotate(10 352 296)" />
+    <ellipse cx="314" cy="308" rx="9" ry="4" transform="rotate(-6 314 308)" />
+    <ellipse cx="262" cy="322" rx="9" ry="4" transform="rotate(-16 262 322)" />
+    <ellipse cx="392" cy="322" rx="9" ry="4" transform="rotate(20 392 322)" />
+  </g>
+  <g fill="#22c55e" opacity="0.55">
+    <rect x="300" y="286" width="7" height="4" rx="2" transform="rotate(-18 303 288)" />
+    <rect x="340" y="310" width="7" height="4" rx="2" transform="rotate(12 343 312)" />
+    <rect x="366" y="286" width="7" height="4" rx="2" transform="rotate(-6 369 288)" />
+    <rect x="276" y="316" width="7" height="4" rx="2" transform="rotate(22 279 318)" />
+    <rect x="404" y="332" width="7" height="4" rx="2" transform="rotate(-12 407 334)" />
+  </g>
+  <g fill="#e0c193" opacity="0.75">
+    <ellipse cx="286" cy="300" rx="8" ry="3.4" transform="rotate(-14 286 300)" />
+    <ellipse cx="322" cy="272" rx="8" ry="3.4" transform="rotate(4 322 272)" />
+    <ellipse cx="360" cy="270" rx="8" ry="3.4" transform="rotate(12 360 270)" />
+    <ellipse cx="396" cy="306" rx="8" ry="3.4" transform="rotate(22 396 306)" />
+    <ellipse cx="330" cy="330" rx="8" ry="3.4" transform="rotate(-4 330 330)" />
+    <ellipse cx="288" cy="340" rx="8" ry="3.4" transform="rotate(-18 288 340)" />
+  </g>
+
+  <!-- Sambal -->
+  <path
+    d="M386 340 C400 320 430 320 440 338 C450 356 432 372 410 370 C392 368 378 358 386 340 Z"
+    fill="#ef4444"
+    opacity="0.9"
+  />
+  <path d="M404 340 C412 332 424 334 428 342" stroke="#dc2626" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7" />
+
+  <!-- Telur mata sapi -->
+  <ellipse cx="298" cy="306" rx="56" ry="45" fill="#ffffff" stroke="#f0f2f6" stroke-width="2" />
+  <circle cx="298" cy="304" r="23" fill="url(#yolkFill)" />
+  <circle cx="291" cy="297" r="6" fill="#fde3a7" opacity="0.85" />
+
+  <!-- Garnish -->
+  <g fill="#16a34a" opacity="0.85">
+    <ellipse cx="246" cy="352" rx="16" ry="7" transform="rotate(-18 246 352)" />
+    <ellipse cx="260" cy="362" rx="13" ry="6" transform="rotate(12 260 362)" />
+    <ellipse cx="430" cy="292" rx="14" ry="6" transform="rotate(24 430 292)" />
+  </g>
+
+  <!-- Kartu harga -->
+  <g filter="url(#cardShadow)">
+    <rect x="474" y="96" width="264" height="212" rx="20" fill="#ffffff" stroke="#eceff3" stroke-width="2" />
+  </g>
+
+  <text x="500" y="134" font-family="'Schibsted Grotesk Variable', Inter, system-ui, sans-serif" font-size="12" font-weight="700" letter-spacing="1.8" fill="#94a3b8">HARGA JUAL</text>
+  <text x="500" y="182" font-family="'Schibsted Grotesk Variable', Inter, system-ui, sans-serif" font-size="38" font-weight="800" letter-spacing="-1" fill="#111111">Rp 18.500</text>
+
+  <line x1="500" y1="204" x2="712" y2="204" stroke="#eef1f5" stroke-width="2" />
+
+  <text x="500" y="236" font-family="'Schibsted Grotesk Variable', Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#64748b">HPP Rp 10.000</text>
+
+  <rect x="630" y="218" width="82" height="28" rx="14" fill="#ff6b1a" />
+  <text x="671" y="237" text-anchor="middle" font-family="'Schibsted Grotesk Variable', Inter, system-ui, sans-serif" font-size="13" font-weight="800" fill="#ffffff">45,9%</text>
+
+  <text x="500" y="270" font-family="'Schibsted Grotesk Variable', Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">TARGET MARGIN 45%</text>
+
+  <rect x="500" y="280" width="212" height="8" rx="4" fill="#f1f5f9" />
+  <rect x="500" y="280" width="98" height="8" rx="4" fill="#ff6b1a" />
+
+  <!-- Label HPP -->
+  <g filter="url(#cardShadow)">
+    <rect x="118" y="424" width="200" height="56" rx="28" fill="#ffffff" stroke="#eceff3" stroke-width="2" />
+  </g>
+  <circle cx="150" cy="452" r="12" fill="#ff6b1a" />
+  <text x="174" y="458" font-family="'Schibsted Grotesk Variable', Inter, system-ui, sans-serif" font-size="15" font-weight="800" fill="#111111">HPP Rp 10.000</text>
+
+  <!-- Aksen kecil -->
+  <circle cx="596" cy="418" r="7" fill="#ff6b1a" opacity="0.5" />
+  <circle cx="628" cy="452" r="4" fill="#ff6b1a" opacity="0.35" />
+  <circle cx="180" cy="180" r="5" fill="#ff6b1a" opacity="0.4" />
+</svg>

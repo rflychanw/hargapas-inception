@@ -1,11 +1,5 @@
 <script>
-	import { menu } from '#lib/data.js';
-	import { percent, rupiah } from '#lib/format.js';
-
-	const pick = menu.find((item) => item.name === 'Nasi goreng telur balado') ?? menu[0];
-	const rows = menu.filter((item) =>
-		['Sate ayam 10 tusuk', 'Nasi goreng telur balado', 'Kopi susu'].includes(item.name)
-	);
+	import { rupiah } from '#lib/format.js';
 </script>
 
 <section class="chapter chapter--paper hero" id="atas">
@@ -33,23 +27,33 @@
 			</div>
 
 			<div class="hero-stage" data-reveal data-delay="2" data-ui>
-				<div class="ui">
-					<p class="ui-head">
-						<span>Warung Bu Sirep</span>
-						<span>Margin</span>
-					</p>
-					<ul class="ui-list">
-						{#each rows as row (row.name)}
-							<li class="ui-row" class:ui-row--on={row.name === pick.name}>
-								<span class="ui-row__name">{row.name}</span>
-								<span class="ui-row__val tabular">{percent(row.margin)}</span>
-							</li>
-						{/each}
-					</ul>
-					<p class="ui-foot">
-						<span>Harga jual {pick.name.toLowerCase()}</span>
-						<b class="tabular">{rupiah(pick.price)}</b>
-					</p>
+				<div class="devices">
+					<div class="device device--laptop">
+						<div class="device__screen">
+							<img
+								src="/img/dashboard-laptop.png"
+								alt="Dashboard HargaPas di laptop: ringkasan Warung Bu Sirep, rata-rata margin, dan tabel HPP tiap menu"
+								width="1440"
+								height="900"
+								fetchpriority="high"
+								decoding="async"
+							/>
+						</div>
+						<div class="device__base" aria-hidden="true"></div>
+					</div>
+
+					<div class="device device--phone" aria-hidden="true">
+						<div class="device__screen">
+							<img
+								src="/img/dashboard-phone.png"
+								alt=""
+								width="390"
+								height="844"
+								loading="lazy"
+								decoding="async"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

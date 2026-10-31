@@ -6,13 +6,15 @@
 				Bawa satu menu dan satu masalah. Jawabannya memakai HPP, harga, dan jumlah piring yang
 				Anda masukkan, bukan rata-rata pasar.
 			</p>
-			<figure class="consult-photo" data-reveal data-delay="2">
+			<figure class="consult-photo consult-photo--art" data-reveal data-delay="2">
 				<img
-					src="/img/nasi-goreng.jpg"
-					alt="Nasi goreng telur balado dengan telur mata sapi dan sambal"
-					width="1920"
-					height="1440"
+					src="/img/undraw_nasi_goreng.svg"
+					alt="Ilustrasi piring nasi goreng telur balado dengan kartu harga jual Rp 18.500, HPP Rp 10.000, dan margin 45,9%"
+					data-parallax="0.08"
+					width="800"
+					height="600"
 					loading="lazy"
+				decoding="async"
 				/>
 				<figcaption>Contoh menu: nasi goreng telur balado, HPP Rp 10.000, harga Rp 18.500.</figcaption>
 			</figure>
