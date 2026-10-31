@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Logo from '#lib/components/Logo.svelte';
 	interface Props {
 		activeTab?: string;
 		storeName?: string;
@@ -24,8 +25,7 @@
 <!-- Mobile Top Header (< 1024px) -->
 <header class="hp-mobile-header" aria-label="Header Mobile HargaPas">
 	<a href="/" class="hp-brand-link" title="HargaPas">
-		<span class="hp-logo-badge">HP</span>
-		<span class="hp-brand-title">HargaPas</span>
+		<Logo size={28} variant="horizontal" theme="light" />
 	</a>
 
 	<div style="display: flex; align-items: center; gap: 8px;">
@@ -37,7 +37,7 @@
 			title="Logout"
 		>
 			<!-- Logout Icon -->
-			<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#DB0050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#e64a0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
 				<polyline points="16 17 21 12 16 7" />
 				<line x1="21" x2="9" y1="12" y2="12" />
@@ -51,11 +51,7 @@
 	<div class="hp-sidebar__top">
 		<div class="hp-sidebar__brand-row">
 			<a href="/" class="hp-sidebar__brand" title="Ke Beranda HargaPas">
-				<span class="hp-logo-badge">HP</span>
-				<div class="hp-sidebar__brand-meta">
-					<span class="hp-sidebar__brand-name">HargaPas</span>
-					<span class="hp-sidebar__brand-sub">Solusi Harga Terbaik</span>
-				</div>
+				<Logo size={34} variant="horizontal" theme="light" showTagline={true} tagline="Solusi Harga Terbaik" />
 			</a>
 		</div>
 

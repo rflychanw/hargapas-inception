@@ -1,34 +1,37 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import Logo from '#lib/components/Logo.svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { registerUser, getCurrentUser } from '#lib/auth.js';
+	import {
+		registerUser,
+		getRegisteredUsers,
+		getCurrentUser
+	} from '#lib/auth.js';
+
+	// Step 1: Form Registrasi, Step 2: 6-Kotak Verifikasi OTP
+	let step = $state<'form' | 'verify'>('form');
 
 	let name = $state('');
 	let storeName = $state('');
 	let email = $state('');
 	let password = $state('');
-	let showPassword = $state(false);
+	let confirmPassword = $state('');
 	let targetMargin = $state(30);
+
+	let showPassword = $state(false);
+	let showConfirmPassword = $state(false);
+
+	// 6 Kotak Input OTP
+	let otpBoxes = $state(['', '', '', '', '', '']);
+	let otpInputRefs: HTMLInputElement[] = [];
+
 	let errorMessage = $state('');
+	let successNotice = $state('');
 	let isLoading = $state(false);
 
-	const marginPresets = [
-		{ value: 20, label: '20%', desc: 'Grosir / Volume Tinggi' },
-		{ value: 30, label: '30%', badge: 'Rekomendasi', desc: 'Warung & Rumah Makan' },
-		{ value: 40, label: '40%', desc: 'Cafe & Resto' },
-		{ value: 50, label: '50%', desc: 'Minuman & Kopi' },
-		{ value: 60, label: '60%', desc: 'Camilan & Snack' }
-	];
-
-	let marginTip = $derived(
-		targetMargin <= 25
-			? 'Cocok untuk model grosir atau menu pokok berputar sangat cepat (volume tinggi).'
-			: targetMargin <= 35
-				? 'Standar ideal kuliner UMKM: menyeimbangkan daya beli pelanggan dengan laba bersih operasional.'
-				: targetMargin <= 45
-					? 'Batas aman untuk menu dengan biaya sewa tempat, listrik, dan kemasan khusus.'
-					: 'Margin tinggi optimal untuk kategori minuman, racikan es, atau camilan berprofit tebal.'
-	);
+	// Resend countdown timer
+	let resendCooldown = $state(0);
+	let countdownInterval: any = null;
 
 	onMount(() => {
 		const existingUser = getCurrentUser();
@@ -37,74 +40,248 @@
 		}
 	});
 
-	function handleRegister(e?: SubmitEvent) {
+	onDestroy(() => {
+		if (countdownInterval) clearInterval(countdownInterval);
+	});
+
+	function startCooldown(seconds: number = 30) {
+		resendCooldown = seconds;
+		if (countdownInterval) clearInterval(countdownInterval);
+		countdownInterval = setInterval(() => {
+			if (resendCooldown > 0) {
+				resendCooldown -= 1;
+			} else {
+				clearInterval(countdownInterval);
+			}
+		}, 1000);
+	}
+
+	async function requestOtpEmail(targetEmail: string, ownerName: string, store: string) {
+		try {
+			const res = await fetch('/api/send-otp', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					email: targetEmail,
+					name: ownerName,
+					storeName: store,
+					purpose: 'register'
+				})
+			});
+			const data = await res.json();
+			if (data.success) {
+				return { success: true, message: data.message };
+			}
+			return { success: false, message: data.message || 'Gagal mengirim kode OTP ke Gmail.' };
+		} catch (err: any) {
+			return { success: false, message: 'Gagal menghubungi server untuk mengirim email OTP.' };
+		}
+	}
+
+	async function handleStep1Submit(e?: SubmitEvent) {
 		if (e) e.preventDefault();
 		errorMessage = '';
+		successNotice = '';
 
-		if (!name.trim()) {
+		const cleanName = name.trim();
+		const cleanStore = storeName.trim();
+		const cleanEmail = email.trim().toLowerCase();
+		const cleanPass = password.trim();
+		const cleanConfirm = confirmPassword.trim();
+
+		if (!cleanName) {
 			errorMessage = 'Nama lengkap wajib diisi.';
 			return;
 		}
-		if (!email.trim()) {
-			errorMessage = 'Email atau username wajib diisi.';
+		if (!cleanStore) {
+			errorMessage = 'Nama warung atau toko wajib diisi.';
 			return;
 		}
-		if (!password.trim() || password.length < 4) {
-			errorMessage = 'Kata sandi minimal 4 karakter.';
+		if (!cleanEmail || !cleanEmail.includes('@')) {
+			errorMessage = 'Alamat email tidak valid.';
+			return;
+		}
+		if (cleanPass.length < 6) {
+			errorMessage = 'Kata sandi minimal 6 karakter demi keamanan akun.';
+			return;
+		}
+		if (cleanPass !== cleanConfirm) {
+			errorMessage = 'Verifikasi kata sandi tidak cocok. Harap periksa kembali.';
+			return;
+		}
+
+		// Cek apakah email sudah terdaftar
+		const existingList = getRegisteredUsers();
+		const exists = existingList.some(
+			(u) =>
+				u.username.toLowerCase() === cleanEmail ||
+				(u.profile && u.profile.email.toLowerCase() === cleanEmail)
+		);
+		if (exists) {
+			errorMessage = 'Email ini sudah terdaftar. Silakan langsung masuk di halaman login.';
 			return;
 		}
 
 		isLoading = true;
+		const otpResult = await requestOtpEmail(cleanEmail, cleanName, cleanStore);
+		isLoading = false;
 
-		setTimeout(() => {
-			const res = registerUser({
+		if (otpResult.success) {
+			step = 'verify';
+			otpBoxes = ['', '', '', '', '', ''];
+			startCooldown(30);
+			successNotice = otpResult.message || `Kode OTP 6-digit telah dikirim langsung ke Gmail Anda (${cleanEmail}). Cek kotak masuk atau spam!`;
+
+			// Fokus otomatis ke kotak OTP pertama
+			setTimeout(() => {
+				if (otpInputRefs[0]) otpInputRefs[0].focus();
+			}, 100);
+		} else {
+			errorMessage = otpResult.message;
+		}
+	}
+
+	async function handleResendOtp() {
+		if (resendCooldown > 0 || isLoading) return;
+		errorMessage = '';
+		successNotice = '';
+
+		const cleanEmail = email.trim().toLowerCase();
+		const cleanName = name.trim();
+		const cleanStore = storeName.trim();
+
+		isLoading = true;
+		const otpResult = await requestOtpEmail(cleanEmail, cleanName, cleanStore);
+		isLoading = false;
+
+		if (otpResult.success) {
+			otpBoxes = ['', '', '', '', '', ''];
+			startCooldown(30);
+			successNotice = otpResult.message || `Kode OTP baru telah berhasil dikirim ke ${cleanEmail}.`;
+			if (otpInputRefs[0]) otpInputRefs[0].focus();
+		} else {
+			errorMessage = otpResult.message;
+		}
+	}
+
+	// Logika Interaksi 6 Kotak OTP
+	function handleOtpInput(index: number, e: Event) {
+		const target = e.target as HTMLInputElement;
+		const val = target.value.replace(/\D/g, ''); // Hanya terima angka
+		otpBoxes[index] = val ? val[val.length - 1] : '';
+
+		if (val && index < 5 && otpInputRefs[index + 1]) {
+			otpInputRefs[index + 1].focus();
+		}
+	}
+
+	function handleOtpKeydown(index: number, e: KeyboardEvent) {
+		if (e.key === 'Backspace' && !otpBoxes[index] && index > 0 && otpInputRefs[index - 1]) {
+			otpInputRefs[index - 1].focus();
+		} else if (e.key === 'ArrowLeft' && index > 0 && otpInputRefs[index - 1]) {
+			otpInputRefs[index - 1].focus();
+		} else if (e.key === 'ArrowRight' && index < 5 && otpInputRefs[index + 1]) {
+			otpInputRefs[index + 1].focus();
+		}
+	}
+
+	function handleOtpPaste(e: ClipboardEvent) {
+		e.preventDefault();
+		const pasted = e.clipboardData?.getData('text') || '';
+		const digits = pasted.replace(/\D/g, '').slice(0, 6);
+		if (!digits) return;
+
+		for (let i = 0; i < 6; i++) {
+			otpBoxes[i] = digits[i] || '';
+		}
+
+		const nextFocusIndex = Math.min(digits.length, 5);
+		if (otpInputRefs[nextFocusIndex]) {
+			otpInputRefs[nextFocusIndex].focus();
+		}
+	}
+
+	async function handleVerifyAndRegister(e?: SubmitEvent) {
+		if (e) e.preventDefault();
+		errorMessage = '';
+
+		const fullOtp = otpBoxes.join('').trim();
+		const cleanEmail = email.trim().toLowerCase();
+
+		if (fullOtp.length < 6) {
+			errorMessage = 'Harap lengkapi seluruh 6 digit kode OTP.';
+			return;
+		}
+
+		isLoading = true;
+		try {
+			const verifyRes = await fetch('/api/verify-otp', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					email: cleanEmail,
+					code: fullOtp,
+					purpose: 'register'
+				})
+			});
+			const verifyData = await verifyRes.json();
+			if (!verifyData.valid) {
+				isLoading = false;
+				errorMessage = verifyData.message || 'Kode OTP tidak valid atau kedaluwarsa.';
+				return;
+			}
+
+			// Pendaftaran berhasil diverifikasi secara nyata
+			const result = registerUser({
 				name: name.trim(),
-				email: email.trim(),
+				email: cleanEmail,
 				password: password.trim(),
-				storeName: storeName.trim() || 'Warung Kuliner',
+				storeName: storeName.trim(),
 				targetMargin: Number(targetMargin) || 30
 			});
 
-			if (res.success) {
+			if (result.success) {
 				goto('/dashboard');
 			} else {
-				errorMessage = res.error || 'Gagal mendaftar. Silakan coba lagi.';
+				errorMessage = result.error || 'Pendaftaran gagal. Silakan coba kembali.';
 				isLoading = false;
 			}
-		}, 300);
+		} catch (err: any) {
+			isLoading = false;
+			errorMessage = 'Gagal memverifikasi kode OTP ke server.';
+		}
 	}
 </script>
 
 <svelte:head>
-	<title>Daftar Akun & Pilih Target Margin — HargaPas</title>
+	<title>Daftar Akun Warung — HargaPas</title>
 	<meta
 		name="description"
-		content="Daftarkan warung atau usaha kulinermu, pilih target keuntungan ideal, dan mulai hitung HPP akurat."
+		content="Daftar akun HargaPas: Decision engine kalkulasi HPP presisi dan simulator harga warung UMKM."
 	/>
 </svelte:head>
 
-<div class="reg-wrapper">
-	<div class="reg-shell">
-		<!-- Brand Header -->
-		<header class="reg-head">
-			<a href="/" class="reg-brand" title="Kembali ke beranda">
-				<span class="reg-brand__mark"></span>
-				<span class="reg-brand__text">HargaPas</span>
+<div class="auth-page">
+	<div class="auth-card-shell">
+		<!-- Header Bersih (Tanpa Tulisan Data Warung / Verifikasi Gmail) -->
+		<header class="auth-card-head">
+			<a href="/" class="brand-link" title="Kembali ke Beranda HargaPas">
+				<Logo size={36} variant="horizontal" theme="light" />
 			</a>
-			<span class="reg-pill">Registrasi Akun Baru</span>
+			<h1 class="auth-title">
+				{step === 'form' ? 'Daftar Akun Warung Baru' : 'Verifikasi Kode OTP'}
+			</h1>
+			<p class="auth-subtitle">
+				{step === 'form'
+					? 'Mulai kalkulasi HPP presisi, amankan margin untung, dan hindari jual rugi.'
+					: 'Masukkan 6 digit kode OTP yang kami kirimkan ke email Anda.'}
+			</p>
 		</header>
 
-		<!-- Card Register -->
-		<main class="reg-card">
-			<div class="reg-card__intro">
-				<h1 class="reg-card__title">Mulai Kelola HPP & Margin Warung</h1>
-				<p class="reg-card__sub">
-					Daftarkan toko dan tentukan target keuntungan untuk memantau kesehatan laba menu Anda.
-				</p>
-			</div>
-
+		<!-- Card Utama -->
+		<main class="auth-card">
 			{#if errorMessage}
-				<div class="reg-alert" role="alert">
+				<div class="alert alert--error" role="alert">
 					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<circle cx="12" cy="12" r="10"></circle>
 						<line x1="12" y1="8" x2="12" y2="12"></line>
@@ -114,563 +291,713 @@
 				</div>
 			{/if}
 
-			<form class="reg-form" onsubmit={handleRegister}>
-				<!-- Profil Pemilik & Toko -->
-				<div class="reg-grid-2">
-					<div class="reg-field">
-						<label for="reg-name" class="reg-label">Nama Lengkap Pemilik</label>
-						<input
-							id="reg-name"
-							type="text"
-							class="reg-input"
-							placeholder="Contoh: Budi Santoso"
-							bind:value={name}
-							required
-						/>
-					</div>
-
-					<div class="reg-field">
-						<label for="reg-store" class="reg-label">Nama Warung / Usaha</label>
-						<input
-							id="reg-store"
-							type="text"
-							class="reg-input"
-							placeholder="Contoh: Warung Berkah Ceria"
-							bind:value={storeName}
-							required
-						/>
-					</div>
+			{#if successNotice}
+				<div class="alert alert--info" role="alert">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<circle cx="12" cy="12" r="10"></circle>
+						<line x1="12" y1="16" x2="12" y2="12"></line>
+						<line x1="12" y1="8" x2="12.01" y2="8"></line>
+					</svg>
+					<span>{successNotice}</span>
 				</div>
+			{/if}
 
-				<!-- Kredensial Login -->
-				<div class="reg-grid-2">
-					<div class="reg-field">
-						<label for="reg-email" class="reg-label">Email atau Username</label>
+			{#if step === 'form'}
+				<!-- TAHAP 1: FORMULIR DATA PENGGUNA & TOKO -->
+				<form class="auth-form" onsubmit={handleStep1Submit}>
+					<!-- Nama Lengkap & Nama Warung/Toko -->
+					<div class="form-row-2">
+						<div class="form-group">
+							<label for="reg-name" class="form-label">Nama Lengkap</label>
+							<input
+								id="reg-name"
+								type="text"
+								class="form-input"
+								placeholder="Misal: Budi Santoso"
+								bind:value={name}
+								required
+								autocomplete="name"
+							/>
+						</div>
+
+						<div class="form-group">
+							<label for="reg-store" class="form-label">Nama Warung / Toko</label>
+							<input
+								id="reg-store"
+								type="text"
+								class="form-input"
+								placeholder="Misal: Warung Berkah"
+								bind:value={storeName}
+								required
+							/>
+						</div>
+					</div>
+
+					<!-- Alamat Email (Gmail) -->
+					<div class="form-group">
+						<label for="reg-email" class="form-label">Alamat Email (Gmail)</label>
 						<input
 							id="reg-email"
-							type="text"
-							class="reg-input"
-							placeholder="budi@hargapas.id"
+							type="email"
+							class="form-input"
+							placeholder="namaanda@gmail.com"
 							bind:value={email}
 							required
-							autocomplete="username"
+							autocomplete="email"
 						/>
 					</div>
 
-					<div class="reg-field">
-						<div class="reg-field__between">
-							<label for="reg-pass" class="reg-label">Kata Sandi</label>
-							<button
-								type="button"
-								class="reg-toggle-pass"
-								onclick={() => (showPassword = !showPassword)}
-							>
-								{showPassword ? 'Sembunyikan' : 'Lihat'}
-							</button>
+					<!-- Kata Sandi & Verifikasi Kata Sandi -->
+					<div class="form-row-2">
+						<div class="form-group">
+							<label for="reg-password" class="form-label">Kata Sandi</label>
+							<div class="password-input-wrapper">
+								<input
+									id="reg-password"
+									type={showPassword ? 'text' : 'password'}
+									class="form-input form-input--password"
+									placeholder="Minimal 6 karakter"
+									bind:value={password}
+									required
+									autocomplete="new-password"
+								/>
+								<button
+									type="button"
+									class="eye-icon-btn"
+									onclick={() => (showPassword = !showPassword)}
+									aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Lihat kata sandi'}
+									title={showPassword ? 'Sembunyikan kata sandi' : 'Lihat kata sandi'}
+								>
+									{#if showPassword}
+										<!-- Eye off -->
+										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+											<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+											<path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+											<line x1="2" y1="2" x2="22" y2="22" />
+										</svg>
+									{:else}
+										<!-- Eye open -->
+										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+											<circle cx="12" cy="12" r="3" />
+										</svg>
+									{/if}
+								</button>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="reg-confirm-password" class="form-label">Verifikasi Kata Sandi</label>
+							<div class="password-input-wrapper">
+								<input
+									id="reg-confirm-password"
+									type={showConfirmPassword ? 'text' : 'password'}
+									class="form-input form-input--password"
+									placeholder="Ulangi kata sandi"
+									bind:value={confirmPassword}
+									required
+									autocomplete="new-password"
+								/>
+								<button
+									type="button"
+									class="eye-icon-btn"
+									onclick={() => (showConfirmPassword = !showConfirmPassword)}
+									aria-label={showConfirmPassword ? 'Sembunyikan verifikasi sandi' : 'Lihat verifikasi sandi'}
+									title={showConfirmPassword ? 'Sembunyikan verifikasi sandi' : 'Lihat verifikasi sandi'}
+								>
+									{#if showConfirmPassword}
+										<!-- Eye off -->
+										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+											<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+											<path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+											<line x1="2" y1="2" x2="22" y2="22" />
+										</svg>
+									{:else}
+										<!-- Eye open -->
+										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+											<circle cx="12" cy="12" r="3" />
+										</svg>
+									{/if}
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Target Margin Keuntungan Awal -->
+					<div class="form-group">
+						<div class="label-row">
+							<label for="reg-margin" class="form-label">Target Margin Keuntungan</label>
+							<span class="margin-badge">{targetMargin}% Target Laba</span>
 						</div>
 						<input
-							id="reg-pass"
-							type={showPassword ? 'text' : 'password'}
-							class="reg-input"
-							placeholder="Minimal 4 karakter"
-							bind:value={password}
-							required
-							autocomplete="new-password"
-						/>
-					</div>
-				</div>
-
-				<!-- Pemilihan Target Keuntungan (Target Margin %) -->
-				<div class="reg-target-section">
-					<div class="reg-target-head">
-						<div>
-							<label for="reg-margin-range" class="reg-label reg-label--lg">
-								Target Keuntungan (Margin Bersih Minimal)
-							</label>
-							<p class="reg-target-sub">
-								Digunakan sistem untuk menandai apakah harga jual menu Anda masuk kategori <strong>Sesuai Target</strong> atau <strong>Perlu Evaluasi</strong>.
-							</p>
-						</div>
-						<div class="reg-target-badge">
-							<span class="reg-target-badge__num">{targetMargin}%</span>
-						</div>
-					</div>
-
-					<!-- Preset Pills -->
-					<div class="reg-preset-list" role="radiogroup" aria-label="Pilihan cepat target keuntungan">
-						{#each marginPresets as preset (preset.value)}
-							<button
-								type="button"
-								class="reg-preset-btn"
-								class:reg-preset-btn--active={targetMargin === preset.value}
-								onclick={() => (targetMargin = preset.value)}
-							>
-								{#if preset.badge}
-									<span class="reg-preset-badge">{preset.badge}</span>
-								{/if}
-								<span class="reg-preset-pct">{preset.label}</span>
-								<span class="reg-preset-desc">{preset.desc}</span>
-							</button>
-						{/each}
-					</div>
-
-					<!-- Interactive Range Slider -->
-					<div class="reg-slider-wrap">
-						<input
-							id="reg-margin-range"
+							id="reg-margin"
 							type="range"
-							min="10"
-							max="80"
+							min="15"
+							max="65"
 							step="5"
-							class="reg-range-slider"
+							class="margin-slider"
 							bind:value={targetMargin}
 						/>
-						<div class="reg-slider-ticks">
-							<span>10% (Konservatif)</span>
-							<span>30% (Ideal)</span>
-							<span>50%</span>
-							<span>80% (Premium)</span>
+						<span class="field-hint">
+							{targetMargin <= 25
+								? 'Standar perputaran cepat & volume tinggi.'
+								: targetMargin <= 35
+									? 'Standar ideal UMKM kuliner: seimbang pembeli & laba warung.'
+									: 'Optimal untuk kategori minuman, kopi, atau camilan berprofit tebal.'}
+						</span>
+					</div>
+
+					<!-- Tombol Lanjutkan ke Verifikasi -->
+					<button type="submit" class="submit-btn" disabled={isLoading}>
+						{#if isLoading}
+							<span class="btn-spinner"></span>
+							<span>Mengirim Kode OTP ke Gmail...</span>
+						{:else}
+							<span>Lanjutkan ke Verifikasi Email</span>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+								<polyline points="12 5 19 12 12 19"></polyline>
+							</svg>
+						{/if}
+					</button>
+				</form>
+			{:else}
+				<!-- TAHAP 2: 6 KOTAK VERIFIKASI OTP & RESEND BUTTON -->
+				<div class="verify-step-shell">
+					<div class="verify-icon-wrap">
+						<div class="verify-mail-badge">
+							<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<rect width="20" height="16" x="2" y="4" rx="2" />
+								<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+							</svg>
 						</div>
 					</div>
 
-					<!-- Real-time Tip Box -->
-					<div class="reg-tip-box">
-						<span class="reg-tip-box__icon">💡</span>
-						<p class="reg-tip-box__text">{marginTip}</p>
-					</div>
+					<p class="verify-instruction">
+						Kode OTP 6 digit telah dikirimkan ke alamat email:
+						<br />
+						<strong class="verify-target-email">{email}</strong>
+					</p>
+
+					<form class="auth-form" onsubmit={handleVerifyAndRegister}>
+						<div class="form-group" style="align-items: center;">
+							<label for="otp-box-0" class="form-label" style="text-align: center; margin-bottom: 6px;">
+								Masukkan 6 Digit Kode OTP
+							</label>
+
+							<!-- 6 Kotak Input OTP -->
+							<div class="otp-grid" onpaste={handleOtpPaste} role="group" aria-label="6 digit kode OTP">
+								{#each otpBoxes as _, idx}
+									<input
+										id="otp-box-{idx}"
+										type="text"
+										inputmode="numeric"
+										pattern="[0-9]*"
+										maxlength="1"
+										class="otp-box"
+										bind:value={otpBoxes[idx]}
+										bind:this={otpInputRefs[idx]}
+										oninput={(e) => handleOtpInput(idx, e)}
+										onkeydown={(e) => handleOtpKeydown(idx, e)}
+										aria-label="Digit ke-{idx + 1}"
+									/>
+								{/each}
+							</div>
+						</div>
+
+						<button
+							type="submit"
+							class="submit-btn"
+							disabled={isLoading || otpBoxes.join('').length < 6}
+						>
+							{#if isLoading}
+								<span class="btn-spinner"></span>
+								<span>Mengaktifkan Akun...</span>
+							{:else}
+								<span>Verifikasi & Masuk ke Dashboard</span>
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+									<polyline points="12 5 19 12 12 19"></polyline>
+								</svg>
+							{/if}
+						</button>
+
+						<!-- Resend OTP & Kembali Ubah Data -->
+						<div class="otp-action-row">
+							<button
+								type="button"
+								class="sub-btn"
+								onclick={() => (step = 'form')}
+							>
+								&larr; Ubah Data / Email
+							</button>
+
+							<button
+								type="button"
+								class="resend-btn {resendCooldown > 0 ? 'resend-btn--disabled' : ''}"
+								onclick={handleResendOtp}
+								disabled={resendCooldown > 0 || isLoading}
+							>
+								{#if resendCooldown > 0}
+									<span>Kirim Ulang OTP ({resendCooldown}s)</span>
+								{:else}
+									<span>Kirim Ulang OTP</span>
+								{/if}
+							</button>
+						</div>
+					</form>
 				</div>
+			{/if}
 
-				<button
-					type="submit"
-					class="reg-btn reg-btn--primary"
-					disabled={isLoading}
-				>
-					{#if isLoading}
-						<span class="reg-spinner"></span>
-						<span>Mendaftarkan Usaha Anda...</span>
-					{:else}
-						<span>Daftar & Masuk ke Dashboard</span>
-						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-							<line x1="5" y1="12" x2="19" y2="12"></line>
-							<polyline points="12 5 19 12 12 19"></polyline>
-						</svg>
-					{/if}
-				</button>
-			</form>
-
-			<div class="reg-switch-login">
-				<p>Sudah memiliki akun?</p>
-				<a href="/login" class="reg-login-link">Masuk ke Portal Login &rarr;</a>
+			<!-- Switch ke Login -->
+			<div class="auth-card-footer">
+				<p>Sudah punya akun warung?</p>
+				<a href="/login" class="signup-link">Masuk di sini &rarr;</a>
 			</div>
 		</main>
 
 		<!-- Footer Link -->
-		<footer class="reg-foot">
-			<a href="/" class="reg-back-link">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<line x1="19" y1="12" x2="5" y2="12"></line>
-					<polyline points="12 19 5 12 12 5"></polyline>
-				</svg>
-				<span>Kembali ke Beranda HargaPas</span>
-			</a>
+		<footer class="page-footer">
+			<a href="/" class="back-link">&larr; Kembali ke Beranda</a>
 		</footer>
 	</div>
 </div>
 
 <style>
-	.reg-wrapper {
-		min-height: 100dvh;
+	/* Halaman & Container Utama */
+	.auth-page {
+		min-height: 100vh;
+		width: 100%;
+		background: #f8fafc;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		padding: clamp(20px, 4vw, 48px) 16px;
-		background: #f6f8fb;
-		font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-		color: #0f172a;
+		padding: clamp(20px, 4vw, 40px) 16px;
+		font-family: inherit;
+		color: #111111;
+		box-sizing: border-box;
+		overflow-x: hidden;
 	}
 
-	.reg-shell {
+	.auth-card-shell {
 		width: 100%;
-		max-width: 580px;
+		max-width: 460px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		box-sizing: border-box;
+		min-width: 0;
+	}
+
+	/* Header */
+	.auth-card-head {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 8px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.brand-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		margin-bottom: 6px;
+		transition: transform 0.15s ease;
+	}
+	.brand-link:hover {
+		transform: scale(1.02);
+	}
+
+	.auth-title {
+		font-size: clamp(21px, 4.5vw, 24px);
+		font-weight: 800;
+		letter-spacing: -0.03em;
+		margin: 0;
+		color: #111111;
+		text-align: center;
+	}
+
+	.auth-subtitle {
+		font-size: 13.5px;
+		color: #64748b;
+		margin: 0;
+		line-height: 1.5;
+		width: 100%;
+		max-width: 380px;
+		text-align: center;
+		box-sizing: border-box;
+	}
+
+	/* Card Utama - Bersih dengan Border Halus Terang */
+	.auth-card {
+		width: 100%;
+		margin: 0 auto;
+		box-sizing: border-box;
+		min-width: 0;
+		background: #ffffff;
+		border: 1px solid #e2e8f0;
+		border-radius: 16px;
+		padding: clamp(22px, 5vw, 28px) clamp(16px, 4vw, 24px);
+		box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
 	}
 
-	.reg-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding-inline: 4px;
-	}
-
-	.reg-brand {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		text-decoration: none;
-		color: #0f172a;
-	}
-
-	.reg-brand__mark {
-		width: 14px;
-		height: 14px;
-		background: #e64a0a;
-		border-radius: 4px;
-	}
-
-	.reg-brand__text {
-		font-size: 20px;
-		font-weight: 800;
-		letter-spacing: -0.03em;
-	}
-
-	.reg-pill {
-		font-size: 12px;
-		font-weight: 700;
-		color: #e64a0a;
-		background: #fff1e8;
-		border: 1px solid #fed7aa;
-		padding: 4px 10px;
-		border-radius: 9999px;
-	}
-
-	.reg-card {
-		background: #ffffff;
-		border: 1px solid #e3e9f0;
-		border-radius: 16px;
-		padding: clamp(24px, 4vw, 36px);
-		box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+	/* Form Elements */
+	.auth-form {
 		display: flex;
 		flex-direction: column;
-		gap: 22px;
+		gap: 16px;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
-	.reg-card__intro {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-	}
-
-	.reg-card__title {
-		font-size: clamp(20px, 2.8vw, 24px);
-		font-weight: 800;
-		letter-spacing: -0.025em;
-		margin: 0;
-		color: #0f172a;
-		line-height: 1.25;
-	}
-
-	.reg-card__sub {
-		font-size: 13.5px;
-		color: #64748b;
-		margin: 0;
-		line-height: 1.5;
-	}
-
-	.reg-alert {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		padding: 12px 14px;
-		background: #fff1f2;
-		border: 1px solid #fecdd3;
-		border-radius: 10px;
-		font-size: 13px;
-		font-weight: 600;
-		color: #e11d48;
-	}
-
-	.reg-form {
-		display: flex;
-		flex-direction: column;
-		gap: 18px;
-	}
-
-	.reg-grid-2 {
+	.form-row-2 {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 14px;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 12px;
+		width: 100%;
+		box-sizing: border-box;
 	}
-
-	@media (min-width: 540px) {
-		.reg-grid-2 {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+	@media (max-width: 580px) {
+		.form-row-2 {
+			grid-template-columns: 1fr;
 		}
 	}
 
-	.reg-field {
+	.form-group {
 		display: flex;
 		flex-direction: column;
 		gap: 6px;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
-	.reg-field__between {
+	.label-row {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 
-	.reg-label {
-		font-size: 12.5px;
-		font-weight: 700;
+	.form-label {
+		font-size: 13px;
+		font-weight: 600;
 		color: #334155;
 	}
 
-	.reg-label--lg {
-		font-size: 13.5px;
-		color: #0f172a;
-	}
-
-	.reg-toggle-pass {
-		background: none;
-		border: 0;
-		font-size: 12px;
-		font-weight: 700;
-		color: #e64a0a;
-		cursor: pointer;
-		padding: 0;
-	}
-
-	.reg-toggle-pass:hover {
-		text-decoration: underline;
-	}
-
-	.reg-input {
+	.form-input {
 		width: 100%;
 		height: 44px;
 		padding: 0 14px;
-		font-size: 14px;
+		font-size: 14.5px;
 		font-family: inherit;
-		border: 1px solid #d1d5db;
-		border-radius: 9px;
-		background: #f8fafc;
-		color: #0f172a;
-		transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-		outline: none;
-	}
-
-	.reg-input:focus {
+		color: #111111;
 		background: #ffffff;
-		border-color: #e64a0a;
-		box-shadow: 0 0 0 3px rgba(230, 74, 10, 0.14);
-	}
-
-	/* Target Margin Custom Selection */
-	.reg-target-section {
-		background: #f8fafc;
 		border: 1px solid #e2e8f0;
-		border-radius: 12px;
-		padding: 16px;
-		display: flex;
-		flex-direction: column;
-		gap: 14px;
+		border-radius: 9px;
+		outline: none;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+		box-sizing: border-box;
+	}
+	.form-input:focus {
+		border-color: #ff6b1a;
+		box-shadow: 0 0 0 3px rgba(255, 107, 26, 0.12);
 	}
 
-	.reg-target-head {
+	/* Password Input with Eye Icon */
+	.password-input-wrapper {
+		position: relative;
+		width: 100%;
 		display: flex;
-		align-items: flex-start;
-		justify-content: space-between;
-		gap: 12px;
+		align-items: center;
+		box-sizing: border-box;
 	}
 
-	.reg-target-sub {
-		font-size: 12px;
+	.form-input--password {
+		padding-right: 42px;
+	}
+
+	/* Hilangkan ikon mata bawaan Edge/Chrome */
+	:global(input::-ms-reveal),
+	:global(input::-ms-clear),
+	.form-input--password::-ms-reveal,
+	.form-input--password::-ms-clear {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	.eye-icon-btn {
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		background: transparent;
+		border: 0;
+		padding: 5px;
+		color: #94a3b8;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 6px;
+		transition: color 0.15s ease, background-color 0.15s ease;
+	}
+	.eye-icon-btn:hover {
+		color: #111111;
+		background: #f1f5f9;
+	}
+
+	.field-hint {
+		font-size: 11.5px;
 		color: #64748b;
-		margin: 2px 0 0 0;
 		line-height: 1.4;
 	}
 
-	.reg-target-badge {
-		background: #fff1e8;
-		border: 1px solid #fed7aa;
-		border-radius: 10px;
-		padding: 6px 14px;
-		flex: none;
-	}
-
-	.reg-target-badge__num {
-		font-size: 20px;
-		font-weight: 800;
-		color: #e64a0a;
-		letter-spacing: -0.02em;
-	}
-
-	.reg-preset-list {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 8px;
-	}
-
-	@media (min-width: 520px) {
-		.reg-preset-list {
-			grid-template-columns: repeat(5, minmax(0, 1fr));
-		}
-	}
-
-	.reg-preset-btn {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: 10px 8px;
-		background: #ffffff;
-		border: 1px solid #e2e8f0;
-		border-radius: 8px;
-		cursor: pointer;
-		position: relative;
-		transition: all 0.15s ease;
-		text-align: center;
-	}
-
-	.reg-preset-btn:hover {
-		border-color: #cbd5e1;
-		background: #fbfcfd;
-	}
-
-	.reg-preset-btn--active {
-		background: #e64a0a;
-		border-color: #e64a0a;
-		color: #ffffff;
-		box-shadow: 0 4px 12px rgba(230, 74, 10, 0.25);
-	}
-
-	.reg-preset-badge {
-		position: absolute;
-		top: -7px;
-		background: #0f172a;
-		color: #ffffff;
-		font-size: 9px;
-		font-weight: 700;
-		padding: 1px 5px;
-		border-radius: 4px;
-		letter-spacing: 0.02em;
-	}
-
-	.reg-preset-pct {
-		font-size: 15px;
-		font-weight: 800;
-		line-height: 1.2;
-	}
-
-	.reg-preset-desc {
-		font-size: 10px;
-		color: #64748b;
-		margin-top: 2px;
-		line-height: 1.2;
-	}
-
-	.reg-preset-btn--active .reg-preset-desc {
-		color: rgba(255, 255, 255, 0.9);
-	}
-
-	.reg-slider-wrap {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-	}
-
-	.reg-range-slider {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 100%;
-		height: 6px;
-		border-radius: 999px;
-		background: #cbd5e1;
-		outline: none;
-		cursor: pointer;
-	}
-
-	.reg-range-slider::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 22px;
-		height: 22px;
-		border-radius: 50%;
-		background: #e64a0a;
-		border: 3px solid #ffffff;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-		cursor: grab;
-	}
-
-	.reg-range-slider::-moz-range-thumb {
-		width: 18px;
-		height: 18px;
-		border-radius: 50%;
-		background: #e64a0a;
-		border: 3px solid #ffffff;
-		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-		cursor: grab;
-	}
-
-	.reg-slider-ticks {
-		display: flex;
-		justify-content: space-between;
-		font-size: 11px;
-		color: #94a3b8;
-	}
-
-	.reg-tip-box {
-		display: flex;
-		align-items: flex-start;
-		gap: 8px;
-		background: #ffffff;
-		border: 1px solid #eef2f6;
-		border-radius: 8px;
-		padding: 10px 12px;
-	}
-
-	.reg-tip-box__icon {
-		font-size: 14px;
-		line-height: 1.3;
-	}
-
-	.reg-tip-box__text {
+	/* Slider Target Margin */
+	.margin-badge {
 		font-size: 12px;
-		line-height: 1.45;
-		color: #475569;
-		margin: 0;
+		font-weight: 700;
+		color: #ff6b1a;
+		background: #fff7ed;
+		padding: 2px 8px;
+		border-radius: 6px;
 	}
 
-	.reg-btn {
+	.margin-slider {
 		width: 100%;
-		height: 48px;
+		accent-color: #ff6b1a;
+		cursor: pointer;
+		margin: 4px 0;
+	}
+
+	/* Submit Button */
+	.submit-btn {
+		width: 100%;
+		height: 46px;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		gap: 8px;
-		font-size: 15px;
-		font-weight: 700;
-		font-family: inherit;
-		border-radius: 10px;
-		cursor: pointer;
-		border: 0;
-		transition: background-color 0.15s ease, transform 0.1s ease;
-	}
-
-	.reg-btn--primary {
-		background: #e64a0a;
+		background: #ff6b1a;
 		color: #ffffff;
-		box-shadow: 0 4px 14px rgba(230, 74, 10, 0.28);
+		border: 0;
+		border-radius: 9px;
+		font-size: 14.5px;
+		font-weight: 700;
+		cursor: pointer;
+		transition: background-color 0.15s ease, transform 0.1s ease;
+		box-shadow: 0 2px 8px rgba(255, 107, 26, 0.25);
+		margin-top: 4px;
+		box-sizing: border-box;
 	}
-
-	.reg-btn--primary:hover:not(:disabled) {
-		background: #d14006;
+	.submit-btn:hover:not(:disabled) {
+		background: #e65a0d;
 	}
-
-	.reg-btn--primary:active:not(:disabled) {
-		transform: scale(0.98);
+	.submit-btn:active:not(:disabled) {
+		transform: scale(0.99);
 	}
-
-	.reg-btn:disabled {
+	.submit-btn:disabled {
 		opacity: 0.6;
 		cursor: not-allowed;
 	}
 
-	.reg-spinner {
+	/* Alerts */
+	.alert {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 10px 14px;
+		border-radius: 8px;
+		font-size: 13px;
+		line-height: 1.4;
+		box-sizing: border-box;
+		width: 100%;
+	}
+	.alert--error {
+		background: #fef2f2;
+		border: 1px solid #fecaca;
+		color: #dc2626;
+	}
+	.alert--info {
+		background: #eff6ff;
+		border: 1px solid #bfdbfe;
+		color: #2563eb;
+	}
+
+	/* Step 2: 6 Kotak OTP Styles */
+	.verify-step-shell {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 16px;
+		text-align: center;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.verify-icon-wrap {
+		display: flex;
+		justify-content: center;
+	}
+
+	.verify-mail-badge {
+		width: 58px;
+		height: 58px;
+		border-radius: 50%;
+		background: #fff7ed;
+		border: 1px solid #fed7aa;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.verify-instruction {
+		font-size: 13.5px;
+		color: #475569;
+		line-height: 1.5;
+		margin: 0;
+	}
+
+	.verify-target-email {
+		color: #111111;
+		font-size: 14.5px;
+	}
+
+	/* 6 Kotak Input OTP Grid */
+	.otp-grid {
+		display: flex;
+		justify-content: center;
+		gap: 8px;
+		width: 100%;
+		margin: 4px 0 10px 0;
+	}
+
+	.otp-box {
+		width: 48px;
+		height: 54px;
+		border: 1.5px solid #cbd5e1;
+		border-radius: 10px;
+		font-size: 24px;
+		font-weight: 800;
+		text-align: center;
+		font-family: ui-monospace, monospace;
+		color: #111111;
+		background: #ffffff;
+		outline: none;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+		box-sizing: border-box;
+	}
+	.otp-box:focus {
+		border-color: #ff6b1a;
+		box-shadow: 0 0 0 3px rgba(255, 107, 26, 0.15);
+		transform: scale(1.04);
+	}
+
+	@media (max-width: 400px) {
+		.otp-grid {
+			gap: 6px;
+		}
+		.otp-box {
+			width: 40px;
+			height: 48px;
+			font-size: 20px;
+		}
+	}
+
+	/* Aksi Resend & Ubah Data */
+	.otp-action-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		padding-top: 4px;
+	}
+
+	.sub-btn {
+		background: transparent;
+		border: 0;
+		padding: 4px 0;
+		font-size: 12.5px;
+		font-weight: 600;
+		color: #64748b;
+		cursor: pointer;
+		transition: color 0.15s ease;
+	}
+	.sub-btn:hover {
+		color: #111111;
+	}
+
+	.resend-btn {
+		background: transparent;
+		border: 0;
+		padding: 4px 0;
+		font-size: 12.5px;
+		font-weight: 700;
+		color: #ff6b1a;
+		cursor: pointer;
+		transition: opacity 0.15s ease;
+	}
+	.resend-btn:hover:not(:disabled) {
+		text-decoration: underline;
+	}
+	.resend-btn--disabled {
+		color: #94a3b8;
+		cursor: not-allowed;
+	}
+
+	/* Card Footer */
+	.auth-card-footer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		font-size: 13px;
+		color: #64748b;
+		padding-top: 6px;
+		border-top: 1px solid #f1f5f9;
+	}
+	.auth-card-footer p {
+		margin: 0;
+	}
+	.signup-link {
+		color: #ff6b1a;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.signup-link:hover {
+		text-decoration: underline;
+	}
+
+	/* Page Footer */
+	.page-footer {
+		text-align: center;
+	}
+	.back-link {
+		font-size: 13px;
+		font-weight: 600;
+		color: #64748b;
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+	.back-link:hover {
+		color: #111111;
+	}
+
+	.btn-spinner {
 		width: 16px;
 		height: 16px;
-		border: 2px solid rgba(255, 255, 255, 0.3);
+		border: 2px solid rgba(255, 255, 255, 0.4);
 		border-top-color: #ffffff;
 		border-radius: 50%;
 		animation: spin 0.6s linear infinite;
@@ -682,48 +1009,17 @@
 		}
 	}
 
-	.reg-switch-login {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		padding-top: 14px;
-		border-top: 1px solid #eef2f6;
-		font-size: 13.5px;
-		color: #64748b;
-	}
-
-	.reg-switch-login p {
-		margin: 0;
-	}
-
-	.reg-login-link {
-		color: #e64a0a;
-		font-weight: 700;
-		text-decoration: none;
-	}
-
-	.reg-login-link:hover {
-		text-decoration: underline;
-	}
-
-	.reg-foot {
-		text-align: center;
-	}
-
-	.reg-back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		font-size: 13px;
-		font-weight: 600;
-		color: #64748b;
-		text-decoration: none;
-		transition: color 0.15s ease;
-	}
-
-	.reg-back-link:hover {
-		color: #e64a0a;
+	/* Responsive Mobile (< 480px) */
+	@media (max-width: 480px) {
+		.auth-page {
+			padding: 20px 14px;
+		}
+		.auth-card {
+			padding: 24px 18px;
+			border-radius: 14px;
+		}
+		.auth-title {
+			font-size: 22px;
+		}
 	}
 </style>
-

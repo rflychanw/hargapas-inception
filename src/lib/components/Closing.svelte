@@ -15,6 +15,7 @@
 		<figure class="closing-photo" data-reveal data-delay="1">
 			<img
 				src="/img/undraw_store.svg"
+				data-parallax="0.06"
 				alt="Ilustrasi gerai warung makan sukses dengan margin sehat"
 				width="800"
 				height="600"

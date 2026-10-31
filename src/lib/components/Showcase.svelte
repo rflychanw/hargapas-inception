@@ -40,7 +40,7 @@
 			</div>
 		</div>
 
-		<div class="sheet-stage" data-reveal data-delay="1" data-ui>
+		<div class="sheet-stage" data-reveal data-delay="1" data-ui data-parallax="0.04">
 			<div
 				class="sheet"
 				data-ui

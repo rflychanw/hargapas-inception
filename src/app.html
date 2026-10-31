@@ -4,7 +4,10 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 		<meta name="theme-color" content="#ffffff" />
-		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
 		<script>
 			document.documentElement.classList.add('js');
 			// Jaring pengaman: kalau animasi gagal dipasang, jangan biarkan
@@ -15,6 +18,22 @@
 				}
 			}, 3000);
 		</script>
+		<style>
+			/* Hilangkan ikon mata & tombol bawaan browser (Edge/Chrome/Windows) agar tidak muncul ganda */
+			::-ms-reveal,
+			::-ms-clear,
+			input::-ms-reveal,
+			input::-ms-clear {
+				display: none !important;
+				width: 0 !important;
+				height: 0 !important;
+				margin: 0 !important;
+				pointer-events: none !important;
+				visibility: hidden !important;
+				appearance: none !important;
+				-webkit-appearance: none !important;
+			}
+		</style>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

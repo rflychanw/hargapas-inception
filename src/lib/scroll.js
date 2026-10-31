@@ -1,41 +1,46 @@
 /**
- * Gerak halus saat menggulir untuk landing page.
+ * Gerak halus & elegan saat menggulir untuk landing page HargaPas (Desktop & Mobile).
  *
- * 1. Reveal  — elemen [data-reveal] muncul sekali saat masuk layar.
- * 2. Parallax — elemen [data-parallax="0.08"] bergeser sedikit lebih lambat
- *    dari gulirannya, supaya halaman terasa punya kedalaman.
+ * 1. Staggered Hero Reveal — Elemen hero muncul bertahap dan anggun saat halaman pertama kali dimuat.
+ * 2. Intersection Reveal    — Elemen [data-reveal] masuk dengan kurva fisik lembut saat discroll.
+ * 3. Continuous Lerped Parallax — Elemen [data-parallax] bergerak dengan interpolasi fisik (lerp)
+ *    pada 60/120fps di desktop maupun layar sentuh mobile tanpa tersendat.
  *
- * Semua efek dimatikan bila pengguna memilih "kurangi gerak"
- * (prefers-reduced-motion: reduce) atau layar sempit yang mudah tersendat.
+ * Efek dinonaktifkan secara bersih jika pengguna menyetel "prefers-reduced-motion: reduce".
  */
 
 /** @typedef {{ el: HTMLElement, speed: number, base: number }} Layer */
 
 /**
- * Pasang reveal + parallax, lalu kembalikan fungsi pembersih.
+ * Pasang reveal + smooth parallax motion, lalu kembalikan fungsi pembersih.
  * @returns {() => void}
  */
 export function initLandingMotion() {
+	if (typeof window === 'undefined') return () => {};
+
 	const reduceMotion =
 		typeof window.matchMedia === 'function' &&
 		window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-	/** @type {Element[]} */
+	/** @type {HTMLElement[]} */
 	const reveals = Array.from(document.querySelectorAll('[data-reveal]'));
 
-	const canParallax = !reduceMotion && window.innerWidth >= 768;
+	if (reduceMotion) {
+		reveals.forEach((el) => el.classList.add('is-in'));
+		return () => {};
+	}
+
+	const isMobile = window.innerWidth < 768;
 
 	/** @type {Layer[]} */
-	const layers = canParallax
-		? Array.from(document.querySelectorAll('[data-parallax]')).map((node) => {
-				const el = /** @type {HTMLElement} */ (node);
-				return { el, speed: Number(el.dataset.parallax) || 0.08, base: 0 };
-			})
-		: [];
+	const layers = Array.from(document.querySelectorAll('[data-parallax]')).map((node) => {
+		const el = /** @type {HTMLElement} */ (node);
+		return { el, speed: Number(el.dataset.parallax) || 0.05, base: 0 };
+	});
 
-	/* ---- 1. Reveal --------------------------------------------------- */
+	/* ---- 1. Reveal (Staggered Hero + Smooth Intersection Observer) ---- */
 
-	/** @param {Element} el */
+	/** @param {HTMLElement} el */
 	const show = (el) => el.classList.add('is-in');
 
 	/** @type {IntersectionObserver | null} */
@@ -48,28 +53,50 @@ export function initLandingMotion() {
 			(entries) => {
 				for (const entry of entries) {
 					if (!entry.isIntersecting) continue;
-					show(entry.target);
+					show(/** @type {HTMLElement} */ (entry.target));
 					observer?.unobserve(entry.target);
 				}
 			},
-			// Mulai sedikit sebelum elemen benar-benar menyentuh bawah layar,
-			// lalu hentikan observasi: animasi hanya berjalan sekali.
-			{ threshold: 0.01, rootMargin: '0px 0px -10% 0px' }
+			{
+				threshold: 0.04,
+				rootMargin: isMobile ? '0px 0px -25px 0px' : '0px 0px -40px 0px'
+			}
 		);
 
-		const fold = window.innerHeight * 0.92;
+		const fold = window.innerHeight * 0.88;
+		/** @type {HTMLElement[]} */
+		const heroItems = [];
+		/** @type {HTMLElement[]} */
+		const scrollItems = [];
+
 		for (const el of reveals) {
-			if (el.getBoundingClientRect().top < fold) show(el);
-			else observer.observe(el);
+			const rect = el.getBoundingClientRect();
+			if (rect.top < fold) {
+				heroItems.push(el);
+			} else {
+				scrollItems.push(el);
+			}
 		}
+
+		// Munculkan elemen lipatan pertama (Hero) secara bertahap & elegan
+		heroItems.forEach((el, index) => {
+			setTimeout(() => {
+				show(el);
+			}, 60 + index * 80);
+		});
+
+		// Elemen di bawah lipatan dipantau saat digulir
+		scrollItems.forEach((el) => observer?.observe(el));
 	}
 
-	/* ---- 2. Parallax ------------------------------------------------- */
+	/* ---- 2. Continuous Lerped Parallax (Desktop & Mobile) ------------- */
 
-	let frame = 0;
-	let ticking = false;
+	let targetScrollY = window.scrollY;
+	let currentScrollY = window.scrollY;
+	let rafId = 0;
+	let isRunning = false;
 
-	const measure = () => {
+	const measureLayers = () => {
 		const scrollY = window.scrollY;
 		for (const layer of layers) {
 			layer.el.style.removeProperty('--parallax-y');
@@ -78,45 +105,68 @@ export function initLandingMotion() {
 		}
 	};
 
-	const paint = () => {
-		ticking = false;
+	const updateParallax = () => {
+		const diff = targetScrollY - currentScrollY;
+
+		// Lerp damping 0.12 untuk pergerakan mulus seperti suspensi fisik
+		if (Math.abs(diff) > 0.1) {
+			currentScrollY += diff * 0.12;
+		} else {
+			currentScrollY = targetScrollY;
+		}
+
 		const vh = window.innerHeight;
-		const scrollY = window.scrollY;
+		const amplitude = isMobile ? 44 : 96;
 
 		for (const layer of layers) {
-			const center = layer.base - scrollY;
-			// Lewati elemen yang jauh dari layar: tidak perlu dihitung.
-			if (center < -vh * 0.5 || center > vh * 1.5) continue;
-			const delta = Math.max(-1, Math.min(1, (center - vh / 2) / vh));
-			const y = delta * layer.speed * 120;
+			const center = layer.base - currentScrollY;
+			// Lewati elemen yang jauh di luar layar
+			if (center < -vh || center > vh * 2) continue;
+
+			const delta = Math.max(-1.2, Math.min(1.2, (center - vh / 2) / vh));
+			const y = delta * layer.speed * amplitude;
 			layer.el.style.setProperty('--parallax-y', `${y.toFixed(2)}px`);
+		}
+
+		if (Math.abs(diff) > 0.1) {
+			rafId = requestAnimationFrame(updateParallax);
+		} else {
+			isRunning = false;
 		}
 	};
 
-	const requestPaint = () => {
-		if (ticking) return;
-		ticking = true;
-		frame = requestAnimationFrame(paint);
+	const onScroll = () => {
+		targetScrollY = window.scrollY;
+		if (!isRunning) {
+			isRunning = true;
+			rafId = requestAnimationFrame(updateParallax);
+		}
 	};
 
 	const onResize = () => {
-		measure();
-		requestPaint();
+		measureLayers();
+		targetScrollY = window.scrollY;
+		currentScrollY = window.scrollY;
+		if (!isRunning) {
+			isRunning = true;
+			rafId = requestAnimationFrame(updateParallax);
+		}
 	};
 
-	if (layers.length) {
-		measure();
-		requestPaint();
-		window.addEventListener('scroll', requestPaint, { passive: true });
+	if (layers.length > 0) {
+		measureLayers();
+		// Initial layout calculation
+		onScroll();
+		window.addEventListener('scroll', onScroll, { passive: true });
 		window.addEventListener('resize', onResize, { passive: true });
 	}
 
-	/* ---- 3. Bersih-bersih -------------------------------------------- */
+	/* ---- 3. Cleanup --------------------------------------------------- */
 
 	return () => {
 		observer?.disconnect();
-		if (frame) cancelAnimationFrame(frame);
-		window.removeEventListener('scroll', requestPaint);
+		if (rafId) cancelAnimationFrame(rafId);
+		window.removeEventListener('scroll', onScroll);
 		window.removeEventListener('resize', onResize);
 	};
 }

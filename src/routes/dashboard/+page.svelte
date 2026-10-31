@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Logo from '#lib/components/Logo.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { goto, invalidateAll } from '$app/navigation';
@@ -186,7 +187,7 @@
 		}
 
 		// Sesuaikan data warung jika user mendaftar dengan warung & target margin sendiri
-		if (user.storeName && !data?.activeStore) {
+		if (user.storeName) {
 			const existingIndex = stores.findIndex(
 				(s) => s.name.toLowerCase() === user.storeName.toLowerCase()
 			);
@@ -223,9 +224,20 @@
 		setupDashboardObserver();
 	});
 
+	let isLogoutModalOpen = $state(false);
+
 	function handleLogout() {
+		isLogoutModalOpen = true;
+	}
+
+	function confirmLogout() {
+		isLogoutModalOpen = false;
 		logout();
 		goto('/login');
+	}
+
+	function cancelLogout() {
+		isLogoutModalOpen = false;
 	}
 
 	function setupDashboardObserver() {
@@ -450,14 +462,19 @@
 	/>
 </svelte:head>
 
+<svelte:window
+	onkeydown={(e) => {
+		if (e.key === 'Escape' && isLogoutModalOpen) {
+			cancelLogout();
+		}
+	}}
+/>
+
 {#if !isAuthChecked}
 	<div class="hp-loading-screen">
 		<div class="hp-loading-card">
-			<span class="hp-logo-badge">HP</span>
-			<div>
-				<p class="hp-loading-title">HargaPas</p>
+			<Logo size={48} variant="horizontal" theme="light" showTagline={true} tagline="Decision Engine" />
 				<p class="hp-loading-sub">Memuat dashboard toko...</p>
-			</div>
 		</div>
 	</div>
 {:else}
@@ -587,6 +604,85 @@
 							</button>
 						</div>
 					</form>
+				</div>
+			</div>
+		{/if}
+
+		<!-- Logout Confirmation Alert Modal -->
+		{#if isLogoutModalOpen}
+			<div class="hp-modal-backdrop" role="presentation">
+				<button
+					type="button"
+					class="hp-modal-scrim"
+					onclick={cancelLogout}
+					aria-label="Tutup dialog konfirmasi logout"
+				></button>
+				<div
+					class="hp-modal hp-modal--alert"
+					role="alertdialog"
+					aria-modal="true"
+					aria-labelledby="logout-dialog-title"
+					aria-describedby="logout-dialog-desc"
+				>
+					<div class="hp-alert-modal-content">
+						<div class="hp-alert-modal-icon" aria-hidden="true">
+							<svg
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#e64a0a"
+								stroke-width="2.2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+								<polyline points="16 17 21 12 16 7" />
+								<line x1="21" x2="9" y1="12" y2="12" />
+							</svg>
+						</div>
+
+						<div class="hp-alert-modal-text">
+							<p class="hp-modal__tag">KONFIRMASI KELUAR</p>
+							<h3 id="logout-dialog-title" class="hp-modal__title" style="font-size: 17px; margin-bottom: 4px;">
+								Yakin ingin logout?
+							</h3>
+							<p id="logout-dialog-desc" class="hp-alert-modal-desc">
+								Apakah Anda yakin ingin keluar dari sesi akun HargaPas? Anda perlu masuk kembali untuk mengelola data warung <strong>{currentStore.name}</strong>.
+							</p>
+						</div>
+					</div>
+
+					<div class="hp-alert-modal-foot">
+						<button
+							type="button"
+							class="hp-btn-outline"
+							onclick={cancelLogout}
+						>
+							Batal
+						</button>
+						<button
+							type="button"
+							class="hp-btn-primary"
+							onclick={confirmLogout}
+						>
+							<svg
+								width="15"
+								height="15"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+								<polyline points="16 17 21 12 16 7" />
+								<line x1="21" x2="9" y1="12" y2="12" />
+							</svg>
+							<span>Ya, Logout</span>
+						</button>
+					</div>
 				</div>
 			</div>
 		{/if}

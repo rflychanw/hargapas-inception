@@ -58,7 +58,7 @@
 			</ol>
 		</div>
 
-		<div class="steps-stage" data-reveal data-delay="1" data-ui>
+		<div class="steps-stage" data-reveal data-delay="1" data-ui data-parallax="0.04">
 			<div class="sheet" data-ui hidden={step !== 1}>
 				<p class="sheet-head">
 					<span>Langkah 1</span>

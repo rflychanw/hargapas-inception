@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { slide, fade } from 'svelte/transition';
+	import Logo from '#lib/components/Logo.svelte';
 
 	type NavItem = { id: string; label: string; drawer: string };
 
@@ -120,8 +121,7 @@
 		<div class="sticky-nav__inner">
 			<!-- Logo / Wordmark -->
 			<a class="wordmark" href="#atas" aria-label="HargaPas, ke awal halaman" onclick={handleLinkClick}>
-				<span class="wordmark-mark" aria-hidden="true"></span>
-				<span class="wordmark-text">HargaPas</span>
+				<Logo size={28} variant="horizontal" theme={isOverDark ? "dark" : "light"} />
 			</a>
 
 			<!-- Desktop Nav (>= 768px) -->
@@ -252,9 +252,7 @@
 		border-bottom-color: rgba(255, 255, 255, 0.16);
 	}
 
-	.sticky-nav.is-dark .wordmark-text {
-		color: #ffffff;
-	}
+	/* .wordmark handled by Logo component */
 
 	.sticky-nav.is-dark .desktop-nav a {
 		color: rgba(255, 255, 255, 0.76);
@@ -310,28 +308,11 @@
 		user-select: none;
 	}
 
-	.wordmark-mark {
-		width: 12px;
-		height: 12px;
-		background: #ff6b1a;
-		border-radius: 3px;
-		flex-shrink: 0;
-		box-shadow: 0 2px 6px rgba(255, 107, 26, 0.35);
-	}
+	/* .wordmark-mark retired */
 
-	.wordmark-text {
-		font-size: 20px;
-		font-weight: 800;
-		letter-spacing: -0.035em;
-		color: #111111;
-		transition: color 0.25s ease;
-	}
+	/* .wordmark-text retired */
 
-	@media (min-width: 768px) {
-		.wordmark-text {
-			font-size: 22px;
-		}
-	}
+	
 
 	/* Desktop Navigation */
 	.desktop-nav {

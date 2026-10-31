@@ -1,5 +1,13 @@
 @import '@fontsource-variable/schibsted-grotesk';
 @import 'tailwindcss';
+/* Hilangkan tombol/ikon mata bawaan browser (Windows/Edge/Chrome) agar tidak muncul ganda */
+input::-ms-reveal,
+input::-ms-clear {
+	display: none !important;
+	width: 0 !important;
+	height: 0 !important;
+}
+
 
 /* ============================================================
    HargaPas — Design System
@@ -8,6 +16,7 @@
    Spacing: Sistem kelipatan 8px.
    Tipografi: 1 keluarga font, 5 ukuran tetap per viewport.
    ============================================================ */
+
 
 :root {
 	/* Palet Wajib */
@@ -54,7 +63,8 @@
 }
 
 @media (min-width: 768px) {
-	:root {
+
+:root {
 		--pad: var(--s-5);
 		--t-display: 56px;
 		--t-h2: 36px;
@@ -65,7 +75,8 @@
 }
 
 @media (min-width: 1080px) {
-	:root {
+
+:root {
 		--pad: var(--s-7, 56px);
 		--t-display: 72px;
 		--t-h2: 48px;
@@ -2056,32 +2067,23 @@ button {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-	.hero .display {
-		animation: rise 300ms var(--ease-out) both;
-	}
-
-	.hero-copy > *:nth-child(1) {
-		animation: rise 280ms var(--ease-out) 40ms both;
-	}
-
-	.hero-copy > *:nth-child(2) {
-		animation: rise 280ms var(--ease-out) 80ms both;
-	}
-
-	.hero-copy > *:nth-child(3) {
-		animation: rise 280ms var(--ease-out) 120ms both;
-	}
-
-	.hero-stage {
-		animation: rise 320ms var(--ease-out) 80ms both;
-	}
-
+	/* Master Reveal Transition — Apple Fluid Motion & Emil Kowalski Precision */
 	html.js [data-reveal] {
 		opacity: 0;
-		transform: translate3d(0, 26px, 0) scale(0.985);
+		transform: translate3d(0, 22px, 0);
 		transition:
-			opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+			opacity 540ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 540ms cubic-bezier(0.22, 1, 0.36, 1);
+		will-change: opacity, transform;
+	}
+
+	/* Card surfaces, visual mockups & device stages with refined physical depth */
+	html.js [data-reveal][data-ui],
+	html.js [data-reveal].closing-photo,
+	html.js [data-reveal].consult-photo,
+	html.js [data-reveal].hpp-photo,
+	html.js [data-reveal].hero-stage {
+		transform: translate3d(0, 24px, 0) scale(0.985);
 	}
 
 	html.js [data-reveal].is-in {
@@ -2089,19 +2091,34 @@ button {
 		transform: translate3d(0, 0, 0) scale(1);
 	}
 
-	/* Elemen yang bergeser lebih lambat dari gulirannya (layar lebar saja) */
-	@media (min-width: 768px) {
-		[data-parallax] {
-			transform: translate3d(0, var(--parallax-y, 0px), 0);
-			will-change: transform;
-		}
+	/* Parallax physics for Desktop & Mobile with smooth composite transform */
+	[data-parallax] {
+		transform: translate3d(0, var(--parallax-y, 0px), 0);
+		will-change: transform;
 	}
 
-	[data-reveal][data-delay="1"] { transition-delay: 70ms; }
-	[data-reveal][data-delay="2"] { transition-delay: 140ms; }
-	[data-reveal][data-delay="3"] { transition-delay: 210ms; }
-	[data-reveal][data-delay="4"] { transition-delay: 280ms; }
-	[data-reveal][data-delay="5"] { transition-delay: 350ms; }
+	/* Natural staggered cadence for progressive content arrival (Desktop & Mobile) */
+	[data-reveal][data-delay="1"] { transition-delay: 90ms; }
+	[data-reveal][data-delay="2"] { transition-delay: 180ms; }
+	[data-reveal][data-delay="3"] { transition-delay: 270ms; }
+	[data-reveal][data-delay="4"] { transition-delay: 360ms; }
+	[data-reveal][data-delay="5"] { transition-delay: 450ms; }
+
+	/* Interactive scroll & hover elevations */
+	.exchange {
+		transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms ease;
+	}
+	.exchange:hover {
+		transform: translateY(-2px);
+		border-color: rgba(255, 255, 255, 0.22);
+	}
+
+	.poster-row {
+		transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), padding 200ms ease;
+	}
+	.poster-row:hover:not(.poster-row--total) {
+		transform: translateX(4px);
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2285,13 +2302,19 @@ button {
 	width: 36px;
 	height: 36px;
 	border-radius: 9px;
-	background: #fff1f5;
-	border: 1px solid #fecdd3;
+	background: #fff7ed;
+	border: 1px solid #fed7aa;
+	color: #e64a0a;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	transition: background-color 0.15s ease, transform 0.12s ease;
+	transition: background-color 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+}
+
+.hp-mobile-logout-btn:hover {
+	background: #ffedd5;
+	border-color: #fdba74;
 }
 
 .hp-mobile-logout-btn:active {
@@ -2509,9 +2532,9 @@ button {
 }
 
 .hp-logout-btn:hover {
-	background: #fff1f5;
-	color: #db0050;
-	border-color: #fecdd3;
+	background: #fff7ed;
+	color: #e64a0a;
+	border-color: #fed7aa;
 }
 
 .hp-switch-store-btn {
@@ -4178,6 +4201,90 @@ button {
 	margin-top: 6px;
 }
 
+/* ---- Confirmation & Alert Modals ---- */
+.hp-modal--alert {
+	max-width: 440px;
+	border-radius: 20px;
+	padding: 24px;
+	animation: hpModalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes hpModalPop {
+	from {
+		opacity: 0;
+		transform: scale(0.94) translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1) translateY(0);
+	}
+}
+
+.hp-alert-modal-content {
+	display: flex;
+	gap: 16px;
+	align-items: flex-start;
+}
+
+.hp-alert-modal-icon {
+	flex-shrink: 0;
+	width: 48px;
+	height: 48px;
+	border-radius: 14px;
+	background: #fff7ed;
+	border: 1px solid #fed7aa;
+	color: #e64a0a;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 4px 12px rgba(230, 74, 10, 0.12);
+}
+
+.hp-alert-modal-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.hp-alert-modal-desc {
+	font-size: 13.5px;
+	line-height: 1.55;
+	color: #475569;
+	margin: 6px 0 0 0;
+}
+
+.hp-alert-modal-desc strong {
+	color: #0f172a;
+	font-weight: 700;
+}
+
+.hp-alert-modal-foot {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 22px;
+	padding-top: 18px;
+	border-top: 1px solid #f1f5f9;
+}
+
+@media (max-width: 480px) {
+	.hp-modal--alert {
+		padding: 20px 18px;
+	}
+	.hp-alert-modal-icon {
+		width: 42px;
+		height: 42px;
+	}
+	.hp-alert-modal-foot {
+		flex-direction: column-reverse;
+		gap: 8px;
+	}
+	.hp-alert-modal-foot button {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
 
 /* ============================================================
    Lapisan Penyempurnaan Visual (Elegan & Hangat)
@@ -4186,6 +4293,7 @@ button {
    - Slider & tab langkah bergaya modern
    - Angka proporsional (tidak terlihat monospace)
    ============================================================ */
+
 
 :root {
 	--r-sm: 10px;

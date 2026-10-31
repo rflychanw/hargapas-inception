@@ -1,7 +1,13 @@
+<script lang="ts">
+	import Logo from '#lib/components/Logo.svelte';
+</script>
+
 <footer class="footer">
 	<div class="shell">
 		<div class="footer-top">
-			<a class="wordmark" href="#atas" aria-label="HargaPas, kembali ke atas">HargaPas</a>
+			<a class="wordmark" href="#atas" aria-label="HargaPas, kembali ke atas">
+				<Logo size={28} variant="horizontal" theme="dark" />
+			</a>
 			<nav class="footer-links" aria-label="Tautan kaki">
 				<a href="#dashboard">Produk</a>
 				<a href="#cara-kerja">Cara kerja</a>

@@ -28,7 +28,7 @@
 
 			<div class="hero-stage" data-reveal data-delay="2" data-ui>
 				<div class="devices">
-					<div class="device device--laptop">
+					<div class="device device--laptop" data-parallax="0.03">
 						<div class="device__screen">
 							<img
 								src="/img/dashboard-laptop.png"
@@ -42,7 +42,7 @@
 						<div class="device__base" aria-hidden="true"></div>
 					</div>
 
-					<div class="device device--phone" aria-hidden="true">
+					<div class="device device--phone" aria-hidden="true" data-parallax="-0.06">
 						<div class="device__screen">
 							<img
 								src="/img/dashboard-phone.png"
