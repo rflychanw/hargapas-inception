@@ -64,7 +64,7 @@
 		</div>
 
 		<div class="steps-stage" data-reveal>
-			<div class="sheet" hidden={step !== 1}>
+			<div class="sheet" data-ui hidden={step !== 1}>
 				<div class="sheet-head">
 					<span>Langkah 1</span>
 					<span>Nasi goreng telur balado</span>
@@ -81,7 +81,7 @@
 				</p>
 			</div>
 
-			<div class="sheet" hidden={step !== 2}>
+			<div class="sheet" data-ui hidden={step !== 2}>
 				<div class="sheet-head">
 					<span>Langkah 2</span>
 					<span>Otomatis</span>
@@ -107,7 +107,7 @@
 				</p>
 			</div>
 
-			<div class="sheet" hidden={step !== 3}>
+			<div class="sheet" data-ui hidden={step !== 3}>
 				<div class="sheet-head">
 					<span>Langkah 3</span>
 					<span>Empat menu</span>
@@ -129,7 +129,7 @@
 				</p>
 			</div>
 
-			<div class="sheet" hidden={step !== 4}>
+			<div class="sheet" data-ui hidden={step !== 4}>
 				<div class="sheet-head">
 					<span>Langkah 4</span>
 					<span>Keputusan</span>

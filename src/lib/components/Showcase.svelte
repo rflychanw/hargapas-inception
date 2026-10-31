@@ -54,9 +54,10 @@
 			</figure>
 		</div>
 
-		<div class="sheet-stage" data-reveal>
+		<div class="sheet-stage" data-reveal data-ui>
 			<div
 				class="sheet"
+				data-ui
 				id="panel-menu"
 				role="tabpanel"
 				aria-labelledby="tab-menu"
@@ -94,6 +95,7 @@
 
 			<div
 				class="sheet"
+				data-ui
 				id="panel-hpp"
 				role="tabpanel"
 				aria-labelledby="tab-hpp"
@@ -122,6 +124,7 @@
 
 			<div
 				class="sheet"
+				data-ui
 				id="panel-laporan"
 				role="tabpanel"
 				aria-labelledby="tab-laporan"

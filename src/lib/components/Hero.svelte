@@ -41,7 +41,7 @@
 				</p>
 			</div>
 
-			<div class="hero-stage">
+			<div class="hero-stage" data-ui>
 				<div class="ui">
 					<div class="ui-head">
 						<span>Warung Bu Sirep</span>
