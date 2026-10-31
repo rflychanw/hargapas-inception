@@ -21,9 +21,11 @@
 
 	--t-display: clamp(40px, 5.4vw, 82px);
 	--t-h2: clamp(30px, 3.7vw, 58px);
+	--t-h3: clamp(20px, 1.7vw, 28px);
+	--t-num: clamp(30px, 3vw, 44px);
 	--t-lead: clamp(18px, 1.05vw + 11px, 22px);
 	--t-body: 18px;
-	--t-small: 14px;
+	--t-small: 16px;
 
 	--ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 	--t-ui: 160ms;
@@ -279,7 +281,7 @@ button {
 	display: flex;
 	align-items: center;
 	gap: clamp(16px, 2.2vw, 36px);
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 500;
 }
 
@@ -352,7 +354,7 @@ button {
 	align-items: baseline;
 	gap: 12px;
 	padding-bottom: 12px;
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
 }
 
@@ -367,7 +369,7 @@ button {
 	align-items: center;
 	gap: 14px;
 	padding: 11px 0;
-	font-size: 15px;
+	font-size: 16px;
 }
 
 .ui-row--on {
@@ -396,7 +398,7 @@ button {
 	margin-top: 14px;
 	padding-top: 14px;
 	border-top: 2px solid var(--ink);
-	font-size: 15px;
+	font-size: 16px;
 }
 
 .ui-foot b {
@@ -480,7 +482,7 @@ button {
 
 .showcase-photo figcaption {
 	margin-top: 10px;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.4;
 	color: var(--paper-65);
 }
@@ -512,7 +514,7 @@ button {
 }
 
 .sheet-meta {
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 500;
 	color: var(--ink-60);
 }
@@ -527,7 +529,7 @@ button {
 .sheet-table {
 	width: 100%;
 	border-collapse: collapse;
-	font-size: 15px;
+	font-size: 16px;
 }
 
 .sheet-table th,
@@ -538,7 +540,7 @@ button {
 }
 
 .sheet-table thead th {
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
 	color: var(--ink-60);
 	border-bottom: 1px solid rgba(10, 10, 10, 0.16);
@@ -569,7 +571,7 @@ button {
 	justify-content: space-between;
 	align-items: baseline;
 	gap: 12px;
-	font-size: 15px;
+	font-size: 16px;
 	color: var(--ink-60);
 }
 
@@ -585,7 +587,7 @@ button {
 	grid-template-columns: 8.5em minmax(0, 1fr) 5.5em;
 	align-items: center;
 	gap: 14px;
-	font-size: 15px;
+	font-size: 16px;
 }
 
 .bar__name {
@@ -631,7 +633,7 @@ button {
 }
 
 .fig-cap {
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.35;
 	color: var(--ink-60);
 	margin-top: 7px;
@@ -696,7 +698,7 @@ button {
 	justify-content: space-between;
 	width: min(100%, 440px);
 	gap: 8px;
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
 	color: var(--ink-40);
 }
@@ -748,7 +750,7 @@ button {
 }
 
 .poster-value {
-	font-size: var(--t-num);
+	font-size: var(--t-h3);
 	font-weight: 600;
 	letter-spacing: -0.03em;
 	font-variant-numeric: tabular-nums;
@@ -771,7 +773,7 @@ button {
 
 .hpp-note {
 	max-width: 40ch;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.45;
 }
 
@@ -810,7 +812,7 @@ button {
 	justify-content: space-between;
 	gap: 24px;
 	flex-wrap: wrap;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.45;
 	color: var(--paper-65);
 }
@@ -855,7 +857,7 @@ button {
 
 .consult-photo figcaption {
 	margin-top: 10px;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.4;
 	color: var(--paper-65);
 }
@@ -886,7 +888,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.45;
 	max-width: 52ch;
 }
@@ -912,7 +914,7 @@ button {
 	display: flex;
 	justify-content: space-between;
 	gap: 16px;
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
 }
 
@@ -928,7 +930,7 @@ button {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px 28px;
-	font-size: 15px;
+	font-size: 16px;
 	padding-block: 10px;
 	border-block: 2px solid rgba(10, 10, 10, 0.22);
 }
@@ -990,7 +992,7 @@ button {
 .ticket-badge {
 	align-self: flex-start;
 	margin-top: -6px;
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
 	padding: 4px 9px;
 	background: rgba(255, 255, 255, 0.14);
@@ -1010,7 +1012,7 @@ button {
 }
 
 .ticket-note {
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 500;
 	color: var(--paper-65);
 	max-width: 26ch;
@@ -1031,7 +1033,7 @@ button {
 }
 
 .ticket-period {
-	font-size: 15px;
+	font-size: 16px;
 	color: var(--paper-65);
 	margin-top: 8px;
 }
@@ -1053,7 +1055,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	font-size: 15px;
+	font-size: 16px;
 }
 
 .ticket-row {
@@ -1223,7 +1225,7 @@ button {
 
 .closing-photo figcaption {
 	margin-top: 10px;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.4;
 	color: rgba(10, 10, 10, 0.66);
 }
@@ -1250,7 +1252,7 @@ button {
 .footer-links {
 	display: flex;
 	gap: clamp(16px, 2.2vw, 34px);
-	font-size: 15px;
+	font-size: 16px;
 	color: var(--paper-65);
 	flex-wrap: wrap;
 }
@@ -1284,13 +1286,13 @@ button {
 	margin-top: clamp(36px, 4vw, 64px);
 	padding-top: clamp(20px, 2vw, 28px);
 	border-top: 2px solid rgba(255, 255, 255, 0.18);
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.5;
 	color: var(--paper-65);
 }
 
 .footer-meta h3 {
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: 600;
 	color: var(--paper);
 	margin-bottom: 6px;
@@ -1299,7 +1301,7 @@ button {
 .footer-legal {
 	grid-column: 1 / -1;
 	margin-top: 8px;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.5;
 	color: var(--paper-40);
 	max-width: 70ch;
@@ -1389,7 +1391,7 @@ button {
 
 	.nav-links {
 		gap: 14px;
-		font-size: 15px;
+		font-size: 16px;
 	}
 
 	.hero-head .display {
@@ -1397,7 +1399,7 @@ button {
 	}
 
 	.ui-row {
-		font-size: 15px;
+		font-size: 16px;
 	}
 
 	.hero-stage {
