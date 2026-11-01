@@ -334,7 +334,7 @@
                                             class="flex items-center justify-end gap-1"
                                         >
                                             <a
-                                                href="/{storeId}/ingredients/{ing.id}/edit"
+                                                href="/stores/{storeId}/ingredients/{ing.id}/edit"
                                                 class="flex h-8 w-8 items-center justify-center rounded-xl text-slate-400 transition-all hover:bg-slate-100 hover:text-slate-800"
                                                 title="Ubah bahan baku"
                                             >
