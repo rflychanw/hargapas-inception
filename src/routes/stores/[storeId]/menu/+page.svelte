@@ -89,7 +89,7 @@
 
         <!-- Link ke Halaman Tambah Baru (Desktop) -->
         <a
-            href="/{storeId}/menu/new"
+            href="/stores/{storeId}/menu/new"
             class="hidden shrink-0 items-center justify-center gap-2 rounded-2xl bg-orange-500 px-5 py-3 text-sm font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:bg-orange-600 active:scale-95 sm:inline-flex"
         >
             <Plus class="h-4 w-4" />
@@ -250,7 +250,7 @@
                                 <div class="flex items-center gap-1">
                                     <!-- Link ke Halaman Edit -->
                                     <a
-                                        href="/{storeId}/menu/{item.id}/edit"
+                                        href="/stores/{storeId}/menu/{item.id}/edit"
                                         onclick={(e) => e.stopPropagation()}
                                         class="rounded-xl p-2 text-slate-400 transition-all hover:bg-slate-100 hover:text-slate-800"
                                         title="Ubah menu dan resep"
