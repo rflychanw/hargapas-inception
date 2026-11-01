@@ -11,15 +11,20 @@
     import Closing from "#lib/components/Closing.svelte";
     import Footer from "#lib/components/Footer.svelte";
 
-    // Animasi gulir (reveal + parallax) ditangani di satu tempat: src/lib/scroll.js
-    onMount(() => initLandingMotion());
+    // Animasi gulir halus (Lenis smooth scroll + reveal + parallax)
+    onMount(() => {
+        const cleanup = initLandingMotion();
+        return () => {
+            cleanup?.();
+        };
+    });
 </script>
 
 <svelte:head>
     <title>HargaPas, harga jual dan margin untuk warung</title>
     <link
         rel="preload"
-        href="/img/dashboard-laptop.png"
+        href="/img/hero-dashboard.png"
         as="image"
         fetchpriority="high"
     />

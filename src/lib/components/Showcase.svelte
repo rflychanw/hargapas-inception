@@ -78,7 +78,7 @@
 
         <!-- Stage Sheet Panel -->
         <div
-            class="relative rounded-3xl border border-black/8 bg-gradient-to-br from-[#fbf8f4] to-[#f4eee7] p-2 sm:p-4 lg:[grid-area:stage]"
+            class="relative rounded-3xl border border-black/8 bg-gradient-to-br from-[#fbf8f4] to-[#f4eee7] p-2 sm:p-4 lg:[grid-area:stage] lg:h-fit lg:self-start"
             data-reveal
             data-delay="1"
             data-ui
@@ -191,7 +191,7 @@
                     </p>
                 </div>
 
-                <ul class="mt-2 flex flex-col gap-3">
+                <ul class="mt-2 flex flex-1 flex-col justify-between gap-3">
                     {#each hpp as row (row.label)}
                         <li
                             class="grid grid-cols-[minmax(6em,8em)_minmax(0,1fr)_4.5em] items-center gap-2 text-xs sm:grid-cols-[minmax(7em,9.5em)_minmax(0,1fr)_4.5em] sm:text-sm"
@@ -275,10 +275,10 @@
                     </div>
                 </div>
 
-                <ul class="mt-2 flex flex-col gap-3">
+                <ul class="mt-2 flex flex-1 flex-col justify-center gap-3">
                     {#each fattest as row (row.name)}
                         <li
-                            class="grid grid-cols-[minmax(6em,8em)_minmax(0,1fr)_4.5em] items-center gap-2 text-xs sm:grid-cols-[minmax(7em,9.5em)_minmax(0,1fr)_4.5em] sm:text-sm"
+                            class="grid flex-1 grid-cols-[minmax(6em,8em)_minmax(0,1fr)_4.5em] items-center gap-2 text-xs sm:grid-cols-[minmax(7em,9.5em)_minmax(0,1fr)_4.5em] sm:text-sm"
                         >
                             <span class="text-slate-500">{row.name}</span>
                             <span
@@ -310,11 +310,11 @@
             class="mt-2 w-full max-w-[360px] lg:[grid-area:photo]"
             data-reveal
             data-delay="2"
+            data-parallax="0.06"
         >
             <img
                 src="/img/undraw_market.svg"
                 alt="Ilustrasi belanja bahan baku segar di pasar"
-                data-parallax="0.06"
                 width="800"
                 height="600"
                 loading="lazy"

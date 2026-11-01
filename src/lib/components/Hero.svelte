@@ -74,13 +74,13 @@
                             class="relative overflow-hidden rounded-[12px_12px_5px_5px] border-[5px] border-b-[4px] border-[#1b1a19] bg-[#1b1a19] shadow-[0_22px_44px_-20px_rgba(17,17,17,0.5)] sm:border-[7px] sm:border-b-[5px]"
                         >
                             <img
-                                src="/img/dashboard-laptop.png"
-                                alt="Dashboard HargaPas di laptop: ringkasan Warung Bu Sirep, rata-rata margin, dan tabel HPP tiap menu"
-                                width="1440"
-                                height="900"
+                                src="/img/hero-dashboard.png"
+                                alt="Dashboard HargaPas di laptop: ringkasan toko Kopi Kenangan Pahit, rata-rata margin 67,1%, dan tabel performa HPP tiap menu"
+                                width="1918"
+                                height="991"
                                 fetchpriority="high"
                                 decoding="async"
-                                class="block aspect-[16/10] w-full object-cover object-top-left"
+                                class="block aspect-[1918/991] w-full object-cover object-top-left"
                             />
                         </div>
 
@@ -98,13 +98,13 @@
                         data-parallax="-0.06"
                     >
                         <div
-                            class="aspect-[390/844] overflow-hidden rounded-[18px] border-[4px] border-[#1b1a19] bg-[#1b1a19] sm:border-[5px]"
+                            class="aspect-[397/904] overflow-hidden rounded-[18px] border-[4px] border-[#1b1a19] bg-[#1b1a19] sm:border-[5px]"
                         >
                             <img
-                                src="/img/dashboard-phone.png"
+                                src="/img/hero-menu-phone.png"
                                 alt=""
-                                width="390"
-                                height="844"
+                                width="397"
+                                height="904"
                                 loading="lazy"
                                 decoding="async"
                                 class="block h-full w-full rounded-[13px] object-cover object-top"

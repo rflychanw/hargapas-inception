@@ -41,14 +41,13 @@
             </nav>
         </div>
 
-        <!-- Main Contact Email Display -->
-        <a
-            class="my-6 inline-block break-words text-4xl font-extrabold leading-[1.02] tracking-tight text-white transition-all duration-180 hover:text-orange-500 active:scale-98 sm:text-6xl lg:text-7xl"
+        <!-- Main Tagline Display -->
+        <p
+            class="my-6 max-w-[24ch] break-words text-4xl font-extrabold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"
             data-reveal
-            href="mailto:halo@hargapas.id"
         >
-            halo@hargapas.id
-        </a>
+            Harga Pas, Untung Pas
+        </p>
 
         <!-- Meta Information Grid -->
         <div
@@ -56,7 +55,7 @@
         >
             <div>
                 <p class="max-w-[44ch]">
-                    <b class="font-bold text-white">Kontak.</b> Jakarta, Indonesia.
+                    <b class="font-bold text-white">HargaPas.</b> Jakarta, Indonesia.
                     Senin sampai Jumat.
                 </p>
             </div>

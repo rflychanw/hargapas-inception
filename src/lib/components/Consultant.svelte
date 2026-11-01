@@ -25,11 +25,10 @@
                 dan jumlah piring yang Anda masukkan, bukan rata-rata pasar.
             </p>
 
-            <figure class="mt-4 w-full" data-reveal data-delay="2">
+            <figure class="mt-4 w-full" data-reveal data-delay="2" data-parallax="0.08">
                 <img
                     src="/img/undraw_nasi_goreng.svg"
                     alt="Ilustrasi piring nasi goreng telur balado dengan kartu harga jual Rp 18.500, HPP Rp 10.000, dan margin 45,9%"
-                    data-parallax="0.08"
                     width="800"
                     height="600"
                     loading="lazy"

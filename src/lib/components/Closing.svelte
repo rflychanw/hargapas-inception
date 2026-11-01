@@ -34,10 +34,9 @@
         </div>
 
         <!-- Right Column: Illustration Photo -->
-        <figure class="w-full" data-reveal data-delay="1">
+        <figure class="w-full" data-reveal data-delay="1" data-parallax="0.06">
             <img
                 src="/img/undraw_store.svg"
-                data-parallax="0.06"
                 alt="Ilustrasi gerai warung makan sukses dengan margin sehat"
                 width="800"
                 height="600"

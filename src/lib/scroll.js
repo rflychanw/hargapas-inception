@@ -1,10 +1,14 @@
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
+
 /**
  * Gerak halus & elegan saat menggulir untuk landing page HargaPas (Desktop & Mobile).
  *
- * 1. Staggered Hero Reveal — Elemen hero muncul bertahap dan anggun saat halaman pertama kali dimuat.
- * 2. Intersection Reveal    — Elemen [data-reveal] masuk dengan kurva fisik lembut saat discroll.
- * 3. Continuous Lerped Parallax — Elemen [data-parallax] bergerak dengan interpolasi fisik (lerp)
- *    pada 60/120fps di desktop maupun layar sentuh mobile tanpa tersendat.
+ * 1. Lenis Smooth Momentum Scroll — Gulir halaman terasa sangat halus (silky smooth)
+ *    dengan kurva inersia fisika responsif dan dukungan navigasi anchor mulus.
+ * 2. Staggered Hero Reveal — Elemen hero muncul bertahap dan anggun saat halaman pertama kali dimuat.
+ * 3. Intersection Reveal — Elemen [data-reveal] masuk dengan kurva fisik lembut saat discroll.
+ * 4. Continuous Parallax — Elemen [data-parallax] bergerak sinkron dengan frame scroll pada 60/120fps.
  *
  * Efek dinonaktifkan secara bersih jika pengguna menyetel "prefers-reduced-motion: reduce".
  */
@@ -12,161 +16,180 @@
 /** @typedef {{ el: HTMLElement, speed: number, base: number }} Layer */
 
 /**
- * Pasang reveal + smooth parallax motion, lalu kembalikan fungsi pembersih.
+ * Pasang smooth scrolling + reveal + parallax motion, lalu kembalikan fungsi pembersih.
  * @returns {() => void}
  */
 export function initLandingMotion() {
-	if (typeof window === 'undefined') return () => {};
+    if (typeof window === "undefined") return () => {};
 
-	const reduceMotion =
-		typeof window.matchMedia === 'function' &&
-		window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduceMotion =
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-	/** @type {HTMLElement[]} */
-	const reveals = Array.from(document.querySelectorAll('[data-reveal]'));
+    /** @type {HTMLElement[]} */
+    const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
 
-	if (reduceMotion) {
-		reveals.forEach((el) => el.classList.add('is-in'));
-		return () => {};
-	}
+    if (reduceMotion) {
+        reveals.forEach((el) => el.classList.add("is-in"));
+        return () => {};
+    }
 
-	const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 768;
 
-	/** @type {Layer[]} */
-	const layers = Array.from(document.querySelectorAll('[data-parallax]')).map((node) => {
-		const el = /** @type {HTMLElement} */ (node);
-		return { el, speed: Number(el.dataset.parallax) || 0.05, base: 0 };
-	});
+    /* ---- 1. Lenis Smooth Momentum Scrolling ------------------------- */
+    const lenis = new Lenis({
+        duration: 1.15,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.4,
+        infinite: false,
+    });
 
-	/* ---- 1. Reveal (Staggered Hero + Smooth Intersection Observer) ---- */
+    let rafId = 0;
+    /** @param {number} time */
+    function raf(time) {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
 
-	/** @param {HTMLElement} el */
-	const show = (el) => el.classList.add('is-in');
+    // Muluskan navigasi lompatan anchor link (contoh: #dashboard, #cara-kerja, #tanya, #atas)
+    /** @param {MouseEvent} e */
+    const handleAnchorClick = (e) => {
+        const target = /** @type {HTMLElement | null} */ (e.target);
+        const anchor = target?.closest('a[href^="#"]');
+        if (!anchor) return;
+        const href = anchor.getAttribute("href");
+        if (!href || href === "#") return;
 
-	/** @type {IntersectionObserver | null} */
-	let observer = null;
+        const scrollTarget =
+            href === "#atas" ? document.body : document.querySelector(href);
+        if (scrollTarget) {
+            e.preventDefault();
+            lenis.scrollTo(/** @type {HTMLElement} */ (scrollTarget), {
+                offset: -72,
+                duration: 1.15,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            });
+        }
+    };
+    document.addEventListener("click", handleAnchorClick);
 
-	if (!('IntersectionObserver' in window)) {
-		reveals.forEach(show);
-	} else {
-		observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (!entry.isIntersecting) continue;
-					show(/** @type {HTMLElement} */ (entry.target));
-					observer?.unobserve(entry.target);
-				}
-			},
-			{
-				threshold: 0.04,
-				rootMargin: isMobile ? '0px 0px -25px 0px' : '0px 0px -40px 0px'
-			}
-		);
+    /* ---- 2. Continuous Parallax Layers ------------------------------ */
+    /** @type {Layer[]} */
+    const layers = Array.from(
+        document.querySelectorAll("[data-parallax]"),
+    ).map((node) => {
+        const el = /** @type {HTMLElement} */ (node);
+        return { el, speed: Number(el.dataset.parallax) || 0.05, base: 0 };
+    });
 
-		const fold = window.innerHeight * 0.88;
-		/** @type {HTMLElement[]} */
-		const heroItems = [];
-		/** @type {HTMLElement[]} */
-		const scrollItems = [];
+    const measureLayers = () => {
+        const scrollY = window.scrollY;
+        for (const layer of layers) {
+            layer.el.style.removeProperty("--parallax-y");
+            const rect = layer.el.getBoundingClientRect();
+            layer.base = rect.top + scrollY + rect.height / 2;
+        }
+    };
 
-		for (const el of reveals) {
-			const rect = el.getBoundingClientRect();
-			if (rect.top < fold) {
-				heroItems.push(el);
-			} else {
-				scrollItems.push(el);
-			}
-		}
+    /** @param {number} currentScroll */
+    const updateParallax = (currentScroll) => {
+        const vh = window.innerHeight;
+        const amplitude = isMobile ? 40 : 80;
 
-		// Munculkan elemen lipatan pertama (Hero) secara bertahap & elegan
-		heroItems.forEach((el, index) => {
-			setTimeout(() => {
-				show(el);
-			}, 60 + index * 80);
-		});
+        for (const layer of layers) {
+            const center = layer.base - currentScroll;
+            // Lewati elemen yang berada jauh di luar layar
+            if (center < -vh || center > vh * 2) continue;
 
-		// Elemen di bawah lipatan dipantau saat digulir
-		scrollItems.forEach((el) => observer?.observe(el));
-	}
+            const delta = Math.max(-1.2, Math.min(1.2, (center - vh / 2) / vh));
+            const y = delta * layer.speed * amplitude;
+            layer.el.style.setProperty("--parallax-y", `${y.toFixed(2)}px`);
+        }
+    };
 
-	/* ---- 2. Continuous Lerped Parallax (Desktop & Mobile) ------------- */
+    const onResize = () => {
+        measureLayers();
+        updateParallax(window.scrollY);
+    };
 
-	let targetScrollY = window.scrollY;
-	let currentScrollY = window.scrollY;
-	let rafId = 0;
-	let isRunning = false;
+    if (layers.length > 0) {
+        measureLayers();
+        updateParallax(window.scrollY);
 
-	const measureLayers = () => {
-		const scrollY = window.scrollY;
-		for (const layer of layers) {
-			layer.el.style.removeProperty('--parallax-y');
-			const rect = layer.el.getBoundingClientRect();
-			layer.base = rect.top + scrollY + rect.height / 2;
-		}
-	};
+        // Update parallax sinkron dengan frame gulir Lenis
+        lenis.on("scroll", (e) => {
+            updateParallax(e.scroll);
+        });
 
-	const updateParallax = () => {
-		const diff = targetScrollY - currentScrollY;
+        window.addEventListener("resize", onResize, { passive: true });
+    }
 
-		// Lerp damping 0.12 untuk pergerakan mulus seperti suspensi fisik
-		if (Math.abs(diff) > 0.1) {
-			currentScrollY += diff * 0.12;
-		} else {
-			currentScrollY = targetScrollY;
-		}
+    /* ---- 3. Staggered Hero + Intersection Observer Reveals ---------- */
+    /** @param {HTMLElement} el */
+    const show = (el) => el.classList.add("is-in");
 
-		const vh = window.innerHeight;
-		const amplitude = isMobile ? 44 : 96;
+    /** @type {IntersectionObserver | null} */
+    let observer = null;
 
-		for (const layer of layers) {
-			const center = layer.base - currentScrollY;
-			// Lewati elemen yang jauh di luar layar
-			if (center < -vh || center > vh * 2) continue;
+    if (!("IntersectionObserver" in window)) {
+        reveals.forEach(show);
+    } else {
+        observer = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    if (!entry.isIntersecting) continue;
+                    show(/** @type {HTMLElement} */ (entry.target));
+                    observer?.unobserve(entry.target);
+                }
+            },
+            {
+                threshold: 0.06,
+                rootMargin: isMobile
+                    ? "0px 0px -25px 0px"
+                    : "0px 0px -40px 0px",
+            },
+        );
 
-			const delta = Math.max(-1.2, Math.min(1.2, (center - vh / 2) / vh));
-			const y = delta * layer.speed * amplitude;
-			layer.el.style.setProperty('--parallax-y', `${y.toFixed(2)}px`);
-		}
+        const fold = window.innerHeight * 0.88;
+        /** @type {HTMLElement[]} */
+        const heroItems = [];
+        /** @type {HTMLElement[]} */
+        const scrollItems = [];
 
-		if (Math.abs(diff) > 0.1) {
-			rafId = requestAnimationFrame(updateParallax);
-		} else {
-			isRunning = false;
-		}
-	};
+        for (const el of reveals) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < fold) {
+                heroItems.push(el);
+            } else {
+                scrollItems.push(el);
+            }
+        }
 
-	const onScroll = () => {
-		targetScrollY = window.scrollY;
-		if (!isRunning) {
-			isRunning = true;
-			rafId = requestAnimationFrame(updateParallax);
-		}
-	};
+        // Munculkan elemen Hero lipatan pertama bertahap & elegan
+        heroItems.forEach((el, index) => {
+            setTimeout(
+                () => {
+                    show(el);
+                },
+                60 + index * 75,
+            );
+        });
 
-	const onResize = () => {
-		measureLayers();
-		targetScrollY = window.scrollY;
-		currentScrollY = window.scrollY;
-		if (!isRunning) {
-			isRunning = true;
-			rafId = requestAnimationFrame(updateParallax);
-		}
-	};
+        // Elemen di bawah lipatan dipantau saat pengguna menggulir
+        scrollItems.forEach((el) => observer?.observe(el));
+    }
 
-	if (layers.length > 0) {
-		measureLayers();
-		// Initial layout calculation
-		onScroll();
-		window.addEventListener('scroll', onScroll, { passive: true });
-		window.addEventListener('resize', onResize, { passive: true });
-	}
-
-	/* ---- 3. Cleanup --------------------------------------------------- */
-
-	return () => {
-		observer?.disconnect();
-		if (rafId) cancelAnimationFrame(rafId);
-		window.removeEventListener('scroll', onScroll);
-		window.removeEventListener('resize', onResize);
-	};
+    /* ---- 4. Cleanup Function ---------------------------------------- */
+    return () => {
+        observer?.disconnect();
+        if (rafId) cancelAnimationFrame(rafId);
+        document.removeEventListener("click", handleAnchorClick);
+        if (layers.length > 0) {
+            window.removeEventListener("resize", onResize);
+        }
+        lenis.destroy();
+    };
 }
