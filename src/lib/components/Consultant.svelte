@@ -1,4 +1,4 @@
-<section id="konsultan" class="chapter chapter--ink consult" aria-labelledby="consult-title">
+<section id="konsultan" class="chapter chapter--paper consult" aria-labelledby="consult-title">
 	<div class="shell consult-grid">
 		<div class="consult-copy">
 			<h2 id="consult-title" class="h2" data-reveal>Tanya seperti ke konsultan.</h2>

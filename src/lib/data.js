@@ -85,15 +85,5 @@ export const faqs = [
 		question: 'Bagaimana kalau harga pasar murah?',
 		answer:
 			'HargaPas menunjukkan margin tiap menu, bukan memaksa semua harga naik. Menu bermargin tebal bisa menahan harga; menu tipis bisa dibundel atau diporsikan ulang.'
-	},
-	{
-		question: 'Bisa dipakai untuk dua cabang?',
-		answer:
-			'Paket Dapur memuat sampai delapan pengguna dan riwayat 12 bulan. Tiap cabang bisa punya daftar harga sendiri.'
-	},
-	{
-		question: 'Apakah data saya aman?',
-		answer:
-			'Data disimpan terenkripsi dan tidak dijual. Anda bisa mengunduh atau menghapus seluruh data kapan saja.'
 	}
 ];

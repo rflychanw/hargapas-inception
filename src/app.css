@@ -231,6 +231,11 @@ button {
 	color: var(--ink);
 }
 
+/* Semua section kini berlatar putih: batas antar-bagian dijaga garis rambut 1px */
+.page > .chapter + .chapter {
+	border-top: 1px solid var(--hairline);
+}
+
 .chapter--ink {
 	background: var(--ink);
 	color: var(--paper);
@@ -745,9 +750,9 @@ button {
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
 	padding: 4px;
-	background: rgba(255, 255, 255, 0.08);
+	background: var(--gray);
 	border-radius: 12px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	border: 1px solid var(--hairline);
 	scrollbar-width: none;
 }
 
@@ -777,7 +782,7 @@ button {
 	letter-spacing: -0.01em;
 	padding: 8px 12px;
 	border-radius: 8px;
-	color: var(--paper-muted);
+	color: var(--ink-muted);
 	user-select: none;
 	-webkit-user-select: none;
 	white-space: nowrap;
@@ -802,7 +807,7 @@ button {
 }
 
 .index-btn:hover {
-	color: var(--paper);
+	color: var(--ink);
 }
 
 .index-btn:active {
@@ -844,14 +849,23 @@ button {
 .index-btn[aria-selected='true'] {
 	background: #ffffff;
 	color: #111111;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 1px 2px rgba(17, 17, 17, 0.12);
 }
 
 @media (min-width: 1080px) {
 	.index-btn[aria-selected='true'] {
 		background: transparent;
-		color: var(--paper);
+		color: var(--ink);
 		box-shadow: none;
+	}
+}
+
+/* Mobile: tiga tab harus duduk sejajar tanpa terpotong */
+@media (max-width: 1079px) {
+	.index-btn {
+		padding: 8px;
+		font-size: 13px;
+		letter-spacing: -0.02em;
 	}
 }
 
@@ -884,7 +898,7 @@ button {
 	margin-top: var(--s-2);
 	font-size: var(--t-small);
 	line-height: 1.5;
-	color: var(--paper-muted);
+	color: var(--ink-muted);
 }
 
 .sheet-stage {
@@ -905,6 +919,26 @@ button {
 	.sheet {
 		padding: var(--s-5);
 		min-height: 480px;
+	}
+}
+
+/* Mobile: beri ruang lebih agar tabel HPP tidak terpotong */
+@media (max-width: 480px) {
+	.sheet {
+		padding: var(--s-2);
+	}
+
+	.sheet-table {
+		font-size: 12.5px;
+	}
+
+	.sheet-table th,
+	.sheet-table td {
+		padding: 9px 4px;
+	}
+
+	.sheet-table thead th {
+		font-size: 12.5px;
 	}
 }
 
@@ -1420,7 +1454,7 @@ button {
 	margin-top: var(--s-2);
 	font-size: var(--t-small);
 	line-height: 1.5;
-	color: var(--paper-muted);
+	color: var(--ink-muted);
 }
 
 .exchanges {
@@ -1441,9 +1475,9 @@ button {
 	line-height: 1.45;
 	max-width: 92%;
 	letter-spacing: -0.015em;
-	background: rgba(255, 255, 255, 0.08);
-	border: 1px solid rgba(255, 255, 255, 0.12);
-	color: #ffffff;
+	background: var(--gray);
+	border: 1px solid var(--hairline);
+	color: var(--ink);
 	padding: 10px 14px;
 	border-radius: 14px 14px 4px 14px;
 	align-self: flex-start;
@@ -1464,13 +1498,14 @@ button {
 	color: var(--ink);
 	padding: clamp(14px, 3.5vw, 20px);
 	border-radius: 14px;
+	border: 1px solid var(--hairline);
 	display: flex;
 	flex-direction: column;
 	gap: var(--s-2);
 	font-size: clamp(13px, 3.4vw, 15px);
 	line-height: 1.55;
 	max-width: 54ch;
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 1px 2px rgba(17, 17, 17, 0.04), 0 12px 24px -18px rgba(17, 17, 17, 0.25);
 }
 
 @media (min-width: 768px) {
@@ -1532,7 +1567,7 @@ button {
 .consult-note {
 	font-size: var(--t-small);
 	line-height: 1.5;
-	color: var(--paper-muted);
+	color: var(--ink-muted);
 	max-width: 48ch;
 }
 
@@ -1762,7 +1797,7 @@ button {
 }
 
 .faq-item {
-	border-bottom: 2px solid var(--rule-dark);
+	border-bottom: 1px solid var(--hairline);
 }
 
 .faq-q {
@@ -1861,7 +1896,7 @@ button {
 	max-width: 58ch;
 	font-size: clamp(13.5px, 3.4vw, 16px);
 	line-height: 1.55;
-	color: var(--paper-muted);
+	color: var(--ink-muted);
 }
 
 /* ------------------------------------------------------------
@@ -4406,12 +4441,7 @@ button {
 		0 12px 24px -10px rgba(255, 107, 26, 0.6);
 }
 
-/* ---- Bagian gelap: lebih dalam, ada pendar hangat tipis ---- */
-.chapter--ink {
-	background:
-		radial-gradient(900px 420px at 85% -10%, rgba(255, 107, 26, 0.14), transparent 60%),
-		#121110;
-}
+/* ---- Bagian gelap dihapus: seluruh halaman memakai latar putih ---- */
 
 /* ---- Gambar & ilustrasi ---- */
 .showcase-photo img,

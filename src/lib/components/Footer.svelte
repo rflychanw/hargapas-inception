@@ -15,11 +15,11 @@
 			</nav>
 		</div>
 
-		<a class="footer-contact" data-reveal href="mailto:halo@hargapas.id">halo@hargapas.id</a>
+		<p class="footer-contact" data-reveal>Harga Pas, Untung Pas</p>
 
 		<div class="footer-meta">
 			<div>
-				<p><b>Kontak.</b> Jakarta, Indonesia. Senin sampai Jumat.</p>
+				<p><b>HargaPas.</b> Jakarta, Indonesia. Senin sampai Jumat.</p>
 			</div>
 			<div>
 				<p>

@@ -5,7 +5,7 @@
 <section class="chapter chapter--paper hero" id="atas">
 	<div class="shell">
 		<div class="hero-head">
-			<h1 class="display" data-reveal>Harga pas, margin jelas.</h1>
+			<h1 class="display" data-reveal>Harga Pas, Untung Pas.</h1>
 		</div>
 
 		<div class="hero-body">

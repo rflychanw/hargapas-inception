@@ -2,7 +2,7 @@
 	import { faqs } from '#lib/data.js';
 </script>
 
-<section id="tanya" class="chapter chapter--ink faq" aria-labelledby="faq-title">
+<section id="tanya" class="chapter chapter--paper faq" aria-labelledby="faq-title">
 	<div class="shell faq-grid">
 		<div class="faq-head" data-reveal>
 			<h2 id="faq-title" class="h2">Yang sering ditanya.</h2>

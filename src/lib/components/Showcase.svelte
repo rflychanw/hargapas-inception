@@ -15,7 +15,7 @@
 	const maxShare = Math.max(...hpp.map((row) => row.share));
 </script>
 
-<section id="dashboard" class="chapter chapter--ink showcase" aria-labelledby="dashboard-title">
+<section id="dashboard" class="chapter chapter--paper showcase" aria-labelledby="dashboard-title">
 	<div class="shell showcase-grid">
 		<div class="showcase-side">
 			<h2 id="dashboard-title" class="h2" data-reveal>Satu layar untuk semua menu.</h2>
