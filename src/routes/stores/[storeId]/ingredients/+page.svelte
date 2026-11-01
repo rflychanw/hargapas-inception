@@ -180,7 +180,7 @@
                             </div>
                             <div class="flex items-center gap-1">
                                 <a
-                                    href="/{storeId}/ingredients/{ing.id}/edit"
+                                    href="/stores/{storeId}/ingredients/{ing.id}/edit"
                                     class="rounded-xl p-1.5 text-slate-400 transition-all hover:bg-slate-100 hover:text-slate-800"
                                     title="Ubah bahan baku"
                                 >
